@@ -36,6 +36,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Projectmember:
 
-- Noah Wolters
-- Julia Stephan
-- Jimmy Ng
+- [Noah Wolters](https://github.com/NoahWolters)
+- [Julia Stephan](https://github.com/jstephan087)
+- [Jimmy Ng](https://github.com/urbanitesinaframe)
