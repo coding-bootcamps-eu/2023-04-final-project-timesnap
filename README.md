@@ -36,6 +36,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Projectmember:
 
-- Noah Wolters
+- Noah
 - Julia Stephan
 - Jimmy Ng
