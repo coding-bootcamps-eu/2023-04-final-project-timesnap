@@ -1,6 +1,9 @@
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
+
 body,
 h1,
 h2,
@@ -17,39 +20,48 @@ input[type="radio"],
 input[type="checkbox"] {
   margin: 0;
 }
+
 legend {
   padding: 0;
 }
+
 fieldset,
 ul,
 ol {
   padding: 0;
   margin: 0;
 }
+
 ul,
 ol {
   list-style: none;
 }
+
 body {
   line-height: 1;
 }
+
 main,
 figure,
 figcaption,
 img {
   display: block;
 }
+
 /* for IE 11 */
 img {
   max-width: 100%;
   height: auto;
 }
+
 a {
   text-decoration: none;
 }
+
 fieldset {
   border: 0;
 }
+
 input,
 textarea,
 select,
@@ -60,9 +72,11 @@ button {
   font-size: inherit;
   color: inherit;
 }
+
 label {
   display: table;
 }
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -70,13 +84,16 @@ input[type="search"] {
   appearance: none;
   -webkit-appearance: none;
 }
+
 /* for Safari (add/remove types as needed) */
 button {
   line-height: inherit;
 }
+
 button::-moz-focus-inner {
   border: 0;
 }
+
 /*for Firefox */
 html {
   -ms-text-size-adjust: 100%;
