@@ -1,0 +1,14 @@
+:root {
+  --color-text: #0b0e14;
+  --color-bg: #ffffff;
+  --color-secondary: #e2e6ee;
+  --color-accent-blue-100: #0080c0;
+  --color-accent-blue-80: #4eacdb;
+  --color-accent-blue-60: #96bdd0;
+  --color-accent-grey-80: #9baac0;
+  --color-accent-grey-60: #d6dde6;
+  --color-accent-red-80: #b6406f;
+  --color-accent-red-60: #ad7b8f;
+  --color-buttons-primary: #2c3c54;
+  --color-buttons-secondary: #f2f4f8;
+}
