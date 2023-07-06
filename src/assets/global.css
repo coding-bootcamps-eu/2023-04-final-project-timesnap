@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
+
 :root {
   --color-text: #0b0e14;
   --color-bg: #ffffff;
@@ -11,4 +13,5 @@
   --color-accent-red-60: #ad7b8f;
   --color-buttons-primary: #2c3c54;
   --color-buttons-secondary: #f2f4f8;
+  font-family: "DM Sans", sans-serif;
 }
