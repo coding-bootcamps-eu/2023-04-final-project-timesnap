@@ -7,28 +7,12 @@ export default {
     btnText: {
       type: String,
       required: true,
-      default: "click here",
+      default: "See more",
     },
   },
 };
 </script>
 
 <style scoped>
-.btn {
-  width: 100px;
-  border-radius: 2rem;
-  padding: 0.75rem;
-  border: 1px solid #d6dde6;
-  background: none;
-  cursor: pointer;
-}
-
-.btn--Primary {
-  background: #2c3c54;
-  color: #ffffff;
-}
-
-.btn--Secondary {
-  background: #e2e6ee;
-}
+@import "@/assets/btnStyle.css";
 </style>
