@@ -7,11 +7,10 @@ import "./assets/reset.css";
 import "./assets/global.css";
 import DefaultBtn from "@/components/DefaultBtn.vue";
 
-app.component("DefaultBtn", DefaultBtn);
-
 const pinia = createPinia();
 const app = createApp(App);
 
+app.component("DefaultBtn", DefaultBtn);
 app.use(pinia);
 app.use(router);
 app.mount("#app");
