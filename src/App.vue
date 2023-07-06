@@ -47,6 +47,6 @@ p {
   line-height: 1.5;
 }
 span {
-  font-weight: 300;
+  font-weight: 400;
 }
 </style>
