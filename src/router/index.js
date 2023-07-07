@@ -25,6 +25,24 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/VideosView.vue"),
   },
+  {
+    path: "/Imprint",
+    name: "Imprint",
+    component: () =>
+      import(/* webpackChunkName: "Imprint" */ "../views/ImprintView.vue"),
+  },
+  {
+    path: "/Privacy",
+    name: "Privacy",
+    component: () =>
+      import(/* webpackChunkName: "Privacy" */ "../views/PrivacyView.vue"),
+  },
+  {
+    path: "/Contact",
+    name: "Contact",
+    component: () =>
+      import(/* webpackChunkName: "Contact" */ "../views/ContactView.vue"),
+  },
 ];
 
 const router = createRouter({
