@@ -5,7 +5,7 @@
     <section>
       <h2 class>{{ title }}</h2>
       <slot />
-      <DefaultBtn v-if="btnText !== 'See more'" :btnText="btnText" />
+      <DefaultBtn v-if="btnText !== 'noBtn'" :btnText="btnText" />
     </section>
     <img v-if="imgSrc !== undefined" :src="imgSrc" alt="" />
   </article>
@@ -24,8 +24,6 @@ export default {
     },
     btnText: {
       type: String,
-      required: true,
-      default: "See more",
     },
     imgSrc: {
       type: String,
