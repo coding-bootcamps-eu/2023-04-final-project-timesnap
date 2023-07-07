@@ -17,6 +17,7 @@
   <article-large
     title="Using the timestamps"
     imgSrc="https://picsum.photos/300/200?3=2"
+    btnText="Individual Text"
   >
     <p>
       Each video will have a list of automatically set timestamps with a short
@@ -28,6 +29,7 @@
   <article-large
     title="Your vote makes the timestamps matter"
     imgSrc="https://picsum.photos/300/200?3=3"
+    btnText="noBtn"
   >
     <p>
       The simplest way to improve the user experience is to leave your vote!
