@@ -1,5 +1,40 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>About this project</h1>
+    <article>
+      This web application is part of the curriculum of the Web Developers
+      Bootcamp by
+      <a href="https://coding-bootcamps.eu">Coding Bootcamps Europe</a>.
+      <br /><br />
+      It is the final project of <br />
+      Noah Wolters, Julia Stephan and Jimmy Ng - all participants of the full
+      time class of April 2023 (duration: 3 month).
+      <br />
+      The main task is to display our gained knowledge over the time of the
+      bootcamp. It focusses on the frontend programming skills including <br />
+
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JS</li>
+        <li>VUE CLI</li>
+      </ul>
+
+      As well as implementing a git workflow and E2E Testing with Cypress.
+      <br />
+      The backend infrastructure was provided by the tutor - Joe Ray Gregory
+      respectively.
+    </article>
   </div>
 </template>
+<style scoped>
+.about {
+  margin: 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+ul {
+  margin: 1rem;
+}
+</style>
