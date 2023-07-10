@@ -1,5 +1,5 @@
 <template>
-  <h1>Imprint</h1>
+  <h2>Imprint</h2>
 </template>
 
 <style></style>

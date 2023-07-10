@@ -1,5 +1,5 @@
 <template>
-  <h1>Privacy</h1>
+  <h2>Privacy</h2>
 </template>
 
 <style></style>
