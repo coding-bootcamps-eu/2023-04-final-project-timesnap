@@ -27,7 +27,17 @@
       search for buzzwords to get to the topic that matters to you the most.
     </p>
   </article-large>
+
+  <VideoPreview />
 </template>
+<script>
+import VideoPreview from "@/components/VideoPreview.vue";
+export default {
+  components: {
+    VideoPreview,
+  },
+};
+</script>
 <style scoped>
 p {
   font-weight: 200;
