@@ -8,19 +8,37 @@
       <br />
     </div>
   </div>
+  <div v-for="{ videoUrl, id } in video" :key="id">
+    <VideoComponent :videoUrl="videoUrl" :videoType="typeSwitch(videoUrl)" />
+  </div>
 </template>
 
 <script>
-import { useVideoStore } from "@/stores/VideoStore.js";
-import TestArticleComponent from "@/components/TestArticleComponent.vue";
-export default {
-  components: { TestArticleComponent },
-  data() {
-    const videoStore = useVideoStore();
+import VideoComponent from "@/components/VideoComponent.vue";
 
-    //fetch videos
-    videoStore.getVideos();
-    return { videoStore };
+export default {
+  name: "HomeView",
+  components: {
+    VideoComponent,
+  },
+  data() {
+    return {
+      video: [],
+    };
+  },
+  methods: {
+    typeSwitch(value) {
+      if (value.includes("youtube")) {
+        return "video/youtube";
+      } else {
+        return "video/mp4";
+      }
+    },
+  },
+  async mounted() {
+    const response = await fetch("http://localhost:3333/videos");
+    const data = await response.json();
+    this.video = data;
   },
 };
 </script>
