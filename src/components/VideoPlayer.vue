@@ -1,36 +1,56 @@
 <template>
   <div>
-    <video ref="videoPlayer" class="video-js"></video>
+    <div ref="videoContainer"></div>
+    <button @click="jumpToTimestamp50">Jump to 50 sekunden</button>
+    <button @click="jumpToTimestamp120">Jump to 120 sekunden</button>
   </div>
 </template>
 
 <script>
-import videojs from "video.js";
-
 export default {
   name: "VideoPlayer",
-  props: {
-    options: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
-  },
   data() {
     return {
       player: null,
     };
   },
   mounted() {
-    this.player = videojs(this.$refs.videoPlayer, this.options, () => {
-      this.player.log("onPlayerReady", this);
+    this.loadYouTubeAPI().then(() => {
+      // eslint-disable-next-line no-undef
+      this.player = new YT.Player(this.$refs.videoContainer, {
+        videoId: "u0B9dysw29A", // Replace with the YouTube video ID
+        events: {
+          onReady: () => {
+            console.log("YouTube player ready");
+          },
+        },
+      });
     });
   },
-  beforeUnmount() {
-    if (this.player) {
-      this.player.dispose();
-    }
+  methods: {
+    loadYouTubeAPI() {
+      return new Promise((resolve) => {
+        if (window.YT && window.YT.Player) {
+          resolve();
+        } else {
+          const tag = document.createElement("script");
+          tag.src = "https://www.youtube.com/iframe_api";
+          const firstScriptTag = document.getElementsByTagName("script")[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+          window.onYouTubeIframeAPIReady = resolve;
+        }
+      });
+    },
+    jumpToTimestamp50() {
+      if (this.player) {
+        this.player.seekTo(50, true);
+      }
+    },
+    jumpToTimestamp120() {
+      if (this.player) {
+        this.player.seekTo(120, true);
+      }
+    },
   },
 };
 </script>
