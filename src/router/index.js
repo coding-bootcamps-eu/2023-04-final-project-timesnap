@@ -44,10 +44,10 @@ const routes = [
       import(/* webpackChunkName: "Contact" */ "../views/ContactView.vue"),
   },
   {
-    path: "/VideoMockUp",
-    name: "VideoMockUp",
+    path: "/VideoDetail",
+    name: "VideoDetail",
     component: () =>
-      import(/* webpackChunkName: "Contact" */ "../views/VideoDetail.vue"),
+      import(/* webpackChunkName: "VideoDetail" */ "../views/VideoDetail.vue"),
   },
 ];
 
