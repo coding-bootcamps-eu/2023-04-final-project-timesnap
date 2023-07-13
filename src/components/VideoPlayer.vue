@@ -1,16 +1,7 @@
 <template>
   <div>
     <div ref="videoContainer"></div>
-    <div class="timeStampsContainer">
-      <div class="timeStamp">
-        <button @click="jumpToTimestamp50">Keyword 1</button>
-        <p>Comment</p>
-      </div>
-      <div class="timeStamp">
-        <button @click="jumpToTimestamp120">Keyword 2</button>
-        <p>Comment</p>
-      </div>
-    </div>
+    <div class="timeStampsContainer"></div>
   </div>
 </template>
 
@@ -32,7 +23,7 @@ export default {
     this.loadYouTubeAPI().then(() => {
       // eslint-disable-next-line no-undef
       this.player = new YT.Player(this.$refs.videoContainer, {
-        width: "70%",
+        width: "80%",
         videoId: this.youtubeVideoId, // Replace with the YouTube video ID
         events: {
           onReady: () => {

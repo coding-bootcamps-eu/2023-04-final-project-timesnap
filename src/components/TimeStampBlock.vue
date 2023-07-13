@@ -1,25 +1,18 @@
 <template>
-  <article
-    class="timeStampsContainer"
-    v-for="{ id, timeStamps } in videoData"
-    :key="id"
-  >
-    <div v-for="(value, id) in timeStamps" v-bind:key="id">
-      <button class="timeAt">{{ value.timeStart }}s</button>
-      <p>
-        <span class="stampTitle">{{ value.stampTitle }}</span>
-        {{ value.stampNote }}
-      </p>
-    </div>
-  </article>
+  <tr>
+    <td>
+      <button class="timeAt">{{ timeStart }}s</button>
+    </td>
+    <td>{{ stampTitle }}</td>
+    <td>{{ stampNote }}</td>
+  </tr>
 </template>
 <script>
 export default {
   props: {
-    videoData: {
-      type: Object,
-      required: true,
-    },
+    timeStart: Number,
+    stampTitle: String,
+    stampNote: String,
   },
 };
 </script>
@@ -43,7 +36,7 @@ h3 {
   margin: 2rem;
   width: 80vmax;
   border: 2px solid var(--color-accent-grey-80);
-  border-radius: 3rem;
+  border-radius: rem;
 }
 .stampTitle {
   font-weight: 600;

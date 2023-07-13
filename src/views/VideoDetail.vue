@@ -1,30 +1,40 @@
 <template>
   <div class="videos"></div>
-  <div v-for="{ videoUrl, id, timeStamps } in video" :key="id">
+  <div v-for="{ videoUrl, id, title, keyTagId, timeStamps } in video" :key="id">
     <VideoComponent
       :videoUrl="videoUrl"
       :videoType="typeSwitch(videoUrl)"
       :youtubeVideoId="youtubeGetID(videoUrl)"
-    /><br />
-    <h1>{{ title }}</h1>
-    <p v-for="(value, id) in timeStamps" v-bind:key="id">
-      {{ value.stampTitle }}
-    </p>
+    />
+    <section>
+      <h2>{{ title }}</h2>
+      <br />
+      <h3>Main Topics: {{ keyTagId }} - müssen noch entschlüsselt werden</h3>
+    </section>
+    <br />
+    <section>
+      <h4>TimeStamps</h4>
+      <table class="table-item__table">
+        <thead>
+          <tr>
+            <th class="table-item__timeStamp">Timestamp</th>
+            <th class="table-item__title">Title</th>
+            <th class="table-item__comments">Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <time-stamp-block
+            v-for="(value, id) in timeStamps"
+            v-bind:key="id"
+            :timeStart="value.timeStart"
+            :stampTitle="value.stampTitle"
+            :stampNote="value.stampNote"
+          />
+        </tbody>
+        <DefaultBtn v-if="btnText !== 'noBtn'" :btnText="'add new Timestamp'" />
+      </table>
+    </section>
   </div>
-
-  <div>
-    <p>Video: {{ video.title }}</p>
-  </div>
-
-  <br />
-  <br />
-
-  <section>
-    <h3>TimeStamps</h3>
-    <time-stamp-block :videoData="video" />
-  </section>
-
-  <time-stamps-container />
 </template>
 
 <script>
@@ -64,7 +74,31 @@ export default {
 };
 </script>
 <style scoped>
+body {
+  color: var();
+}
+
 .vidContainer {
   margin: 2rem;
+}
+.table-item__table {
+  padding: 2rem;
+  border: 1px solid var(--color-accent-grey-80);
+  border-radius: 2rem;
+  width: 80%;
+}
+
+.table-item__table thead tr {
+  text-align: left;
+}
+
+.table-item__timeStamp {
+  width: 15%;
+}
+.table-item__title {
+  width: 25%;
+}
+.table-item__comments {
+  width: 60%;
 }
 </style>
