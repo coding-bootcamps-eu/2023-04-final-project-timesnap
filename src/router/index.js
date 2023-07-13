@@ -26,28 +26,28 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/VideosView.vue"),
   },
   {
-    path: "/Imprint",
-    name: "Imprint",
+    path: "/imprint",
+    name: "imprint",
     component: () =>
-      import(/* webpackChunkName: "Imprint" */ "../views/ImprintView.vue"),
+      import(
+        /* webpackChunkName: "Imprint" */ "../views/footer/ImprintView.vue"
+      ),
   },
   {
-    path: "/Privacy",
-    name: "Privacy",
+    path: "/privacy",
+    name: "privacy",
     component: () =>
-      import(/* webpackChunkName: "Privacy" */ "../views/PrivacyView.vue"),
+      import(
+        /* webpackChunkName: "Privacy" */ "../views/footer/PrivacyView.vue"
+      ),
   },
   {
-    path: "/Contact",
-    name: "Contact",
+    path: "/contact",
+    name: "contact",
     component: () =>
-      import(/* webpackChunkName: "Contact" */ "../views/ContactView.vue"),
-  },
-  {
-    path: "/VideoDetail",
-    name: "VideoDetail",
-    component: () =>
-      import(/* webpackChunkName: "VideoDetail" */ "../views/VideoDetail.vue"),
+      import(
+        /* webpackChunkName: "Contact" */ "../views/footer/ContactView.vue"
+      ),
   },
 ];
 
