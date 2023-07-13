@@ -11,9 +11,9 @@
     </div>
     <nav class="main-nav">
       <router-link :to="{ name: 'home' }">Home</router-link>
-      <router-link :to="{ name: 'about' }">About</router-link>
-      <router-link :to="{ name: 'how-to-use' }">How to use</router-link>
       <router-link :to="{ name: 'videos' }">Videos</router-link>
+      <router-link :to="{ name: 'how-to-use' }">FAQ</router-link>
+      <router-link :to="{ name: 'about' }">About</router-link>
     </nav>
   </header>
 </template>
@@ -38,6 +38,11 @@ export default {
   text-decoration: none;
 }
 
+img {
+  border-radius: 50%;
+  border: solid white 0.025em;
+}
+
 .timesnap-logo {
   display: flex;
   align-items: center;
@@ -56,6 +61,7 @@ export default {
 input[type="search"] {
   position: relative;
   width: 80%;
+  min-width: 20ch;
   border-radius: 0.25rem;
   border: none;
   padding: 0.25rem 1rem;
