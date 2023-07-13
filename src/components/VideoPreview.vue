@@ -1,26 +1,24 @@
 <template>
-  <div class="videos">
-    <h1>Video Overview</h1>
-  </div>
-  <div
-    class="video-list"
-    v-for="{ videoUrl, id, title, tag, createdAt } in video"
-    :key="id"
-  >
-    <VideoComponent :videoUrl="videoUrl" :videoType="typeSwitch(videoUrl)" />
-    <div class="h3">
-      <h3>Title: {{ title }}</h3>
-      <h3>Tags: {{ tag }}</h3>
-      <h3>Created: {{ createdAt }}</h3>
+  <div>
+    <h2>Newest Video</h2>
+    <div
+      class="video-list"
+      v-for="{ videoUrl, id, title, tag, createdAt } in video"
+      :key="id"
+    >
+      <VideoComponent :videoUrl="videoUrl" :videoType="typeSwitch(videoUrl)" />
+      <div class="h3">
+        <h3>Title: {{ title }}</h3>
+        <h3>Tags: {{ tag }}</h3>
+        <h3>Created: {{ createdAt }}</h3>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import VideoComponent from "@/components/VideoComponent.vue";
-
 export default {
-  name: "HomeView",
   components: {
     VideoComponent,
   },
@@ -45,9 +43,8 @@ export default {
   },
 };
 </script>
-
 <style>
-.videos {
+h2 {
   font-weight: 200;
   color: var(--color-buttons-primary);
   line-height: 1.5;
@@ -59,5 +56,13 @@ export default {
   gap: 1em;
   width: 100em;
   margin-bottom: 5em;
+}
+.video-preview {
+  margin-bottom: 5em;
+}
+h3 {
+  margin-bottom: 1em;
+  font-weight: 300;
+  line-height: 1.5;
 }
 </style>
