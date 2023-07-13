@@ -1,6 +1,6 @@
 <template>
   <div>
-    <video-player :options="videoOptions" />
+    <video-player :options="videoOptions" :youtubeVideoId="youtubeVideoId" />
   </div>
 </template>
 
@@ -20,6 +20,10 @@ export default {
       required: true,
     },
     videoType: {
+      type: String,
+      required: true,
+    },
+    youtubeVideoId: {
       type: String,
       required: true,
     },

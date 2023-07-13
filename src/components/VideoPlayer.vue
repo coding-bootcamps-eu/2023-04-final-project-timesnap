@@ -16,6 +16,12 @@
 
 <script>
 export default {
+  props: {
+    youtubeVideoId: {
+      type: String,
+      required: true,
+    },
+  },
   name: "VideoPlayer",
   data() {
     return {
@@ -26,8 +32,8 @@ export default {
     this.loadYouTubeAPI().then(() => {
       // eslint-disable-next-line no-undef
       this.player = new YT.Player(this.$refs.videoContainer, {
-        width: "80%",
-        videoId: "u0B9dysw29A", // Replace with the YouTube video ID
+        width: "70%",
+        videoId: this.youtubeVideoId, // Replace with the YouTube video ID
         events: {
           onReady: () => {
             console.log("YouTube player ready");

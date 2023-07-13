@@ -36,3 +36,26 @@ export default {
   },
 };
 </script>
+<style>
+h2 {
+  font-weight: 200;
+  color: var(--color-buttons-primary);
+  line-height: 1.5;
+}
+.video-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+  width: 100em;
+  margin-bottom: 5em;
+}
+.video-preview {
+  margin-bottom: 5em;
+}
+h3 {
+  margin-bottom: 1em;
+  font-weight: 300;
+  line-height: 1.5;
+}
+</style>
