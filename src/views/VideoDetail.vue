@@ -2,7 +2,6 @@
   <main>
     <div class="video-details" v-for="(value, id) in video" :key="id">
       <section class="timestamps-table-container">
-        <h4>TimeStamps</h4>
         <table class="table-item__table">
           <thead>
             <tr>
@@ -32,13 +31,20 @@
         :youtubeVideoId="youtubeGetID(value.videoUrl)"
         :timeStamp="timeStart"
       />
-      <section class="comments">
+      <section>
         <h2>{{ value.title }}</h2>
         <br />
 
         <MainTopicComponent :video="value" />
 
         <KeyTagComponent :video="value" />
+
+        <StampNoteComponent
+          v-for="(value, id) in value.timeStamps"
+          v-bind:key="id"
+          :stampNote="value.stampNote"
+          class="comments"
+        />
       </section>
     </div>
   </main>
@@ -49,6 +55,7 @@ import VideoComponent from "@/components/VideoComponent.vue";
 import MainTopicComponent from "@/components/MainTopicComponent.vue";
 import KeyTagComponent from "@/components//KeyTagComponent.vue";
 import TimeStampAndTitle from "@/components/TimeStampAndTitle.vue";
+import StampNoteComponent from "@/components/StampNoteComponent.vue";
 
 export default {
   name: "VideoDetail",
@@ -57,6 +64,7 @@ export default {
     MainTopicComponent,
     KeyTagComponent,
     TimeStampAndTitle,
+    StampNoteComponent,
   },
   data() {
     return {
@@ -107,13 +115,10 @@ body {
 }
 
 .table-item__timeStamp {
-  width: 15%;
+  width: 5%;
 }
 .table-item__title {
   width: 25%;
-}
-.table-item__comments {
-  width: 60%;
 }
 .video-details {
   display: grid;

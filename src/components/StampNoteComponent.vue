@@ -1,4 +1,5 @@
 <template>
+  <h4>Comments:</h4>
   {{ stampNote }}
 </template>
 <script>
