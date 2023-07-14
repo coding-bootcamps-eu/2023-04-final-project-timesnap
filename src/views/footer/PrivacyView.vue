@@ -11,9 +11,11 @@
       <ul>
         <strong>Verantwortliche Stelle:</strong>
       </ul>
-      <li>Max Mustermann</li>
-      <li>Musterstraße 123</li>
-      <li>12345 Musterstadt</li>
+      <li>
+        <a href="https://github.com/NoahWolters">Noah Wolters</a>
+      </li>
+      <li><a href="http://github.com/urbanitesinaframe">Jimmy Ng</a></li>
+      <li><a href="https://github.com/jstephan087">Julia Stephan</a></li>
 
       <p>
         Arten der verarbeiteten Daten Im Rahmen des Projekts "TimeSnap" können
@@ -67,5 +69,8 @@
   flex-direction: column;
   gap: 2rem;
   margin: 1rem;
+  font-weight: 200;
+  color: var(--color-buttons-primary);
+  line-height: 1.5;
 }
 </style>

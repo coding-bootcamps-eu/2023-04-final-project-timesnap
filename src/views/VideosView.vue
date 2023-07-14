@@ -47,4 +47,7 @@ export default {
 h1 {
   margin-bottom: 5rem;
 }
+.video-preview {
+  margin-bottom: 5rem;
+}
 </style>

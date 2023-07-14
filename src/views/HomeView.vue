@@ -85,4 +85,7 @@ span {
 .image {
   height: 12em;
 }
+.video-preview {
+  margin-bottom: 5rem;
+}
 </style>
