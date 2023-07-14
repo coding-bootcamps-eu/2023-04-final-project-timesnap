@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td>
-      <button class="timeAt">{{ timeStart }}s</button>
+      <button class="timeAt" @click="timeStartData">{{ timeStart }}s</button>
     </td>
     <td>{{ stampTitle }}</td>
     <td>{{ stampNote }}</td>
@@ -9,10 +9,16 @@
 </template>
 <script>
 export default {
+  name: "TimeStampBlock",
   props: {
     timeStart: Number,
     stampTitle: String,
     stampNote: String,
+  },
+  methods: {
+    timeStartData() {
+      this.$emit("timeStartData", this.timeStart);
+    },
   },
 };
 </script>

@@ -21,6 +21,7 @@ import MainTopicComponent from "@/components/MainTopicComponent.vue";
 import KeyTagComponent from "@/components//KeyTagComponent.vue";
 
 export default {
+  name: "VideoBlock",
   components: {
     VideoComponent,
     MainTopicComponent,
@@ -32,18 +33,12 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      keyTags: [],
-    };
-  },
   computed: {
     filterdKeyTags() {
       const filterIds = this.videoData.keyTagId;
       const filteredTags = this.keyTags.filter((tag) =>
         filterIds.includes(tag.id)
       );
-      console.log(filteredTags);
       return filteredTags;
     },
   },
@@ -59,14 +54,14 @@ export default {
       url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
       return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
     },
-    showCreated(blub) {
-      let dateCreate = blub
+    showCreated(value) {
+      let dateCreate = value
         .match(/^\d{4}-\d{2}-\d{2}/g)
         .toString()
         .split("-")
         .reverse()
         .join(".");
-      let timeCreate = blub.match(/\d{2}:\d{2}/g);
+      let timeCreate = value.match(/\d{2}:\d{2}/g);
       return dateCreate + " - " + timeCreate;
     },
   },

@@ -1,15 +1,18 @@
 <template>
   <div class="videos"></div>
-  <div v-for="{ videoUrl, id, title, keyTagId, timeStamps } in video" :key="id">
+  <div v-for="(value, id) in video" :key="id">
     <VideoComponent
-      :videoUrl="videoUrl"
-      :videoType="typeSwitch(videoUrl)"
-      :youtubeVideoId="youtubeGetID(videoUrl)"
+      :videoUrl="value.videoUrl"
+      :videoType="typeSwitch(value.videoUrl)"
+      :youtubeVideoId="youtubeGetID(value.videoUrl)"
+      :timeStamp="timeStart"
     />
     <section>
-      <h2>{{ title }}</h2>
+      <h2>{{ value.title }}</h2>
       <br />
-      <h3>Main Topics: {{ keyTagId }} - müssen noch entschlüsselt werden</h3>
+      <h3>Main Topics:</h3>
+      <MainTopicComponent :video="value" />
+      <KeyTagComponent :video="value" />
     </section>
     <br />
     <section>
@@ -24,11 +27,12 @@
         </thead>
         <tbody>
           <time-stamp-block
-            v-for="(value, id) in timeStamps"
+            v-for="(value, id) in value.timeStamps"
             v-bind:key="id"
             :timeStart="value.timeStart"
             :stampTitle="value.stampTitle"
             :stampNote="value.stampNote"
+            @timeStartData="handleTimeStart"
           />
         </tbody>
         <DefaultBtn v-if="btnText !== 'noBtn'" :btnText="'add new Timestamp'" />
@@ -40,16 +44,21 @@
 <script>
 import VideoComponent from "@/components/VideoComponent.vue";
 import TimeStampBlock from "@/components/TimeStampBlock.vue";
+import MainTopicComponent from "@/components/MainTopicComponent.vue";
+import KeyTagComponent from "@/components//KeyTagComponent.vue";
 
 export default {
-  name: "HomeView",
+  name: "VideoDetail",
   components: {
     VideoComponent,
     TimeStampBlock,
+    MainTopicComponent,
+    KeyTagComponent,
   },
   data() {
     return {
       video: [],
+      timeStart: 0,
     };
   },
   methods: {
@@ -62,8 +71,10 @@ export default {
     },
     youtubeGetID(url) {
       url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-      console.log(url);
       return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
+    },
+    handleTimeStart(data) {
+      this.timeStart = data;
     },
   },
   async mounted() {
