@@ -1,13 +1,7 @@
 <template>
   <tr>
     <td>
-      <button
-        data-cy="jump-to-timestamp"
-        :data-timestamp="timeStart"
-        class="timeAt"
-      >
-        {{ timeStart }}s
-      </button>
+      <button class="timeAt" @click="timeStartData">{{ timeStart }}s</button>
     </td>
     <td>{{ stampTitle }}</td>
   </tr>
@@ -17,6 +11,11 @@ export default {
   props: {
     timeStart: Number,
     stampTitle: String,
+  },
+  methods: {
+    timeStartData() {
+      this.$emit("timeStartData", this.timeStart);
+    },
   },
 };
 </script>

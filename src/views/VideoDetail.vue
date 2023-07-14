@@ -1,58 +1,62 @@
 <template>
-  <div class="videos"></div>
-  <div v-for="(value, id) in video" :key="id">
-    <VideoComponent
-      :videoUrl="value.videoUrl"
-      :videoType="typeSwitch(value.videoUrl)"
-      :youtubeVideoId="youtubeGetID(value.videoUrl)"
-      :timeStamp="timeStart"
-    />
-    <section>
-      <h2>{{ value.title }}</h2>
-      <br />
-      <h3>Main Topics:</h3>
-      <MainTopicComponent :video="value" />
-      <KeyTagComponent :video="value" />
-    </section>
-    <br />
-    <section>
-      <h4>TimeStamps</h4>
-      <table class="table-item__table">
-        <thead>
-          <tr>
-            <th class="table-item__timeStamp">Timestamp</th>
-            <th class="table-item__title">Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          <time-stamp-block
-            v-for="(value, id) in value.timeStamps"
-            v-bind:key="id"
-            :timeStart="value.timeStart"
-            :stampTitle="value.stampTitle"
-            :stampNote="value.stampNote"
-            @timeStartData="handleTimeStart"
+  <main>
+    <div class="video-details" v-for="(value, id) in video" :key="id">
+      <section class="timestamps-table-container">
+        <h4>TimeStamps</h4>
+        <table class="table-item__table">
+          <thead>
+            <tr>
+              <th class="table-item__timeStamp">Timestamp</th>
+              <th class="table-item__title">Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <time-stamp-and-title
+              v-for="(value, id) in value.timeStamps"
+              v-bind:key="id"
+              :timeStart="value.timeStart"
+              :stampTitle="value.stampTitle"
+              :stampNote="value.stampNote"
+              @timeStartData="handleTimeStart"
+            />
+          </tbody>
+          <DefaultBtn
+            v-if="btnText !== 'noBtn'"
+            :btnText="'add new Timestamp'"
           />
-        </tbody>
-        <DefaultBtn v-if="btnText !== 'noBtn'" :btnText="'add new Timestamp'" />
-      </table>
-    </section>
-  </div>
+        </table>
+      </section>
+      <VideoComponent
+        :videoUrl="value.videoUrl"
+        :videoType="typeSwitch(value.videoUrl)"
+        :youtubeVideoId="youtubeGetID(value.videoUrl)"
+        :timeStamp="timeStart"
+      />
+      <section class="comments">
+        <h2>{{ value.title }}</h2>
+        <br />
+
+        <MainTopicComponent :video="value" />
+
+        <KeyTagComponent :video="value" />
+      </section>
+    </div>
+  </main>
 </template>
 
 <script>
 import VideoComponent from "@/components/VideoComponent.vue";
-import TimeStampBlock from "@/components/TimeStampBlock.vue";
 import MainTopicComponent from "@/components/MainTopicComponent.vue";
 import KeyTagComponent from "@/components//KeyTagComponent.vue";
+import TimeStampAndTitle from "@/components/TimeStampAndTitle.vue";
 
 export default {
   name: "VideoDetail",
   components: {
     VideoComponent,
-    TimeStampBlock,
     MainTopicComponent,
     KeyTagComponent,
+    TimeStampAndTitle,
   },
   data() {
     return {
@@ -114,5 +118,12 @@ body {
 .video-details {
   display: grid;
   grid-template-columns: 1fr 4fr;
+  grid-gap: 1rem;
+}
+.comments {
+  grid-column-start: 2;
+}
+.timestamps-table-container {
+  grid-area: 1 / 1 / 3 / 2;
 }
 </style>
