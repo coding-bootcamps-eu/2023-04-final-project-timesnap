@@ -30,7 +30,7 @@ const routes = [
     name: "imprint",
     component: () =>
       import(
-        /* webpackChunkName: "Imprint" */ "../views/footer/ImprintView.vue"
+        /* webpackChunkName: "imprint" */ "../views/footer/ImprintView.vue"
       ),
   },
   {
@@ -38,7 +38,7 @@ const routes = [
     name: "privacy",
     component: () =>
       import(
-        /* webpackChunkName: "Privacy" */ "../views/footer/PrivacyView.vue"
+        /* webpackChunkName: "privacy" */ "../views/footer/PrivacyView.vue"
       ),
   },
   {
@@ -46,8 +46,14 @@ const routes = [
     name: "contact",
     component: () =>
       import(
-        /* webpackChunkName: "Contact" */ "../views/footer/ContactView.vue"
+        /* webpackChunkName: "contact" */ "../views/footer/ContactView.vue"
       ),
+  },
+  {
+    path: "/videos/:id",
+    name: "video-detail",
+    component: () =>
+      import(/* webpackChunkName: "video-detail" */ "../views/VideoDetail.vue"),
   },
 ];
 

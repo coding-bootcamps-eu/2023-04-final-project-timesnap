@@ -1,6 +1,10 @@
 <template>
   <div>
-    <video-player :options="videoOptions" :youtubeVideoId="youtubeVideoId" />
+    <video-player
+      :options="videoOptions"
+      :youtubeVideoId="youtubeVideoId"
+      :timeStamp="timeStamp"
+    />
   </div>
 </template>
 
@@ -26,6 +30,9 @@ export default {
     youtubeVideoId: {
       type: String,
       required: true,
+    },
+    timeStamp: {
+      type: Number,
     },
   },
   data() {
