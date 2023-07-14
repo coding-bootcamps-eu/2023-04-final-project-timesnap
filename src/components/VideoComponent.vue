@@ -1,6 +1,6 @@
 <template>
   <div>
-    <video-player :options="videoOptions" />
+    <video-player :options="videoOptions" :youtubeVideoId="youtubeVideoId" />
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import "../../node_modules/video.js/dist/video.js";
 import "@/assets/js/Youtube.js";
 
 export default {
-  name: "VideoExample",
+  name: "VideoComponent",
   components: {
     VideoPlayer,
   },
@@ -20,6 +20,10 @@ export default {
       required: true,
     },
     videoType: {
+      type: String,
+      required: true,
+    },
+    youtubeVideoId: {
       type: String,
       required: true,
     },

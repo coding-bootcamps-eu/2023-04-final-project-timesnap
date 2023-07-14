@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <video ref="videoPlayer" class="video-js"></video>
-  </div>
+  <div ref="videoContainer"></div>
 </template>
 
 <script>
-import videojs from "video.js";
-
 export default {
   name: "VideoPlayer",
   props: {
-    options: {
-      type: Object,
-      default() {
-        return {};
-      },
+    youtubeVideoId: {
+      type: String,
+      required: true,
     },
   },
   data() {
@@ -23,14 +17,32 @@ export default {
     };
   },
   mounted() {
-    this.player = videojs(this.$refs.videoPlayer, this.options, () => {
-      this.player.log("onPlayerReady", this);
+    this.loadYouTubeAPI().then(() => {
+      // eslint-disable-next-line no-undef
+      this.player = new YT.Player(this.$refs.videoContainer, {
+        videoId: this.youtubeVideoId,
+        events: {
+          onReady: () => {
+            console.log("YouTube player ready");
+          },
+        },
+      });
     });
   },
-  beforeUnmount() {
-    if (this.player) {
-      this.player.dispose();
-    }
+  methods: {
+    loadYouTubeAPI() {
+      return new Promise((resolve) => {
+        if (window.YT && window.YT.Player) {
+          resolve();
+        } else {
+          const tag = document.createElement("script");
+          tag.src = "https://www.youtube.com/iframe_api";
+          const firstScriptTag = document.getElementsByTagName("script")[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+          window.onYouTubeIframeAPIReady = resolve;
+        }
+      });
+    },
   },
 };
 </script>
