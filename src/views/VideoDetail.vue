@@ -1,6 +1,21 @@
 <template>
-  <main class="video-details">
-    <section v-for="{ id, timeStamps } in video" :key="id">
+  <div class="videos"></div>
+  <div v-for="(value, id) in video" :key="id">
+    <VideoComponent
+      :videoUrl="value.videoUrl"
+      :videoType="typeSwitch(value.videoUrl)"
+      :youtubeVideoId="youtubeGetID(value.videoUrl)"
+      :timeStamp="timeStart"
+    />
+    <section>
+      <h2>{{ value.title }}</h2>
+      <br />
+      <h3>Main Topics:</h3>
+      <MainTopicComponent :video="value" />
+      <KeyTagComponent :video="value" />
+    </section>
+    <br />
+    <section>
       <h4>TimeStamps</h4>
       <table class="table-item__table">
         <thead>
@@ -10,49 +25,39 @@
           </tr>
         </thead>
         <tbody>
-          <time-stamp-and-title
-            v-for="(value, id) in timeStamps"
+          <time-stamp-block
+            v-for="(value, id) in value.timeStamps"
             v-bind:key="id"
             :timeStart="value.timeStart"
             :stampTitle="value.stampTitle"
             :stampNote="value.stampNote"
-            @click="timestamp = value.timeStart"
+            @timeStartData="handleTimeStart"
           />
         </tbody>
         <DefaultBtn v-if="btnText !== 'noBtn'" :btnText="'add new Timestamp'" />
       </table>
     </section>
-    <div v-for="{ videoUrl, id, title, keyTagId } in video" :key="id">
-      <VideoComponent
-        :videoUrl="videoUrl"
-        :videoType="typeSwitch(videoUrl)"
-        :youtubeVideoId="youtubeGetID(videoUrl)"
-        :timestamp="timestamp"
-      />
-      <section>
-        <h2>{{ title }}</h2>
-        <br />
-        <h3>Main Topics: {{ keyTagId }} - müssen noch entschlüsselt werden</h3>
-      </section>
-      <br />
-    </div>
-  </main>
+  </div>
 </template>
 
 <script>
 import VideoComponent from "@/components/VideoComponent.vue";
-import TimeStampAndTitle from "@/components/TimeStampAndTitle.vue";
+import TimeStampBlock from "@/components/TimeStampBlock.vue";
+import MainTopicComponent from "@/components/MainTopicComponent.vue";
+import KeyTagComponent from "@/components//KeyTagComponent.vue";
 
 export default {
-  name: "HomeView",
+  name: "VideoDetail",
   components: {
     VideoComponent,
-    TimeStampAndTitle,
+    TimeStampBlock,
+    MainTopicComponent,
+    KeyTagComponent,
   },
   data() {
     return {
       video: [],
-      timestamp: 0,
+      timeStart: 0,
     };
   },
   methods: {
@@ -65,8 +70,10 @@ export default {
     },
     youtubeGetID(url) {
       url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-      console.log(url);
       return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
+    },
+    handleTimeStart(data) {
+      this.timeStart = data;
     },
   },
   async mounted() {

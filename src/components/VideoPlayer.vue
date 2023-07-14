@@ -9,9 +9,8 @@ export default {
       type: String,
       required: true,
     },
-    timestamp: {
+    timeStamp: {
       type: Number,
-      default: 0,
     },
   },
   name: "VideoPlayer",
@@ -19,11 +18,6 @@ export default {
     return {
       player: null,
     };
-  },
-  watch: {
-    timestamp(newTimestamp) {
-      console.log(newTimestamp);
-    },
   },
   mounted() {
     this.loadYouTubeAPI().then(() => {
@@ -52,20 +46,16 @@ export default {
         }
       });
     },
+    timeStampJump() {
+      if (this.timeStamp) {
+        this.player.seekTo(this.timeStamp, true);
+      }
+    },
+  },
+  watch: {
+    timeStamp() {
+      this.timeStampJump();
+    },
   },
 };
 </script>
-
-<style scoped>
-.timeStampsContainer {
-  margin-top: 2em;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-.timeStamp {
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  grid-gap: 2em;
-}
-</style>
