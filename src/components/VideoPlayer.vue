@@ -4,13 +4,16 @@
 
 <script>
 export default {
-  name: "VideoPlayer",
   props: {
     youtubeVideoId: {
       type: String,
       required: true,
     },
+    timeStamp: {
+      type: Number,
+    },
   },
+  name: "VideoPlayer",
   data() {
     return {
       player: null,
@@ -43,10 +46,16 @@ export default {
         }
       });
     },
+    timeStampJump() {
+      if (this.timeStamp) {
+        this.player.seekTo(this.timeStamp, true);
+      }
+    },
+  },
+  watch: {
+    timeStamp() {
+      this.timeStampJump();
+    },
   },
 };
 </script>
-
-<style scoped>
-@import url("video.js/dist/video-js.css");
-</style>
