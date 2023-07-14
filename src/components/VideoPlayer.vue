@@ -9,12 +9,21 @@ export default {
       type: String,
       required: true,
     },
+    timestamp: {
+      type: Number,
+      default: 0,
+    },
   },
   name: "VideoPlayer",
   data() {
     return {
       player: null,
     };
+  },
+  watch: {
+    timestamp(newTimestamp) {
+      console.log(newTimestamp);
+    },
   },
   mounted() {
     this.loadYouTubeAPI().then(() => {

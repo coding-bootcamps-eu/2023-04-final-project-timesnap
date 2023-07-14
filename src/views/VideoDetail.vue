@@ -1,55 +1,58 @@
 <template>
-  <div class="videos"></div>
-  <div v-for="{ videoUrl, id, title, keyTagId, timeStamps } in video" :key="id">
-    <VideoComponent
-      :videoUrl="videoUrl"
-      :videoType="typeSwitch(videoUrl)"
-      :youtubeVideoId="youtubeGetID(videoUrl)"
-    />
-    <section>
-      <h2>{{ title }}</h2>
-      <br />
-      <h3>Main Topics: {{ keyTagId }} - müssen noch entschlüsselt werden</h3>
-    </section>
-    <br />
-    <section>
+  <main class="video-details">
+    <section v-for="{ id, timeStamps } in video" :key="id">
       <h4>TimeStamps</h4>
       <table class="table-item__table">
         <thead>
           <tr>
             <th class="table-item__timeStamp">Timestamp</th>
             <th class="table-item__title">Title</th>
-            <th class="table-item__comments">Comments</th>
           </tr>
         </thead>
         <tbody>
-          <time-stamp-block
+          <time-stamp-and-title
             v-for="(value, id) in timeStamps"
             v-bind:key="id"
             :timeStart="value.timeStart"
             :stampTitle="value.stampTitle"
             :stampNote="value.stampNote"
+            @click="timestamp = value.timeStart"
           />
         </tbody>
         <DefaultBtn v-if="btnText !== 'noBtn'" :btnText="'add new Timestamp'" />
       </table>
     </section>
-  </div>
+    <div v-for="{ videoUrl, id, title, keyTagId } in video" :key="id">
+      <VideoComponent
+        :videoUrl="videoUrl"
+        :videoType="typeSwitch(videoUrl)"
+        :youtubeVideoId="youtubeGetID(videoUrl)"
+        :timestamp="timestamp"
+      />
+      <section>
+        <h2>{{ title }}</h2>
+        <br />
+        <h3>Main Topics: {{ keyTagId }} - müssen noch entschlüsselt werden</h3>
+      </section>
+      <br />
+    </div>
+  </main>
 </template>
 
 <script>
 import VideoComponent from "@/components/VideoComponent.vue";
-import TimeStampBlock from "@/components/TimeStampBlock.vue";
+import TimeStampAndTitle from "@/components/TimeStampAndTitle.vue";
 
 export default {
   name: "HomeView",
   components: {
     VideoComponent,
-    TimeStampBlock,
+    TimeStampAndTitle,
   },
   data() {
     return {
       video: [],
+      timestamp: 0,
     };
   },
   methods: {
@@ -100,5 +103,9 @@ body {
 }
 .table-item__comments {
   width: 60%;
+}
+.video-details {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
 }
 </style>
