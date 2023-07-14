@@ -1,10 +1,17 @@
 <template>
-  <div class="videos">
-    <h1>Video Overview</h1>
-  </div>
-  <div v-for="{ videoUrl, id } in video" :key="id">
-    <VideoComponent :videoUrl="videoUrl" :videoType="typeSwitch(videoUrl)" />
-  </div>
+  <main>
+    <div class="videos">
+      <h1>Video Overview</h1>
+    </div>
+    <section>
+      <div v-for="{ videoUrl, id } in video" :key="id">
+        <VideoComponent
+          :videoUrl="videoUrl"
+          :videoType="typeSwitch(videoUrl)"
+        />
+      </div>
+    </section>
+  </main>
 </template>
 
 <script>
