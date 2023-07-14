@@ -5,7 +5,7 @@
     :youtubeVideoId="youtubeGetID(videoData.videoUrl)"
   />
   <article>
-    <h2>{{ videoData.title }}</h2>
+    <h2 @click="videoDetailId">{{ videoData.title }}</h2>
     <h3>{{ videoData.creatorName }}</h3>
     <p>{{ showCreated(videoData.createdAt) }}</p>
     <div>
@@ -64,6 +64,9 @@ export default {
       let timeCreate = value.match(/\d{2}:\d{2}/g);
       return dateCreate + " - " + timeCreate;
     },
+    videoDetailId() {
+      this.$emit("videoDataId", this.videoData.id);
+    },
   },
 };
 </script>
@@ -72,6 +75,7 @@ h2 {
   font-weight: 200;
   color: var(--color-buttons-primary);
   line-height: 1.5;
+  cursor: pointer;
 }
 .video-list {
   display: flex;
