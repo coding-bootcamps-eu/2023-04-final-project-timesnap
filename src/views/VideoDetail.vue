@@ -80,7 +80,7 @@ export default {
   async mounted() {
     const response = await fetch("http://localhost:3333/videos");
     const data = await response.json();
-    this.video = data.filter((element) => element.id === "fd80beb3");
+    this.video = data.filter((element) => element.id === this.$route.params.id);
   },
 };
 </script>

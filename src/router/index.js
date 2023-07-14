@@ -50,7 +50,7 @@ const routes = [
       ),
   },
   {
-    path: "/video-detail",
+    path: "/videos/:id",
     name: "video-detail",
     component: () =>
       import(/* webpackChunkName: "video-detail" */ "../views/VideoDetail.vue"),
