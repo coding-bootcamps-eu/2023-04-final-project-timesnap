@@ -10,7 +10,7 @@ import "../../node_modules/video.js/dist/video.js";
 import "@/assets/js/Youtube.js";
 
 export default {
-  name: "VideoExample",
+  name: "VideoComponent",
   components: {
     VideoPlayer,
   },

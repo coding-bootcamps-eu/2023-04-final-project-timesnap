@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <div ref="videoContainer"></div>
-    <div class="timeStampsContainer"></div>
-  </div>
+  <div ref="videoContainer"></div>
 </template>
 
 <script>
@@ -23,8 +20,7 @@ export default {
     this.loadYouTubeAPI().then(() => {
       // eslint-disable-next-line no-undef
       this.player = new YT.Player(this.$refs.videoContainer, {
-        width: "80%",
-        videoId: this.youtubeVideoId, // Replace with the YouTube video ID
+        videoId: this.youtubeVideoId,
         events: {
           onReady: () => {
             console.log("YouTube player ready");
@@ -46,16 +42,6 @@ export default {
           window.onYouTubeIframeAPIReady = resolve;
         }
       });
-    },
-    jumpToTimestamp50() {
-      if (this.player) {
-        this.player.seekTo(50, true);
-      }
-    },
-    jumpToTimestamp120() {
-      if (this.player) {
-        this.player.seekTo(120, true);
-      }
     },
   },
 };
