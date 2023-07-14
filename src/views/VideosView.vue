@@ -1,23 +1,23 @@
 <template>
-  <div class="videos">
+  <main>
     <h1>Video Overview</h1>
-  </div>
-  <div v-for="{ videoUrl, id } in video" :key="id">
-    <VideoComponent :videoUrl="videoUrl" :videoType="typeSwitch(videoUrl)" />
-  </div>
+    <section class="video-preview" v-for="video in videos" :key="video.id">
+      <VideoBlock :videoData="video" />
+    </section>
+  </main>
 </template>
 
 <script>
-import VideoComponent from "@/components/VideoComponent.vue";
+import VideoBlock from "@/components/VideoBlock.vue";
 
 export default {
-  name: "HomeView",
+  name: "VideoView",
   components: {
-    VideoComponent,
+    VideoBlock,
   },
   data() {
     return {
-      video: [],
+      videos: [],
     };
   },
   methods: {
@@ -28,11 +28,15 @@ export default {
         return "video/mp4";
       }
     },
+    youtubeGetID(url) {
+      url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+      return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
+    },
   },
   async mounted() {
     const response = await fetch("http://localhost:3333/videos");
     const data = await response.json();
-    this.video = data;
+    this.videos = data;
   },
 };
 </script>
