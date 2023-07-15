@@ -1,52 +1,50 @@
 <template>
-  <main>
-    <div class="video-details" v-for="(value, id) in video" :key="id">
-      <section class="timestamps-table-container">
-        <table class="table-item__table">
-          <thead>
-            <tr>
-              <th class="table-item__timeStamp">Timestamp</th>
-              <th class="table-item__title">Title</th>
-            </tr>
-          </thead>
-          <tbody>
-            <time-stamp-and-title
-              v-for="(value, id) in value.timeStamps"
-              v-bind:key="id"
-              :timeStart="value.timeStart"
-              :stampTitle="value.stampTitle"
-              :stampNote="value.stampNote"
-              @timeStartData="handleTimeStart"
-            />
-          </tbody>
-          <DefaultBtn
-            v-if="btnText !== 'noBtn'"
-            :btnText="'add new Timestamp'"
+  <main class="video-details" v-for="(value, id) in video" :key="id">
+    <section class="time-stamp__wrapper time-stamp__flex">
+      <table class="table-item__table">
+        <thead>
+          <tr>
+            <th class="table-item__timeStamp">Timestamp</th>
+            <th class="table-item__title">Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          <TimeStampAndTitle
+            v-for="(value, id) in value.timeStamps"
+            v-bind:key="id"
+            :timeStart="value.timeStart"
+            :stampTitle="value.stampTitle"
+            :stampNote="value.stampNote"
+            @timeStartData="handleTimeStart"
           />
-        </table>
-      </section>
+        </tbody>
+      </table>
+      <DefaultBtn class="time-stamp__btn" btnText="add Timestamp" />
+    </section>
+
+    <section>
       <VideoComponent
         :videoUrl="value.videoUrl"
         :videoType="typeSwitch(value.videoUrl)"
         :youtubeVideoId="youtubeGetID(value.videoUrl)"
         :timeStamp="timeStart"
       />
-      <section>
+      <article>
         <h2>{{ value.title }}</h2>
-        <br />
 
         <MainTopicComponent :video="value" />
 
         <KeyTagComponent :video="value" />
-
-        <StampNoteComponent
-          v-for="(value, id) in value.timeStamps"
-          v-bind:key="id"
-          :stampNote="value.stampNote"
-          class="comments"
-        />
-      </section>
-    </div>
+        <template v-for="(comment, id) in showComment()" v-bind:key="id">
+          <StampNoteComponent
+            :timeStart="comment.timeStart"
+            :stampTitle="comment.stampTitle"
+            :stampNote="comment.stampNote"
+            class="comments"
+          />
+        </template>
+      </article>
+    </section>
   </main>
 </template>
 
@@ -56,6 +54,7 @@ import MainTopicComponent from "@/components/MainTopicComponent.vue";
 import KeyTagComponent from "@/components//KeyTagComponent.vue";
 import TimeStampAndTitle from "@/components/TimeStampAndTitle.vue";
 import StampNoteComponent from "@/components/StampNoteComponent.vue";
+import DefaultBtn from "@/components/DefaultBtn.vue";
 
 export default {
   name: "VideoDetail",
@@ -65,11 +64,12 @@ export default {
     KeyTagComponent,
     TimeStampAndTitle,
     StampNoteComponent,
+    DefaultBtn,
   },
   data() {
     return {
       video: [],
-      timeStart: 0,
+      timeStart: null,
     };
   },
   methods: {
@@ -87,6 +87,15 @@ export default {
     handleTimeStart(data) {
       this.timeStart = data;
     },
+    showComment() {
+      if (this.timeStart !== null) {
+        return this.video[0].timeStamps.filter(
+          (comment) => comment.timeStart === this.timeStart
+        );
+      } else {
+        return [];
+      }
+    },
   },
   async mounted() {
     const response = await fetch("http://localhost:3333/videos");
@@ -95,40 +104,57 @@ export default {
   },
 };
 </script>
+
 <style scoped>
-body {
-  color: var();
+.video-details {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 0 4em;
+  margin: 3em 4em;
 }
 
-.vidContainer {
-  margin: 2rem;
-}
-.table-item__table {
+.time-stamp__wrapper {
   padding: 2rem;
   border: 1px solid var(--color-accent-grey-80);
-  border-radius: 2rem;
-  width: 80%;
+  border-radius: 1rem;
 }
 
-.table-item__table thead tr {
+.time-stamp__flex {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.time-stamp__btn {
+  width: auto;
+  padding: 1em 0.5em;
+  border-radius: 1em;
+  background: var(--color-accent-blue-100);
+  color: var(--color-bg);
+}
+
+.table-item__table * {
   text-align: left;
+}
+
+.table-item__table thead {
+  padding-bottom: 1em;
+}
+
+.table-item__table tr > th:first-child {
+  padding-right: 1em;
 }
 
 .table-item__timeStamp {
   width: 5%;
 }
+
 .table-item__title {
   width: 25%;
 }
-.video-details {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-gap: 1rem;
-}
+
 .comments {
   grid-column-start: 2;
-}
-.timestamps-table-container {
-  grid-area: 1 / 1 / 3 / 2;
 }
 </style>

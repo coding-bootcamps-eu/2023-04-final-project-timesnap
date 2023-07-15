@@ -35,6 +35,15 @@ div {
 h3 {
   margin-left: 5rem;
 }
+
+.table-item__table tbody > tr > td + td {
+  padding-top: 0.5em;
+}
+
+.table-item__table tbody > tr:first-child td {
+  padding-top: 1em;
+}
+
 .timeStampsContainer {
   margin: 2rem;
   width: 80vmax;
