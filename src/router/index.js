@@ -25,18 +25,27 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/VideosView.vue"),
   },
-
   {
-    path: "/Privacy",
-    name: "Privacy",
+    path: "/privacy",
+    name: "privacy",
     component: () =>
-      import(/* webpackChunkName: "Privacy" */ "../views/PrivacyView.vue"),
+      import(
+        /* webpackChunkName: "privacy" */ "../views/footer/PrivacyView.vue"
+      ),
   },
   {
-    path: "/Contact",
-    name: "Contact",
+    path: "/contact",
+    name: "contact",
     component: () =>
-      import(/* webpackChunkName: "Contact" */ "../views/ContactView.vue"),
+      import(
+        /* webpackChunkName: "contact" */ "../views/footer/ContactView.vue"
+      ),
+  },
+  {
+    path: "/videos/:id",
+    name: "video-detail",
+    component: () =>
+      import(/* webpackChunkName: "video-detail" */ "../views/VideoDetail.vue"),
   },
 ];
 
