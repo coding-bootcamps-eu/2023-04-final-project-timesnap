@@ -25,12 +25,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/VideosView.vue"),
   },
-  {
-    path: "/Imprint",
-    name: "Imprint",
-    component: () =>
-      import(/* webpackChunkName: "Imprint" */ "../views/ImprintView.vue"),
-  },
+
   {
     path: "/Privacy",
     name: "Privacy",
