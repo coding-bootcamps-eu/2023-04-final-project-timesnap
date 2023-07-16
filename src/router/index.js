@@ -55,6 +55,14 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "video-detail" */ "../views/VideoDetail.vue"),
   },
+  {
+    path: "/add-new-video",
+    name: "add-new-video",
+    component: () =>
+      import(
+        /* webpackChunkName: "add-new-video" */ "../views/AddNewVideo.vue"
+      ),
+  },
 ];
 
 const router = createRouter({
