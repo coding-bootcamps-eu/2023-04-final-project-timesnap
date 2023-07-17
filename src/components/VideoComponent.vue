@@ -4,6 +4,8 @@
       :options="videoOptions"
       :youtubeVideoId="youtubeVideoId"
       :timeStamp="timeStamp"
+      :videoWidth="videoWidth"
+      :videoHeight="videoHeight"
     />
   </div>
 </template>
@@ -33,6 +35,14 @@ export default {
     },
     timeStamp: {
       type: Number,
+    },
+    videoWidth: {
+      type: Number,
+      required: true,
+    },
+    videoHeight: {
+      type: Number,
+      required: true,
     },
   },
   data() {
