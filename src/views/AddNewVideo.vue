@@ -1,6 +1,6 @@
 <template>
   <h1>Add new Video</h1>
-  <form action="">
+  <form @submit.prevent="addNewVideo">
     <div>
       <label for="url"> Enter a YouTube Link: </label>
       <input
@@ -11,11 +11,8 @@
         pattern="https://.*"
         size="50"
         required
+        v-model="url"
       />
-    </div>
-    <VideoComponent />
-
-    <div>
       <label for="title"> Enter a Video Title: </label>
       <input
         type="text"
@@ -25,54 +22,208 @@
         size="40"
         minlength="3"
         required
+        v-model="newTitle"
       />
     </div>
     <fieldset>
-      <legend>Main Topic (Pick up to 3):</legend>
+      <legend>Select 1 Main Topic:</legend>
 
-      <select name="groupId" id="groupId" multiple>
+      <select name="groupId" id="groupId" v-model="mainTopic">
         <MainTopicSelector
           v-for="(value, id) in groups"
           :key="id"
           :id="value.id"
           :title="value.title"
         />
-        <option value="others" id="others">others</option>
+        <option>others</option>
       </select>
+      <div v-if="mainTopic === 'others'">
+        <label for="newMainTopic">Type in a new Main Topic</label>
+        <input
+          type="text"
+          id="newMainTopic"
+          placeholder="Please be specific"
+          size="30"
+          minlength="3"
+          v-model="newMainTopic"
+        />
+      </div>
     </fieldset>
-    <div>
-      <label>
-        <input type="checkbox" v-model="showInput" />
-        Add new Main Topic
-      </label>
-      <input
-        type="text"
-        name="newGroupId"
-        v-if="showInput"
-        placeholder="Input Field"
-      />
-    </div>
-    <input type="submit" />
+    <fieldset>
+      <legend>
+        Select the tags that best describes the content of your Video:
+      </legend>
+      <div>
+        <KeyTagSelector
+          v-for="(value, id) in keyTags"
+          :key="id"
+          :id="value.id"
+          :tag="value.tag"
+          :value="value.id"
+          v-model="selectedKeyTags"
+        />
+      </div>
+      <label for="newKeyTag1">Check to add new Tag</label>
+      <input id="newKeyTag1" type="checkbox" v-model="showNewKeyTag1Input" />
+      <div v-if="showNewKeyTag1Input">
+        <input type="text" v-model="newKeyTag1" required />
+      </div>
+      <div v-if="showNewKeyTag1Input">
+        <label for="newKeyTag1">Check to add new Tag</label>
+        <input id="newKeyTag1" type="checkbox" v-model="showNewKeyTag2Input" />
+        <div v-if="showNewKeyTag2Input">
+          <input type="text" v-model="newKeyTag2" required />
+        </div>
+      </div>
+
+      <div v-if="showNewKeyTag2Input">
+        <label for="newKeyTag1">Check to add new Tag</label>
+        <input id="newKeyTag1" type="checkbox" v-model="showNewKeyTag3Input" />
+        <div v-if="showNewKeyTag3Input">
+          <input type="text" v-model="newKeyTag3" required />
+        </div>
+      </div>
+      <p>{{ newKeyTag1 }}</p>
+      <p>{{ newKeyTag2 }}</p>
+      <p>{{ newKeyTag3 }}</p>
+    </fieldset>
+
+    <input type="submit" @click="addToApi" />
   </form>
 </template>
 
 <script>
-import VideoComponent from "@/components/VideoComponent.vue";
-import MainTopicSelector from "@/components/addNewVideoFormComponents/MainTopicSelector.vue";
+import MainTopicSelector from "@/components/MainTopicSelector.vue";
+import KeyTagSelector from "@/components/KeyTagSelector.vue";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   data() {
     return {
+      //Bestehende MainTopic und keyTag Daten aus der API
       groups: [],
       keyTags: [],
-      showInput: false,
+
+      //Daten vom neuen Video
+      id: uuidv4(),
+      url: "",
+      newTitle: "",
+      mainTopic: "",
+      newMainTopic: "",
+      selectedKeyTags: [],
+      newKeyTag1Id: uuidv4(),
+      newKeyTag1: "",
+      newKeyTag2Id: uuidv4(),
+      newKeyTag2: "",
+      newKeyTag3Id: uuidv4(),
+      newKeyTag3: "",
+      createdAt: this.getCurrentTime(),
+
+      //Zeigt ein neues Inputfeld an, wenn Checkbox für neuer Eintrag ausgewält ist
+      showMainTopicInput: false,
+      showkeyTagInput: false,
+      showNewKeyTag1Input: false,
+      showNewKeyTag2Input: false,
+      showNewKeyTag3Input: false,
     };
   },
   components: {
-    VideoComponent,
     MainTopicSelector,
+    KeyTagSelector,
   },
-  methods: {},
+  methods: {
+    typeSwitch(value) {
+      if (value.includes("youtube")) {
+        return "video/youtube";
+      } else {
+        return "video/mp4";
+      }
+    },
+    youtubeGetID(url) {
+      url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+      return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
+    },
+    addNewVideo() {
+      console.log("Booyah");
+      const newVideo = {
+        id: this.id,
+        groupId: this.getNewMainTopic(),
+        title: this.newTitle,
+        videoUrl: this.url,
+        createdAt: this.createdAt,
+        keyTagId: this.getKeyTags(),
+        timeStamps: {},
+      };
+      fetch("http://localhost:3333/videos", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(newVideo),
+      });
+    },
+    getCurrentTime() {
+      return new Date().toISOString();
+    },
+    getNewMainTopic() {
+      if (this.showMainTopicInput) {
+        const newMainTopicId = uuidv4();
+        const newGroup = { id: newMainTopicId, title: this.newMainTopic };
+        fetch("http://localhost:3333/groups", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(newGroup),
+        });
+        return newMainTopicId;
+      } else {
+        return this.mainTopic;
+      }
+    },
+    getKeyTags() {
+      const newKeyTag1 = { id: this.newKeyTag1Id, tag: this.newKeyTag1 };
+      const newKeyTag2 = { id: this.newKeyTag2Id, tag: this.newKeyTag2 };
+      const newKeyTag3 = { id: this.newKeyTag3Id, tag: this.newKeyTag3 };
+      const newKeyTags = [];
+      if (this.showNewKeyTag3Input) {
+        newKeyTags.push(newKeyTag1, newKeyTag2, newKeyTag3);
+        this.selectedKeyTags.push(
+          this.newKeyTag1Id,
+          this.newKeyTag2Id,
+          this.newKeyTag3Id
+        );
+        newKeyTags.forEach((keyTag) => {
+          fetch("http://localhost:3333/keyTags", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(keyTag),
+          });
+        });
+        return this.selectedKeyTags;
+      } else if (this.showNewKeyTag2Input) {
+        newKeyTags.push(newKeyTag1, newKeyTag2);
+        this.selectedKeyTags.push(this.newKeyTag1Id, this.newKeyTag2Id);
+        newKeyTags.forEach((keyTag) => {
+          fetch("http://localhost:3333/keyTags", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(keyTag),
+          });
+        });
+        return this.selectedKeyTags;
+      } else if (this.showNewKeyTag1Input) {
+        newKeyTags.push(newKeyTag1);
+        this.selectedKeyTags.push(this.newKeyTag1Id);
+        newKeyTags.forEach((keyTag) => {
+          fetch("http://localhost:3333/keyTags", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(keyTag),
+          });
+        });
+        return this.selectedKeyTags;
+      } else {
+        return this.selectedKeyTags;
+      }
+    },
+  },
   async mounted() {
     const responseGroups = await fetch("http://localhost:3333/groups");
     const responseKeyTags = await fetch("http://localhost:3333/keyTags");
@@ -85,5 +236,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
