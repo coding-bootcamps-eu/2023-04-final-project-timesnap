@@ -28,6 +28,8 @@
         :videoType="typeSwitch(value.videoUrl)"
         :youtubeVideoId="youtubeGetID(value.videoUrl)"
         :timeStamp="timeStart"
+        :videoWidth="960"
+        :videoHeight="540"
       />
       <article>
         <h2>{{ value.title }}</h2>
