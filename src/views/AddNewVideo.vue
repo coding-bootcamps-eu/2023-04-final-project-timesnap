@@ -46,6 +46,7 @@
           size="30"
           minlength="3"
           v-model="newMainTopic"
+          required
         />
       </div>
     </fieldset>
@@ -61,6 +62,7 @@
           :tag="value.tag"
           :value="value.id"
           v-model="selectedKeyTags"
+          required
         />
       </div>
       <label for="newKeyTag1">Check to add new Tag</label>
