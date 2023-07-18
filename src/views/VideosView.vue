@@ -1,6 +1,7 @@
 <template>
   <main>
     <h1>Video Overview</h1>
+    <default-btn btnText="add new video" @click="openAddVideoPage" />
     <section class="video-preview" v-for="video in videos" :key="video.id">
       <VideoBlock :videoData="video" @videoDataId="videoDetailPage" />
     </section>
@@ -10,10 +11,13 @@
 <script>
 import VideoBlock from "@/components/VideoBlock.vue";
 
+import DefaultBtn from "@/components/DefaultBtn.vue";
+
 export default {
   name: "VideoView",
   components: {
     VideoBlock,
+    DefaultBtn,
   },
   data() {
     return {
@@ -34,6 +38,9 @@ export default {
     },
     videoDetailPage(id) {
       this.$router.push(`/videos/${id}`);
+    },
+    openAddVideoPage() {
+      this.$router.push(`/add-new-video`);
     },
   },
   async mounted() {
