@@ -2,13 +2,17 @@
   <h1>Add new Video</h1>
   <form @submit.prevent="addNewVideo">
     <div>
+      <label for="creator">Please type in your Name/Alias</label>
+      <input id="creator" type="text" v-model="creatorName" />
+    </div>
+    <div>
       <label for="url"> Enter a YouTube Link: </label>
       <input
         type="url"
         name="url"
         id="url"
         placeholder="https://www.youtube.com/watch?v={VideoID}"
-        pattern="https://.*"
+        pattern="https://www.youtube.com/.*"
         size="50"
         required
         v-model="url"
@@ -121,6 +125,7 @@ export default {
       newKeyTag3Id: uuidv4(),
       newKeyTag3: "",
       createdAt: this.getCurrentTime(),
+      creatorName: "",
 
       //Zeigt ein neues Inputfeld an, wenn Checkbox für neuer Eintrag ausgewält ist
       showkeyTagInput: false,
@@ -153,6 +158,7 @@ export default {
         title: this.newTitle,
         videoUrl: this.url,
         createdAt: this.createdAt,
+        creatorName: this.getCreatorName(),
         keyTagId: this.getKeyTags(),
         timeStamps: {},
       };
@@ -222,6 +228,13 @@ export default {
         return this.selectedKeyTags;
       } else {
         return this.selectedKeyTags;
+      }
+    },
+    getCreatorName() {
+      if (this.creatorName !== "") {
+        return this.creatorName;
+      } else {
+        return "Anonymous";
       }
     },
   },
