@@ -29,7 +29,7 @@
     <section>
       <h2>Newest Videos</h2>
       <article class="video-preview" v-for="video in videos" :key="video.id">
-        <VideoBlock :videoData="video" />
+        <VideoBlock :videoData="video" @video-data-id="videoDetailPage" />
       </article>
     </section>
   </main>
@@ -60,6 +60,9 @@ export default {
     youtubeGetID(url) {
       url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
       return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
+    },
+    videoDetailPage(id) {
+      this.$router.push(`/videos/${id}`);
     },
   },
   async mounted() {

@@ -4,6 +4,9 @@
       :options="videoOptions"
       :youtubeVideoId="youtubeVideoId"
       :timeStamp="timeStamp"
+      :getTime="getTime"
+      @currentTime="sendCurrentTime"
+      ref="videoPlayer"
     />
   </div>
 </template>
@@ -15,6 +18,7 @@ import "@/assets/js/Youtube.js";
 
 export default {
   name: "VideoComponent",
+  emits: ["current-time"],
   components: {
     VideoPlayer,
   },
@@ -34,6 +38,9 @@ export default {
     timeStamp: {
       type: Number,
     },
+    getTime: {
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -52,6 +59,11 @@ export default {
         ],
       },
     };
+  },
+  methods: {
+    sendCurrentTime(data) {
+      this.$emit("current-time", data);
+    },
   },
 };
 </script>
