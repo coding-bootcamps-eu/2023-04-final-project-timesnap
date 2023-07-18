@@ -3,7 +3,6 @@
     <div footer-content>
       <nav class="links">
         <p>&copy; 2023 TimeSnap.</p>
-        <router-link :to="{ name: 'imprint' }">Imprint</router-link>
         <router-link :to="{ name: 'privacy' }">Privacy</router-link>
         <router-link :to="{ name: 'contact' }">Contact</router-link>
       </nav>
