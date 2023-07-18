@@ -213,7 +213,7 @@ export default {
         createdAt: this.createdAt,
         creatorName: this.getCreatorName(),
         keyTagId: this.getKeyTags(),
-        timeStamps: {},
+        timeStamps: [],
       };
       fetch("http://localhost:3333/videos", {
         method: "POST",
