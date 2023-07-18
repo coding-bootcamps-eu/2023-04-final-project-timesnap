@@ -1,6 +1,6 @@
 <template>
-  <label :for="id">{{ tag }}</label>
   <input type="checkbox" :id="id" :name="id" :value="value" v-model="model" />
+  <label :for="id">{{ tag }}</label>
 </template>
 
 <script>
