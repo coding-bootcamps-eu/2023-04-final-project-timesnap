@@ -38,11 +38,9 @@ export default {
     },
     videoWidth: {
       type: Number,
-      required: true,
     },
     videoHeight: {
       type: Number,
-      required: true,
     },
   },
   data() {

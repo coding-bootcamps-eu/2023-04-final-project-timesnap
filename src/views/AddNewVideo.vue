@@ -175,7 +175,7 @@ export default {
       showNewKeyTag3Input: false,
 
       // für das preview Bild
-      //ThumbnailId: "",
+      ThumbnailUrl: this.getThumbnailUrl(),
     };
   },
   components: {
@@ -281,6 +281,7 @@ export default {
         return "Anonymous";
       }
     },
+    getThumbnailUrl() {},
   },
   async mounted() {
     const responseGroups = await fetch("http://localhost:3333/groups");
