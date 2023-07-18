@@ -6,20 +6,20 @@
         <label for="creator">Please type in your Name/Alias</label>
         <input id="creator" type="text" v-model="creatorName" />
       </div>
-      <section class="video-info">
-        <div>
-          <label for="title"> Enter a Video Title: </label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Please add a Video Title"
-            size="30"
-            minlength="3"
-            required
-            v-model="newTitle"
-          />
-        </div>
+      <div>
+        <label for="title"> Enter a Video Title: </label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Please add a Video Title"
+          size="30"
+          minlength="3"
+          required
+          v-model="newTitle"
+        />
+      </div>
+      <section>
         <div>
           <label for="url"> Enter a YouTube Link: </label>
           <input
@@ -31,8 +31,16 @@
             size="50"
             required
             v-model="url"
+            @blur="showThumbnail"
           />
         </div>
+
+        <img
+          v-if="url !== ''"
+          :src="ThumbnailUrl"
+          alt="Seems like your Link is wrong"
+          width="200"
+        />
       </section>
 
       <section class="video-info--details">
@@ -175,7 +183,8 @@ export default {
       showNewKeyTag3Input: false,
 
       // für das preview Bild
-      ThumbnailUrl: this.getThumbnailUrl(),
+      showThumbnailClicked: false,
+      ThumbnailUrl: "",
     };
   },
   components: {
@@ -282,6 +291,17 @@ export default {
       }
     },
     getThumbnailUrl() {},
+    showThumbnail() {
+      this.showThumbnailClicked = !this.showThumbnailClicked;
+      if (this.url.length === 43) {
+        const YouTubeID = this.url
+          .split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/)[2]
+          .split(/[^0-9a-z_-]/i)[0];
+        this.ThumbnailUrl = `https://i.ytimg.com/vi/${YouTubeID}/sddefault.jpg`;
+      } else {
+        this.ThumbnailUrl = "";
+      }
+    },
   },
   async mounted() {
     const responseGroups = await fetch("http://localhost:3333/groups");
