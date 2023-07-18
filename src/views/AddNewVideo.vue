@@ -1,101 +1,142 @@
 <template>
-  <h1>Add new Video</h1>
-  <form @submit.prevent="addNewVideo">
-    <div>
-      <label for="creator">Please type in your Name/Alias</label>
-      <input id="creator" type="text" v-model="creatorName" />
-    </div>
-    <div>
-      <label for="url"> Enter a YouTube Link: </label>
-      <input
-        type="url"
-        name="url"
-        id="url"
-        placeholder="https://www.youtube.com/watch?v={VideoID}"
-        pattern="https://www.youtube.com/.*"
-        size="50"
-        required
-        v-model="url"
-      />
-      <label for="title"> Enter a Video Title: </label>
-      <input
-        type="text"
-        name="title"
-        id="title"
-        placeholder="Please add a Video Title"
-        size="40"
-        minlength="3"
-        required
-        v-model="newTitle"
-      />
-    </div>
-    <fieldset>
-      <legend>Select 1 Main Topic:</legend>
-
-      <select name="groupId" id="groupId" v-model="mainTopic">
-        <MainTopicSelector
-          v-for="(value, id) in groups"
-          :key="id"
-          :id="value.id"
-          :title="value.title"
-        />
-        <option>others</option>
-      </select>
-      <div v-if="mainTopic === 'others'">
-        <label for="newMainTopic">Type in a new Main Topic</label>
-        <input
-          type="text"
-          id="newMainTopic"
-          placeholder="Please be specific"
-          size="30"
-          minlength="3"
-          v-model="newMainTopic"
-          required
-        />
-      </div>
-    </fieldset>
-    <fieldset>
-      <legend>
-        Select the tags that best describes the content of your Video:
-      </legend>
+  <main>
+    <h1>Add new Video</h1>
+    <form @submit.prevent="addNewVideo">
       <div>
-        <KeyTagSelector
-          v-for="(value, id) in keyTags"
-          :key="id"
-          :id="value.id"
-          :tag="value.tag"
-          :value="value.id"
-          v-model="selectedKeyTags"
-          required
-        />
+        <label for="creator">Please type in your Name/Alias</label>
+        <input id="creator" type="text" v-model="creatorName" />
       </div>
-      <label for="newKeyTag1">Check to add new Tag</label>
-      <input id="newKeyTag1" type="checkbox" v-model="showNewKeyTag1Input" />
-      <div v-if="showNewKeyTag1Input">
-        <input type="text" v-model="newKeyTag1" required />
-      </div>
-      <div v-if="showNewKeyTag1Input">
-        <label for="newKeyTag1">Check to add new Tag</label>
-        <input id="newKeyTag1" type="checkbox" v-model="showNewKeyTag2Input" />
-        <div v-if="showNewKeyTag2Input">
-          <input type="text" v-model="newKeyTag2" required />
+      <section class="video-info">
+        <div>
+          <label for="title"> Enter a Video Title: </label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Please add a Video Title"
+            size="30"
+            minlength="3"
+            required
+            v-model="newTitle"
+          />
         </div>
-      </div>
-
-      <div v-if="showNewKeyTag2Input">
-        <label for="newKeyTag1">Check to add new Tag</label>
-        <input id="newKeyTag1" type="checkbox" v-model="showNewKeyTag3Input" />
-        <div v-if="showNewKeyTag3Input">
-          <input type="text" v-model="newKeyTag3" required />
+        <div>
+          <label for="url"> Enter a YouTube Link: </label>
+          <input
+            type="url"
+            name="url"
+            id="url"
+            placeholder="https://www.youtube.com/watch?v={VideoID}"
+            pattern="https://www.youtube.com/.*"
+            size="50"
+            required
+            v-model="url"
+          />
         </div>
-      </div>
-      <p>{{ newKeyTag1 }}</p>
-      <p>{{ newKeyTag2 }}</p>
-      <p>{{ newKeyTag3 }}</p>
-    </fieldset>
+      </section>
 
-    <input type="submit" @click="addToApi" />
-  </form>
+      <section class="video-info--details">
+        <fieldset class="video-info--details-maintopic">
+          <legend>Select 1 Main Topic:</legend>
+
+          <select name="groupId" id="groupId" v-model="mainTopic">
+            <MainTopicSelector
+              v-for="(value, id) in groups"
+              :key="id"
+              :id="value.id"
+              :title="value.title"
+            />
+            <option>others</option>
+          </select>
+          <div v-if="mainTopic === 'others'">
+            <label for="newMainTopic">Type in a new Main Topic</label>
+            <input
+              type="text"
+              id="newMainTopic"
+              placeholder="Please be specific"
+              size="30"
+              minlength="3"
+              v-model="newMainTopic"
+              required
+            />
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>
+            Select the tags that best describes the content of your Video:
+          </legend>
+          <div class="video-info--details-keytags">
+            <KeyTagSelector
+              v-for="(value, id) in keyTags"
+              :key="id"
+              :id="value.id"
+              :tag="value.tag"
+              :value="value.id"
+              v-model="selectedKeyTags"
+              required
+            />
+          </div>
+          <section class="newkeytags">
+            <div>
+              <div class="newkeytagselector">
+                <input
+                  id="newKeyTag1"
+                  type="checkbox"
+                  v-model="showNewKeyTag1Input"
+                />
+                <label for="newKeyTag1">Check to add new Tag</label>
+              </div>
+              <div v-if="showNewKeyTag1Input">
+                <input
+                  type="text"
+                  v-model="newKeyTag1"
+                  required
+                  placeholder="type in new Tag"
+                />
+              </div>
+            </div>
+            <div>
+              <div v-if="showNewKeyTag1Input" class="newkeytagselector">
+                <input
+                  id="newKeyTag1"
+                  type="checkbox"
+                  v-model="showNewKeyTag2Input"
+                />
+                <label for="newKeyTag1">Check to add a 2nd new Tag</label>
+              </div>
+              <div v-if="showNewKeyTag2Input">
+                <input
+                  type="text"
+                  v-model="newKeyTag2"
+                  required
+                  placeholder="type in new Tag"
+                />
+              </div>
+            </div>
+            <div>
+              <div v-if="showNewKeyTag2Input" class="newkeytagselector">
+                <input
+                  id="newKeyTag1"
+                  type="checkbox"
+                  v-model="showNewKeyTag3Input"
+                />
+                <label for="newKeyTag1">Check to add a 3rd new Tag</label>
+              </div>
+              <div v-if="showNewKeyTag3Input">
+                <input
+                  type="text"
+                  v-model="newKeyTag3"
+                  required
+                  placeholder="type in new Tag"
+                />
+              </div>
+            </div>
+          </section>
+        </fieldset>
+      </section>
+      <input id="submit" type="submit" @click="addToApi" />
+    </form>
+  </main>
 </template>
 
 <script>
@@ -132,6 +173,9 @@ export default {
       showNewKeyTag1Input: false,
       showNewKeyTag2Input: false,
       showNewKeyTag3Input: false,
+
+      // für das preview Bild
+      //ThumbnailId: "",
     };
   },
   components: {
@@ -250,3 +294,51 @@ export default {
   },
 };
 </script>
+<style scoped>
+form {
+  margin-top: 1em;
+}
+.video-info {
+  display: flex;
+  gap: 2em;
+  margin: 2em 0;
+}
+.video-info--details {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+.video-info--details-maintopic {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 20em;
+}
+.video-info--details-keytags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1em;
+  width: 60vw;
+  padding-top: 1em;
+}
+
+.newkeytags {
+  display: flex;
+  gap: 2em;
+}
+
+.newkeytagselector {
+  display: flex;
+  gap: 0.25em;
+  margin: 1em 0;
+}
+.keytagselector {
+  display: flex;
+  gap: 0.25em;
+}
+
+#submit {
+  margin-top: 1em;
+}
+</style>

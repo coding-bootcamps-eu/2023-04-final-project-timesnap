@@ -1,6 +1,8 @@
 <template>
-  <input type="checkbox" :id="id" :name="id" :value="value" v-model="model" />
-  <label :for="id">{{ tag }}</label>
+  <div class="keytagselector">
+    <input type="checkbox" :id="id" :name="id" :value="value" v-model="model" />
+    <label :for="id">{{ tag }}</label>
+  </div>
 </template>
 
 <script>
