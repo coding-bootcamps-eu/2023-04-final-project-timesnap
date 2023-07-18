@@ -1,10 +1,15 @@
 <template>
-  <h4>Comments:</h4>
-  {{ stampNote }}
+  <div class="table-item__table">
+    <h4>{{ timeStart }}</h4>
+    <h3>{{ stampTitle }}</h3>
+    <p>{{ stampNote }}</p>
+  </div>
 </template>
 <script>
 export default {
   props: {
+    timeStart: undefined,
+    stampTitle: String,
     stampNote: String,
   },
 };
@@ -16,20 +21,11 @@ export default {
   color: blue;
   cursor: pointer;
 }
-div {
-  margin: 2rem;
-  display: flex;
-  gap: 2rem;
-}
 
-h3 {
-  margin-left: 5rem;
-}
-.timeStampsContainer {
-  margin: 2rem;
-  width: 80vmax;
-  border: 2px solid var(--color-accent-grey-80);
-  border-radius: rem;
+.table-item__table {
+  padding: 2rem;
+  border: 1px solid var(--color-accent-grey-80);
+  border-radius: 2rem;
 }
 .stampTitle {
   font-weight: 600;
