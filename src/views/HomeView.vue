@@ -29,7 +29,7 @@
     <section>
       <h2>Newest Videos</h2>
       <article class="video-preview" v-for="video in videos" :key="video.id">
-        <VideoBlock :videoData="video" @videoDataId="videoDetailPage" />
+        <VideoBlock :videoData="video" @video-data-id="videoDetailPage" />
       </article>
     </section>
   </main>
