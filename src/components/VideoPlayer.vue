@@ -68,11 +68,6 @@ export default {
       // eslint-disable-next-line no-undef
       this.player = new YT.Player(this.$refs.videoContainer, {
         videoId: this.youtubeVideoId,
-        events: {
-          onReady: () => {
-            console.log("YouTube player ready");
-          },
-        },
       });
     });
   },
