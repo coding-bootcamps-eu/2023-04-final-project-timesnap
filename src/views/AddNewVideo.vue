@@ -111,6 +111,7 @@ export default {
       url: "",
       newTitle: "",
       mainTopic: "",
+      newMainTopicId: uuidv4(),
       newMainTopic: "",
       selectedKeyTags: [],
       newKeyTag1Id: uuidv4(),
@@ -122,7 +123,6 @@ export default {
       createdAt: this.getCurrentTime(),
 
       //Zeigt ein neues Inputfeld an, wenn Checkbox für neuer Eintrag ausgewält ist
-      showMainTopicInput: false,
       showkeyTagInput: false,
       showNewKeyTag1Input: false,
       showNewKeyTag2Input: false,
@@ -166,15 +166,14 @@ export default {
       return new Date().toISOString();
     },
     getNewMainTopic() {
-      if (this.showMainTopicInput) {
-        const newMainTopicId = uuidv4();
-        const newGroup = { id: newMainTopicId, title: this.newMainTopic };
+      if (this.mainTopic === "others") {
+        const newGroup = { id: this.newMainTopicId, title: this.newMainTopic };
         fetch("http://localhost:3333/groups", {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify(newGroup),
         });
-        return newMainTopicId;
+        return this.newMainTopicId;
       } else {
         return this.mainTopic;
       }
