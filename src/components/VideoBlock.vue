@@ -3,6 +3,8 @@
     :videoUrl="videoData.videoUrl"
     :videoType="typeSwitch(videoData.videoUrl)"
     :youtubeVideoId="youtubeGetID(videoData.videoUrl)"
+    :videoWidth="videoWidth"
+    :videoHeight="videoHeight"
   />
   <article>
     <h2 @click="videoDetailId">{{ videoData.title }}</h2>
@@ -32,6 +34,12 @@ export default {
     videoData: {
       type: Object,
       required: true,
+    },
+    videoWidth: {
+      type: Number,
+    },
+    videoHeight: {
+      type: Number,
     },
   },
   computed: {
