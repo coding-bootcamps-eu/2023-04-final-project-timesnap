@@ -1,6 +1,6 @@
 <template>
   <header class="top-header">
-    <figure class="timesnap-logo">
+    <figure class="timesnap-logo" @click="redirectHome">
       <img src="https://picsum.photos/50/50" alt="" />
       <h1>Timesnap</h1>
     </figure>
@@ -21,6 +21,11 @@
 <script>
 export default {
   name: "NavComp",
+  methods: {
+    redirectHome() {
+      this.$router.push(`/`);
+    },
+  },
 };
 </script>
 
@@ -49,6 +54,7 @@ img {
   gap: 1em;
   color: white;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .search {
