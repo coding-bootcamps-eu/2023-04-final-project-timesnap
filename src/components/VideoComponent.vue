@@ -9,6 +9,7 @@
       ref="videoPlayer"
       :videoWidth="videoWidth"
       :videoHeight="videoHeight"
+      class="video-container"
     />
   </div>
 </template>

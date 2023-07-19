@@ -5,6 +5,7 @@
     width="640"
     @click.once="loadPlayer"
     v-if="!PlayerOn"
+    class="video-container"
   />
   <VideoComponent
     :videoUrl="videoData.videoUrl"
@@ -114,5 +115,8 @@ h3 {
   margin-bottom: 1em;
   font-weight: 300;
   line-height: 1.5;
+}
+.video-container {
+  border-radius: 2em;
 }
 </style>
