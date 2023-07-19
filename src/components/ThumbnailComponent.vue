@@ -1,5 +1,19 @@
 <template>
-  <img :src="ThumbnailId" alt="noalt" width="640" />
+  <img
+    :src="ThumbnailId"
+    alt="noalt"
+    width="640"
+    @click.once="loadPlayer"
+    v-if="!PlayerOn"
+  />
+  <VideoComponent
+    :videoUrl="videoData.videoUrl"
+    :videoType="typeSwitch(videoData.videoUrl)"
+    :youtubeVideoId="youtubeGetID(videoData.videoUrl)"
+    :videoWidth="videoWidth"
+    :videoHeight="videoHeight"
+    v-if="PlayerOn"
+  />
   <article>
     <h2 @click="videoDetailId">{{ videoData.title }}</h2>
     <h3>{{ videoData.creatorName }}</h3>
@@ -21,6 +35,7 @@ export default {
       ThumbnailId: `https://i.ytimg.com/vi/${this.youtubeGetID(
         this.videoData.videoUrl
       )}/hq720.jpg`,
+      PlayerOn: false,
     };
   },
   name: "VideoBlock",
@@ -68,6 +83,9 @@ export default {
     },
     videoDetailId() {
       this.$emit("video-data-id", this.videoData.id);
+    },
+    loadPlayer() {
+      this.PlayerOn = !this.PlayerOn;
     },
   },
 };
