@@ -7,7 +7,7 @@
     :videoHeight="videoHeight"
   />
   <article>
-    <h2 @click="videoDetailId">{{ videoData.title }}</h2>
+    <h2 @click="videoDetailId" class="video-title">{{ videoData.title }}</h2>
     <h3>{{ videoData.creatorName }}</h3>
     <p>{{ showCreated(videoData.createdAt) }}</p>
     <div>
@@ -79,8 +79,8 @@ export default {
   },
 };
 </script>
-<style>
-h2 {
+<style scoped>
+.video-title {
   font-weight: 200;
   color: var(--color-buttons-primary);
   line-height: 1.5;
