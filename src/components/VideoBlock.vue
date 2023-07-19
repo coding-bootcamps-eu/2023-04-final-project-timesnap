@@ -3,6 +3,8 @@
     :videoUrl="videoData.videoUrl"
     :videoType="typeSwitch(videoData.videoUrl)"
     :youtubeVideoId="youtubeGetID(videoData.videoUrl)"
+    :videoWidth="videoWidth"
+    :videoHeight="videoHeight"
   />
   <article>
     <h2 @click="videoDetailId">{{ videoData.title }}</h2>
@@ -22,6 +24,7 @@ import KeyTagComponent from "@/components//KeyTagComponent.vue";
 
 export default {
   name: "VideoBlock",
+  emits: ["video-data-id"],
   components: {
     VideoComponent,
     MainTopicComponent,
@@ -31,6 +34,12 @@ export default {
     videoData: {
       type: Object,
       required: true,
+    },
+    videoWidth: {
+      type: Number,
+    },
+    videoHeight: {
+      type: Number,
     },
   },
   computed: {
@@ -65,7 +74,7 @@ export default {
       return dateCreate + " - " + timeCreate;
     },
     videoDetailId() {
-      this.$emit("videoDataId", this.videoData.id);
+      this.$emit("video-data-id", this.videoData.id);
     },
   },
 };

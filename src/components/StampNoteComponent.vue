@@ -1,6 +1,6 @@
 <template>
   <div class="table-item__table">
-    <h4>{{ timeStart }}s</h4>
+    <h4>{{ timeStart }}</h4>
     <h3>{{ stampTitle }}</h3>
     <p>{{ stampNote }}</p>
   </div>
@@ -8,7 +8,7 @@
 <script>
 export default {
   props: {
-    timeStart: Number,
+    timeStart: undefined,
     stampTitle: String,
     stampNote: String,
   },

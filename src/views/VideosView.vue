@@ -1,6 +1,7 @@
 <template>
   <main>
     <h1>Video Overview</h1>
+    <default-btn btnText="add new video" @click="openAddVideoPage" />
     <div class="filter-container">
       <label for="mainTopic">Main Topic:</label>
       <select id="mainTopic" v-model="selectedMainTopic" @change="applyFilters">
@@ -22,7 +23,7 @@
       v-for="video in filteredVideos"
       :key="video.id"
     >
-      <VideoBlock :videoData="video" @videoDataId="videoDetailPage" />
+      <VideoBlock :videoData="video" @video-data-id="videoDetailPage" />
     </section>
   </main>
 </template>
@@ -30,10 +31,13 @@
 <script>
 import VideoBlock from "@/components/VideoBlock.vue";
 
+import DefaultBtn from "@/components/DefaultBtn.vue";
+
 export default {
   name: "VideoView",
   components: {
     VideoBlock,
+    DefaultBtn,
   },
   data() {
     return {
@@ -59,6 +63,9 @@ export default {
     },
     videoDetailPage(id) {
       this.$router.push(`/videos/${id}`);
+    },
+    openAddVideoPage() {
+      this.$router.push(`/add-new-video`);
     },
     applyFilters() {
       this.filteredVideos = this.videos.filter((video) => {
