@@ -7,6 +7,7 @@
 <script>
 import Navigation from "@/components/Navigation.vue";
 import Footer from "@/components/FooterDefault.vue";
+
 export default {
   components: {
     Navigation,
