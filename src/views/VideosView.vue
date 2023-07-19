@@ -23,20 +23,23 @@
       v-for="video in filteredVideos"
       :key="video.id"
     >
-      <VideoBlock :videoData="video" @video-data-id="videoDetailPage" />
+      <thumbnail-component
+        :videoData="video"
+        @video-data-id="videoDetailPage"
+      />
     </section>
   </main>
 </template>
 
 <script>
-import VideoBlock from "@/components/VideoBlock.vue";
+import ThumbnailComponent from "@/components/ThumbnailComponent.vue";
 
 import DefaultBtn from "@/components/DefaultBtn.vue";
 
 export default {
   name: "VideoView",
   components: {
-    VideoBlock,
+    ThumbnailComponent,
     DefaultBtn,
   },
   data() {
