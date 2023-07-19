@@ -1,5 +1,9 @@
 <template>
-  <div ref="videoContainer" @click="sendCurrentTime"></div>
+  <div
+    ref="videoContainer"
+    @click="sendCurrentTime"
+    :style="{ width: videoWidth + 'px', height: videoHeight + 'px' }"
+  ></div>
 </template>
 
 <script>
@@ -16,6 +20,14 @@ export default {
     },
     getTime: {
       type: Boolean,
+    },
+    videoWidth: {
+      type: Number,
+      default: 640,
+    },
+    videoHeight: {
+      type: Number,
+      default: 360,
     },
   },
   data() {
