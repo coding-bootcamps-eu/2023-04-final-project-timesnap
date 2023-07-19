@@ -69,3 +69,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+h1 {
+  margin-bottom: 5rem;
+}
+.video-preview {
+  margin-bottom: 5rem;
+}
+</style>

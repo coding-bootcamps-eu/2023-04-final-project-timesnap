@@ -5,6 +5,7 @@
       title="Set timestamps that matter"
       imgSrc="https://picsum.photos/300/200"
       btnText="noBtn"
+      class="image"
     >
       <p>
         Welcome to TimeSnap. This platform allows you to set your individual
@@ -17,6 +18,7 @@
       title="How to get started"
       imgSrc="https://picsum.photos/300/200?3=1"
       btnText="How to use"
+      class="image"
     >
       <p>
         You don’t need an account to watch the videos provided by the community.
@@ -84,5 +86,11 @@ p {
 }
 span {
   font-weight: 400;
+}
+.image {
+  height: 12em;
+}
+.video-preview {
+  margin-bottom: 5rem;
 }
 </style>

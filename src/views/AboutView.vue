@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <main>
     <div class="about">
       <header>
         <h1>About this project</h1>
@@ -30,7 +30,7 @@
         respectively.
       </article>
     </div>
-  </section>
+  </main>
 </template>
 <style scoped>
 section {
@@ -49,5 +49,10 @@ section {
 
 ul {
   margin: 1rem;
+}
+article {
+  font-weight: 200;
+  color: var(--color-buttons-primary);
+  line-height: 1.5;
 }
 </style>
