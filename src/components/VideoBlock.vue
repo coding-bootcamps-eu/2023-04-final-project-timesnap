@@ -24,6 +24,7 @@ import KeyTagComponent from "@/components//KeyTagComponent.vue";
 
 export default {
   name: "VideoBlock",
+  emits: ["video-data-id"],
   components: {
     VideoComponent,
     MainTopicComponent,
@@ -73,7 +74,7 @@ export default {
       return dateCreate + " - " + timeCreate;
     },
     videoDetailId() {
-      this.$emit("videoDataId", this.videoData.id);
+      this.$emit("video-data-id", this.videoData.id);
     },
   },
 };

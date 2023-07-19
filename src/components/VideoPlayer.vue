@@ -1,12 +1,15 @@
 <template>
   <div
     ref="videoContainer"
+    @click="sendCurrentTime"
     :style="{ width: videoWidth + 'px', height: videoHeight + 'px' }"
   ></div>
 </template>
 
 <script>
 export default {
+  name: "VideoPlayer",
+  emits: ["current-time"],
   props: {
     youtubeVideoId: {
       type: String,
@@ -14,6 +17,9 @@ export default {
     },
     timeStamp: {
       type: Number,
+    },
+    getTime: {
+      type: Boolean,
     },
     videoWidth: {
       type: Number,
@@ -24,24 +30,11 @@ export default {
       default: 360,
     },
   },
-  name: "VideoPlayer",
   data() {
     return {
       player: null,
+      currentTime: null,
     };
-  },
-  mounted() {
-    this.loadYouTubeAPI().then(() => {
-      // eslint-disable-next-line no-undef
-      this.player = new YT.Player(this.$refs.videoContainer, {
-        videoId: this.youtubeVideoId,
-        events: {
-          onReady: () => {
-            console.log("YouTube player ready");
-          },
-        },
-      });
-    });
   },
   methods: {
     loadYouTubeAPI() {
@@ -62,11 +55,33 @@ export default {
         this.player.seekTo(this.timeStamp, true);
       }
     },
+    sendCurrentTime() {
+      const currentTime = Math.floor(this.player.getCurrentTime());
+      if (this.timeStamp !== currentTime && this.getTime) {
+        this.currentTime = currentTime;
+        return this.player.pauseVideo();
+      } else if (this.timeStamp === currentTime) {
+        this.currentTime = currentTime;
+        return console.log("Timestamp already exists");
+      }
+    },
   },
   watch: {
     timeStamp() {
       this.timeStampJump();
     },
+    getTime() {
+      this.sendCurrentTime();
+      this.$emit("current-time", this.currentTime);
+    },
+  },
+  mounted() {
+    this.loadYouTubeAPI().then(() => {
+      // eslint-disable-next-line no-undef
+      this.player = new YT.Player(this.$refs.videoContainer, {
+        videoId: this.youtubeVideoId,
+      });
+    });
   },
 };
 </script>

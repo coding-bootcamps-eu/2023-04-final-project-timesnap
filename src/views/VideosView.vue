@@ -3,7 +3,7 @@
     <h1>Video Overview</h1>
     <default-btn btnText="add new video" @click="openAddVideoPage" />
     <section class="video-preview" v-for="video in videos" :key="video.id">
-      <VideoBlock :videoData="video" @videoDataId="videoDetailPage" />
+      <VideoBlock :videoData="video" @video-data-id="videoDetailPage" />
     </section>
   </main>
 </template>

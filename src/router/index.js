@@ -26,14 +26,6 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/VideosView.vue"),
   },
   {
-    path: "/imprint",
-    name: "imprint",
-    component: () =>
-      import(
-        /* webpackChunkName: "imprint" */ "../views/footer/ImprintView.vue"
-      ),
-  },
-  {
     path: "/privacy",
     name: "privacy",
     component: () =>
