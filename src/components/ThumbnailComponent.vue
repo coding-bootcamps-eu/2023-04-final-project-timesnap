@@ -27,7 +27,8 @@
 
 <script>
 import MainTopicComponent from "@/components/MainTopicComponent.vue";
-import KeyTagComponent from "@/components//KeyTagComponent.vue";
+import KeyTagComponent from "@/components/KeyTagComponent.vue";
+import VideoComponent from "@/components/VideoComponent.vue";
 
 export default {
   data() {
@@ -43,6 +44,7 @@ export default {
   components: {
     MainTopicComponent,
     KeyTagComponent,
+    VideoComponent,
   },
   props: {
     videoData: {
