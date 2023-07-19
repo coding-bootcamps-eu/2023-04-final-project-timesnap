@@ -28,21 +28,24 @@
     </article-large>
     <section>
       <h2>Newest Videos</h2>
-      <article class="video-preview" v-for="video in videos" :key="video.id">
-        <VideoBlock :videoData="video" @video-data-id="videoDetailPage" />
-      </article>
+      <section class="video-preview" v-for="video in videos" :key="video.id">
+        <thumbnail-component
+          :videoData="video"
+          @video-data-id="videoDetailPage"
+        />
+      </section>
     </section>
   </main>
 </template>
 <script>
 import ArticleLarge from "@/components/ArticleLarge.vue";
-import VideoBlock from "@/components/VideoBlock.vue";
+import ThumbnailComponent from "@/components/ThumbnailComponent.vue";
 
 export default {
   name: "HomeView",
   components: {
     ArticleLarge,
-    VideoBlock,
+    ThumbnailComponent,
   },
   data() {
     return {

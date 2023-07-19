@@ -2,18 +2,21 @@
   <main>
     <h1>Video Overview</h1>
     <section class="video-preview" v-for="video in videos" :key="video.id">
-      <VideoBlock :videoData="video" @video-data-id="videoDetailPage" />
+      <thumbnail-component
+        :videoData="video"
+        @video-data-id="videoDetailPage"
+      />
     </section>
   </main>
 </template>
 
 <script>
-import VideoBlock from "@/components/VideoBlock.vue";
+import ThumbnailComponent from "@/components/ThumbnailComponent.vue";
 
 export default {
   name: "VideoView",
   components: {
-    VideoBlock,
+    ThumbnailComponent,
   },
   data() {
     return {
