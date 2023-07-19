@@ -30,21 +30,24 @@
     </article-large>
     <section>
       <h2>Newest Videos</h2>
-      <article class="video-preview" v-for="video in videos" :key="video.id">
-        <VideoBlock :videoData="video" />
-      </article>
+      <section class="video-preview" v-for="video in videos" :key="video.id">
+        <thumbnail-component
+          :videoData="video"
+          @video-data-id="videoDetailPage"
+        />
+      </section>
     </section>
   </main>
 </template>
 <script>
 import ArticleLarge from "@/components/ArticleLarge.vue";
-import VideoBlock from "@/components/VideoBlock.vue";
+import ThumbnailComponent from "@/components/ThumbnailComponent.vue";
 
 export default {
   name: "HomeView",
   components: {
     ArticleLarge,
-    VideoBlock,
+    ThumbnailComponent,
   },
   data() {
     return {
@@ -62,6 +65,9 @@ export default {
     youtubeGetID(url) {
       url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
       return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
+    },
+    videoDetailPage(id) {
+      this.$router.push(`/videos/${id}`);
     },
   },
   async mounted() {

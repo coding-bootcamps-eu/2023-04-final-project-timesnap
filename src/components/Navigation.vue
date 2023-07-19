@@ -12,7 +12,7 @@
     <nav class="main-nav">
       <router-link :to="{ name: 'home' }">Home</router-link>
       <router-link :to="{ name: 'videos' }">Videos</router-link>
-      <router-link :to="{ name: 'how-to-use' }">FAQ</router-link>
+      <router-link :to="{ name: 'faq' }">FAQ</router-link>
       <router-link :to="{ name: 'about' }">About</router-link>
     </nav>
   </header>

@@ -1,13 +1,21 @@
 <template>
+  <img
+    :src="ThumbnailId"
+    alt="noalt"
+    width="640"
+    @click.once="loadPlayer"
+    v-if="!PlayerOn"
+  />
   <VideoComponent
     :videoUrl="videoData.videoUrl"
     :videoType="typeSwitch(videoData.videoUrl)"
     :youtubeVideoId="youtubeGetID(videoData.videoUrl)"
     :videoWidth="videoWidth"
     :videoHeight="videoHeight"
+    v-if="PlayerOn"
   />
   <article>
-    <h2 @click="videoDetailId" class="video-title">{{ videoData.title }}</h2>
+    <h2 @click="videoDetailId">{{ videoData.title }}</h2>
     <h3>{{ videoData.creatorName }}</h3>
     <p>{{ showCreated(videoData.createdAt) }}</p>
     <div>
@@ -18,28 +26,30 @@
 </template>
 
 <script>
-import VideoComponent from "@/components/VideoComponent.vue";
 import MainTopicComponent from "@/components/MainTopicComponent.vue";
-import KeyTagComponent from "@/components//KeyTagComponent.vue";
+import KeyTagComponent from "@/components/KeyTagComponent.vue";
+import VideoComponent from "@/components/VideoComponent.vue";
 
 export default {
+  data() {
+    return {
+      ThumbnailId: `https://i.ytimg.com/vi/${this.youtubeGetID(
+        this.videoData.videoUrl
+      )}/hq720.jpg`,
+      PlayerOn: false,
+    };
+  },
   name: "VideoBlock",
   emits: ["video-data-id"],
   components: {
-    VideoComponent,
     MainTopicComponent,
     KeyTagComponent,
+    VideoComponent,
   },
   props: {
     videoData: {
       type: Object,
       required: true,
-    },
-    videoWidth: {
-      type: Number,
-    },
-    videoHeight: {
-      type: Number,
     },
   },
   computed: {
@@ -76,11 +86,14 @@ export default {
     videoDetailId() {
       this.$emit("video-data-id", this.videoData.id);
     },
+    loadPlayer() {
+      this.PlayerOn = !this.PlayerOn;
+    },
   },
 };
 </script>
-<style scoped>
-.video-title {
+<style>
+h2 {
   font-weight: 200;
   color: var(--color-buttons-primary);
   line-height: 1.5;

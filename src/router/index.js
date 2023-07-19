@@ -14,8 +14,8 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
-    path: "/how-to-use",
-    name: "how-to-use",
+    path: "/faq",
+    name: "faq",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/HowToUseView.vue"),
   },
@@ -24,14 +24,6 @@ const routes = [
     name: "videos",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/VideosView.vue"),
-  },
-  {
-    path: "/imprint",
-    name: "imprint",
-    component: () =>
-      import(
-        /* webpackChunkName: "imprint" */ "../views/footer/ImprintView.vue"
-      ),
   },
   {
     path: "/privacy",
@@ -54,6 +46,14 @@ const routes = [
     name: "video-detail",
     component: () =>
       import(/* webpackChunkName: "video-detail" */ "../views/VideoDetail.vue"),
+  },
+  {
+    path: "/add-new-video",
+    name: "add-new-video",
+    component: () =>
+      import(
+        /* webpackChunkName: "add-new-video" */ "../views/AddNewVideo.vue"
+      ),
   },
 ];
 
