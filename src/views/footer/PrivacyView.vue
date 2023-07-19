@@ -2,14 +2,12 @@
   <main class="privacy">
     <h2>Privacy</h2>
     <div>
-      <h3>Datenschutzerklärung</h3>
       <p>
-        Diese Datenschutzerklärung informiert Sie über die Art, den Umfang und
-        den Zweck der Verarbeitung von personenbezogenen Daten innerhalb unseres
-        Projekts "TimeSnap".
+        This privacy policy informs you about the nature, scope and the purpose
+        of the processing of personal data within our TimeSnap" project.
       </p>
       <ul>
-        <strong>Verantwortliche Stelle:</strong>
+        <strong>Responsible entity:</strong>
       </ul>
       <li>
         <a href="https://github.com/NoahWolters">Noah Wolters</a>
@@ -18,46 +16,47 @@
       <li><a href="https://github.com/jstephan087">Julia Stephan</a></li>
 
       <p>
-        Arten der verarbeiteten Daten Im Rahmen des Projekts "TimeSnap" können
-        folgende Arten von Daten erhoben und verarbeitet werden: Name,
-        E-Mail-Adresse, Telefonnummer: Zur Kontaktaufnahme und Kommunikation mit
-        den Nutzern.
+        Types of data processed Within the framework of the "TimeSnap" project,
+        the following types of data may be The following types of data may be
+        collected and processed: Name, e-mail address, telephone number: for
+        contacting and communicating with the users.
       </p>
       <p>
-        Die erhobenen Daten werden für folgende Zwecke verwendet: Beantwortung
-        von Anfragen und Kommunikation mit den Nutzern.
+        The data collected will be used for the following purposes: Answering
+        inquiries and communication with users.
       </p>
       <p>
-        <strong> Rechtsgrundlage der Datenverarbeitung </strong><br />
-        Die Verarbeitung der Daten erfolgt auf der Grundlage Ihrer Einwilligung
-        gemäß Artikel 6 Absatz 1a DSGVO.
+        <strong> Legal basis of data processing </strong><br />
+        The processing of the data is based on your consent according to Article
+        6 paragraph 1a DSGVO.
       </p>
       <p>
-        <strong> Datenweitergabe an Dritte </strong><br />Wir geben Ihre Daten
-        nicht an Dritte weiter, es sei denn, dies ist zur Erfüllung unseres
-        Vertrags mit Ihnen erforderlich oder wir sind gesetzlich dazu
-        verpflichtet.
+        <strong> Data transfer to third parties </strong><br />We do not pass on
+        your data to third parties, unless this is necessary for the fulfillment
+        of our contract with you or we are legally obliged to do so. obligated
+        to do so.
       </p>
       <p>
-        <strong>Speicherung und Löschung der Daten</strong><br />Ihre Daten
-        werden nur so lange gespeichert, wie es für den Zweck, zu dem sie
-        erhoben wurden, erforderlich ist, oder solange es gesetzlich
-        vorgeschrieben ist. Nach Wegfall des Zwecks oder Ablauf der gesetzlichen
-        Aufbewahrungsfristen werden Ihre Daten gelöscht.
+        <strong>Data storage and deletion</strong><br />Your data will only be
+        stored for as long as is necessary for the purpose for which it was for
+        which it was collected, or as long as it is required by law. prescribed
+        by law. After the purpose ceases to apply or the legal retention periods
+        expire, your data will be deleted. retention periods, your data will be
+        deleted.
       </p>
       <p>
-        <strong>Rechte der betroffenen Personen</strong><br />Sie haben das
-        Recht auf Auskunft über die verarbeiteten Daten sowie das Recht auf
-        Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten.
-        Sie können auch der Verarbeitung Ihrer Daten widersprechen und das Recht
-        auf Datenübertragbarkeit ausüben. Bitte wenden Sie sich an die oben
-        genannte verantwortliche Stelle, um Ihre Rechte auszuüben.
+        <strong>Rights of the data subjects</strong><br />You have the right to
+        information about the processed data as well as the right to Correction,
+        deletion and restriction of the processing of your data. You can also
+        object to the processing of your data and exercise the right to data to
+        data portability. Please contact the above named controller to exercise
+        your rights.
       </p>
       <p>
-        <strong>Cookies</strong><br />Unser Projekt verwendet keine Cookies zur
-        Verfolgung von Nutzeraktivitäten. Änderungen der Datenschutzerklärung
-        Wir behalten uns das Recht vor, diese Datenschutzerklärung jederzeit zu
-        ändern. Die jeweils aktuelle Version ist auf unserer Webseite verfügbar.
+        <strong>Cookies</strong><br />Our project does not use cookies to
+        tracking user activity. Changes to the privacy policy We reserve the
+        right to change this privacy policy at any time. change it at any time.
+        The most current version is available on our website.
       </p>
     </div>
   </main>

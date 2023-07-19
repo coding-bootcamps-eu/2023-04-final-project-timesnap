@@ -4,7 +4,7 @@
       <h2>Contact</h2>
 
       <ul>
-        <strong> Find us on Github:</strong>
+        <strong> Find us on Github: </strong>
       </ul>
       <a href="https://github.com/NoahWolters">Noah Wolters</a><br />
       <a href="http://github.com/urbanitesinaframe">Jimmy Ng</a><br />
