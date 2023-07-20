@@ -1,3 +1,4 @@
+import { useSearchStore } from "@/stores/SearchStore";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -55,11 +56,22 @@ const routes = [
         /* webpackChunkName: "add-new-video" */ "../views/AddNewVideo.vue"
       ),
   },
+  {
+    path: "/search-result",
+    name: "search-result",
+    component: () =>
+      import(
+        /* webpackChunkName: "search-result" */ "../views/SearchResultView.vue"
+      ),
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
+router.beforeEach(() => {
+  const searchVideos = useSearchStore();
+  searchVideos.currentSearch = "";
+});
 export default router;

@@ -4,14 +4,14 @@
     <default-btn btnText="add new video" @click="openAddVideoPage" />
     <div class="filter-container">
       <label for="mainTopic">Main Topic:</label>
-      <select id="mainTopic" v-model="selectedMainTopic" @change="applyFilters">
+      <select id="mainTopic" v-model="searchVideos.groupFilter">
         <option value="">Alle</option>
         <option v-for="group in groups" :value="group.id" :key="group.id">
           {{ group.title }}
         </option>
       </select>
       <label for="tags">Tags:</label>
-      <select id="tags" v-model="selectedTag" @change="applyFilters">
+      <select id="tags" v-model="searchVideos.tagFilter">
         <option value="">Alle</option>
         <option v-for="tag in keyTags" :value="tag.id" :key="tag.id">
           {{ tag.tag }}
@@ -20,7 +20,7 @@
     </div>
     <section
       class="thumbnail-component"
-      v-for="video in filteredVideos"
+      v-for="video in searchVideos.filterResult"
       :key="video.id"
     >
       <thumbnail-component
@@ -32,8 +32,8 @@
 </template>
 
 <script>
+import { useSearchStore } from "@/stores/SearchStore";
 import ThumbnailComponent from "@/components/ThumbnailComponent.vue";
-
 import DefaultBtn from "@/components/DefaultBtn.vue";
 
 export default {
@@ -42,15 +42,11 @@ export default {
     ThumbnailComponent,
     DefaultBtn,
   },
-  data() {
-    return {
-      videos: [],
-      filteredVideos: [],
-      selectedMainTopic: "",
-      selectedTag: "",
-      groups: [],
-      keyTags: [],
-    };
+  setup() {
+    const searchVideos = useSearchStore();
+
+    //fetch videos
+    return { searchVideos };
   },
   methods: {
     typeSwitch(value) {
@@ -70,39 +66,6 @@ export default {
     openAddVideoPage() {
       this.$router.push(`/add-new-video`);
     },
-    applyFilters() {
-      this.filteredVideos = this.videos.filter((video) => {
-        const groupIds = video.groupId;
-        const tagIds = video.keyTagId;
-        const mainTopicFilter =
-          this.selectedMainTopic === "" ||
-          groupIds.includes(this.selectedMainTopic) ||
-          video.id === this.selectedMainTopic;
-
-        const tagFilter =
-          this.selectedTag === "" || tagIds.includes(this.selectedTag);
-
-        return mainTopicFilter && tagFilter;
-      });
-    },
-  },
-  async mounted() {
-    try {
-      const responseVideos = await fetch("http://localhost:3333/videos");
-      const responsekeyTags = await fetch("http://localhost:3333/keyTags");
-      const responseGroups = await fetch("http://localhost:3333/groups");
-
-      const dataVideos = await responseVideos.json();
-      const dataKeyTags = await responsekeyTags.json();
-      const dataGroups = await responseGroups.json();
-
-      this.videos = dataVideos;
-      this.filteredVideos = dataVideos;
-      this.keyTags = dataKeyTags;
-      this.groups = dataGroups;
-    } catch (error) {
-      console.error("Fehler beim Abrufen der Videos:", error);
-    }
   },
 };
 </script>
