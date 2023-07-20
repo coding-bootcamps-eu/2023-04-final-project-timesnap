@@ -3,7 +3,7 @@
 <template>
   <article>
     <section>
-      <h2 class>{{ title }}</h2>
+      <h2>{{ title }}</h2>
       <slot />
       <DefaultBtn v-if="btnText !== 'noBtn'" :btnText="btnText" />
     </section>
@@ -34,21 +34,17 @@ export default {
 </script>
 <style scoped>
 article {
-  width: 80vmax;
   margin: 5rem auto;
   display: flex;
   gap: 2rem;
 }
 section {
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 img {
   border-radius: 2rem;
-}
-h2 {
-  color: var(--color-buttons-primary);
 }
 </style>

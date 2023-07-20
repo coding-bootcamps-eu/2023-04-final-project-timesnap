@@ -81,8 +81,8 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="search"] {
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 /* for Safari (add/remove types as needed) */

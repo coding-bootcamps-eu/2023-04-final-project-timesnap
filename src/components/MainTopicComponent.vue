@@ -1,5 +1,5 @@
 <template>
-  <h3>Main Topics:</h3>
+  <h3>Main Topic:</h3>
   <p :class="{ addGap: filterdTopics.length > 1 }">
     <span v-for="(value, id) in filterdTopics" :key="id"
       >{{ value.title }}

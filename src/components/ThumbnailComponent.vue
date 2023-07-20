@@ -5,7 +5,7 @@
     width="640"
     @click.once="loadPlayer"
     v-if="!PlayerOn"
-    class="video-container"
+    class="media-container"
   />
   <VideoComponent
     :videoUrl="videoData.videoUrl"
@@ -14,11 +14,12 @@
     :videoWidth="videoWidth"
     :videoHeight="videoHeight"
     v-if="PlayerOn"
+    class="videovideo"
   />
   <article>
     <h2 @click="videoDetailId">{{ videoData.title }}</h2>
-    <h3>{{ videoData.creatorName }}</h3>
-    <p>{{ showCreated(videoData.createdAt) }}</p>
+    <p>Video added by: {{ videoData.creatorName }}</p>
+    <p>Video added on: {{ showCreated(videoData.createdAt) }}</p>
     <div>
       <MainTopicComponent :video="videoData" />
       <KeyTagComponent :video="videoData" />
@@ -93,7 +94,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 h2 {
   font-weight: 200;
   color: var(--color-buttons-primary);
@@ -111,12 +112,8 @@ h2 {
 .video-preview {
   margin-bottom: 5em;
 }
-h3 {
-  margin-bottom: 1em;
-  font-weight: 300;
-  line-height: 1.5;
-}
-.video-container {
+
+.media-container {
   border-radius: 2em;
 }
 </style>

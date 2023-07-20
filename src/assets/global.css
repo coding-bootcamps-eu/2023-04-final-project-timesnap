@@ -23,17 +23,37 @@ body {
 }
 
 main {
+  max-width: 80vmax;
   margin: 0 auto;
   display: grid;
   justify-content: center;
 }
 
-.video-preview {
-  display: flex;
-  gap: 2em;
-  justify-content: left;
+h1 {
+  font-weight: 300;
+}
+
+h2 {
+  font-weight: 300;
+  color: var(--color-buttons-primary);
+}
+
+h3 {
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--color-buttons-primary);
+}
+h4 {
+  font-weight: 300;
+  color: var(--color-buttons-primary);
 }
 
 .addGap span + span {
   margin-left: 0.25em;
+}
+p {
+  font-weight: 200;
+  color: var(--color-buttons-primary);
+  line-height: 1.5;
+  margin: 0;
 }
