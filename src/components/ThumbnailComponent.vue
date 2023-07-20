@@ -6,7 +6,6 @@
     @click.once="loadPlayer"
     v-if="!PlayerOn"
     class="media-container"
-    class="media-container"
   />
   <VideoComponent
     :videoUrl="videoData.videoUrl"
