@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { useSearchStore } from "@/stores/SearchStore";
 export default {
   name: "KeyTag",
   props: {
@@ -16,24 +17,20 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      keyTags: [],
-    };
+  setup() {
+    const searchVideos = useSearchStore();
+
+    //fetch videos
+    return { searchVideos };
   },
   computed: {
     filterdKeyTags() {
       const filterIds = this.video.keyTagId;
-      const filteredTags = this.keyTags.filter((tag) =>
+      const filteredTags = this.searchVideos.keyTags.filter((tag) =>
         filterIds.includes(tag.id)
       );
       return filteredTags;
     },
-  },
-  async mounted() {
-    const response = await fetch("http://localhost:3333/keyTags");
-    const data = await response.json();
-    this.keyTags = data;
   },
 };
 </script>
