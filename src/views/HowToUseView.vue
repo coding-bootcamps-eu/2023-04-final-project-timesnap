@@ -67,6 +67,9 @@
 </template>
 
 <style scoped>
+main {
+  max-width: 110ch;
+}
 span {
   font-weight: 400;
 }

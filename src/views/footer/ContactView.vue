@@ -18,9 +18,9 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin: 1rem;
   font-weight: 200;
   color: var(--color-buttons-primary);
   line-height: 1.5;
+  max-width: 110ch;
 }
 </style>
