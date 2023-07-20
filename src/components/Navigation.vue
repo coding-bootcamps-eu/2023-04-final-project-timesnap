@@ -4,11 +4,11 @@
       <img src="https://picsum.photos/50/50" alt="" />
       <h1>Timesnap</h1>
     </figure>
-    <div class="search">
+    <form class="search" @submit.prevent="searchResult">
       <!-- Input noch ohne Funktion und focus styling -->
-      <input type="search" name="" placeholder="Search" />
+      <input type="search" v-model="searchInput" placeholder="Search" />
       <button type="submit" class="btn--search"></button>
-    </div>
+    </form>
     <nav class="main-nav">
       <router-link class="nav-link" :to="{ name: 'home' }">Home</router-link>
       <router-link class="nav-link" :to="{ name: 'videos' }"
@@ -21,9 +21,29 @@
 </template>
 
 <script>
+import { useSearchStore } from "@/stores/SearchStore";
 export default {
   name: "NavComp",
+  data() {
+    return {
+      searchInput: "",
+    };
+  },
+  setup() {
+    const searchVideos = useSearchStore();
+
+    //fetch videos
+    return { searchVideos };
+  },
   methods: {
+    searchResult() {
+      useSearchStore().currentSearch = this.searchInput;
+      this.$router.push({
+        path: "/search-result",
+        query: { search: this.searchInput },
+      });
+      this.searchInput = "";
+    },
     redirectHome() {
       this.$router.push(`/`);
     },
@@ -107,6 +127,9 @@ input[type="search"] {
   border-radius: 5px;
 }
 a {
+  color: white;
+}
+h1 {
   color: white;
 }
 </style>

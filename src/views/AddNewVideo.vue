@@ -257,9 +257,18 @@ export default {
       }
     },
     getKeyTags() {
-      const newKeyTag1 = { id: this.newKeyTag1Id, tag: this.newKeyTag1 };
-      const newKeyTag2 = { id: this.newKeyTag2Id, tag: this.newKeyTag2 };
-      const newKeyTag3 = { id: this.newKeyTag3Id, tag: this.newKeyTag3 };
+      const newKeyTag1 = {
+        id: this.newKeyTag1Id,
+        tag: this.formattedKeyTag(this.newKeyTag1),
+      };
+      const newKeyTag2 = {
+        id: this.newKeyTag2Id,
+        tag: this.formattedKeyTag(this.newKeyTag2),
+      };
+      const newKeyTag3 = {
+        id: this.newKeyTag3Id,
+        tag: this.formattedKeyTag(this.newKeyTag3),
+      };
       const newKeyTags = [];
       if (this.showNewKeyTag3Input) {
         newKeyTags.push(newKeyTag1, newKeyTag2, newKeyTag3);
@@ -315,10 +324,25 @@ export default {
         const YouTubeID = this.url
           .split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/)[2]
           .split(/[^0-9a-z_-]/i)[0];
-        this.ThumbnailUrl = `https://i.ytimg.com/vi/${YouTubeID}/sddefault.jpg`;
+        this.ThumbnailUrl = `https://i.ytimg.com/vi/${YouTubeID}/hq720.jpg`;
       } else {
         this.ThumbnailUrl = "";
       }
+    },
+    formattedKeyTag(keytag) {
+      const words = keytag.split(" ");
+
+      // Join the words together and convert to camel case
+      const formattedString = words
+        .map((word, index) => {
+          if (index === 0) {
+            return word.toLowerCase();
+          } else {
+            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+          }
+        })
+        .join("");
+      return formattedString;
     },
   },
   async mounted() {

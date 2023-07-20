@@ -30,7 +30,11 @@
     </article-large>
     <section>
       <h2>Newest Videos</h2>
-      <section class="video-preview" v-for="video in videos" :key="video.id">
+      <section
+        class="thumbnail-component"
+        v-for="video in searchVideos.latestVideos"
+        :key="video.id"
+      >
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"
@@ -40,6 +44,7 @@
   </main>
 </template>
 <script>
+import { useSearchStore } from "@/stores/SearchStore";
 import ArticleLarge from "@/components/ArticleLarge.vue";
 import ThumbnailComponent from "@/components/ThumbnailComponent.vue";
 
@@ -49,10 +54,11 @@ export default {
     ArticleLarge,
     ThumbnailComponent,
   },
-  data() {
-    return {
-      videos: [],
-    };
+  setup() {
+    const searchVideos = useSearchStore();
+
+    //fetch videos
+    return { searchVideos };
   },
   methods: {
     typeSwitch(value) {
@@ -70,28 +76,13 @@ export default {
       this.$router.push(`/videos/${id}`);
     },
   },
-  async mounted() {
-    const response = await fetch(
-      "http://localhost:3333/videos?_sort=createdAt&_order=desc&_limit=3"
-    );
-    const data = await response.json();
-    this.videos = data;
-  },
 };
 </script>
 <style scoped>
-p {
-  font-weight: 200;
-  color: var(--color-buttons-primary);
-  line-height: 1.5;
-}
 span {
   font-weight: 400;
 }
 .image {
   height: 12em;
-}
-.video-preview {
-  margin-bottom: 5rem;
 }
 </style>
