@@ -10,10 +10,12 @@
       <p>
         Welcome to TimeSnap. This platform allows you to set your individual
         timestamps on any video. This allows you to jump right to the content
-        that matters to you. As a community based platform you can recommend
-        your own timestamps to the public page.
+        that matters to you. <br />
+        As a community based platform you can recommend your own timestamps to
+        the public page.
       </p>
     </article-large>
+
     <article-large
       title="How to get started"
       imgSrc="https://picsum.photos/300/200?3=1"
@@ -28,6 +30,7 @@
         search for buzzwords to get to the topic that matters to you the most.
       </p>
     </article-large>
+
     <section>
       <h2>Newest Videos</h2>
       <section
@@ -38,6 +41,7 @@
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"
+          :videoWidth="40"
         />
       </section>
     </section>

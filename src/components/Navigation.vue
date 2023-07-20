@@ -10,10 +10,12 @@
       <button type="submit" class="btn--search"></button>
     </form>
     <nav class="main-nav">
-      <router-link :to="{ name: 'home' }">Home</router-link>
-      <router-link :to="{ name: 'videos' }">Videos</router-link>
-      <router-link :to="{ name: 'faq' }">FAQ</router-link>
-      <router-link :to="{ name: 'about' }">About</router-link>
+      <router-link class="nav-link" :to="{ name: 'home' }">Home</router-link>
+      <router-link class="nav-link" :to="{ name: 'videos' }"
+        >Videos</router-link
+      >
+      <router-link class="nav-link" :to="{ name: 'faq' }">FAQ</router-link>
+      <router-link class="nav-link" :to="{ name: 'about' }">About</router-link>
     </nav>
   </header>
 </template>
@@ -61,6 +63,9 @@ export default {
   margin-bottom: 2em;
   background: var(--color-buttons-primary);
   text-decoration: none;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 img {
@@ -118,6 +123,10 @@ input[type="search"] {
   color: white;
 }
 
+.main-nav .nav-link:hover {
+  color: #ad7b8f;
+  border-radius: 5px;
+}
 a {
   color: white;
 }

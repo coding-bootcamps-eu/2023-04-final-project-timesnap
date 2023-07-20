@@ -2,7 +2,7 @@
   <div
     ref="videoContainer"
     @click="sendCurrentTime"
-    :style="{ width: videoWidth + 'px', height: videoHeight + 'px' }"
+    :style="{ width: videoWidth + 'vmax', height: 'auto' }"
   ></div>
 </template>
 
@@ -23,12 +23,11 @@ export default {
     },
     videoWidth: {
       type: Number,
-      default: 640,
     },
-    videoHeight: {
-      type: Number,
-      default: 360,
-    },
+    // videoHeight: {
+    // type: String,
+    //default: 500,
+    // },
   },
   data() {
     return {
