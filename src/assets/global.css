@@ -23,17 +23,54 @@ body {
 }
 
 main {
+  max-width: 80vmax;
   margin: 0 auto;
   display: grid;
   justify-content: center;
 }
 
-.video-preview {
+h1,
+h2,
+h3,
+h4,
+p {
+  font-weight: 300;
+  color: var(--color-buttons-primary);
+}
+
+h2 {
+  margin-bottom: 0.5em;
+  font-weight: 400;
+}
+h3 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+}
+
+.thumbnail-component {
   display: flex;
   gap: 2em;
   justify-content: left;
+  margin: 2em 0;
 }
 
 .addGap span + span {
   margin-left: 0.25em;
+}
+
+p {
+  margin: 0;
+  line-height: 1.5em;
+}
+
+.media-container {
+  border-radius: 2em;
+}
+iframe {
+  border-radius: 2em;
+}
+
+.clickable {
+  cursor: pointer;
 }

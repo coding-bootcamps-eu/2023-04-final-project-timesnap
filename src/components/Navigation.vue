@@ -42,6 +42,9 @@ export default {
       });
       this.searchInput = "";
     },
+    redirectHome() {
+      this.$router.push(`/`);
+    },
   },
 };
 </script>
@@ -116,6 +119,9 @@ input[type="search"] {
 }
 
 a {
+  color: white;
+}
+h1 {
   color: white;
 }
 </style>
