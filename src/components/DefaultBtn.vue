@@ -24,7 +24,7 @@ export default {
   font-family: sans-serif;
 }
 .btn:hover {
-  outline: 2px solid var(--color-accent-blue-100);
+  background: var(--color-accent-blue-80);
 }
 
 .btn:active {

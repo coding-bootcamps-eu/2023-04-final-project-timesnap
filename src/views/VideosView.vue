@@ -1,7 +1,9 @@
 <template>
   <main>
     <h1>Video Overview</h1>
-    <default-btn btnText="add new video" @click="openAddVideoPage" />
+    <section class="btn-container">
+      <default-btn id="btn" btnText="add new video" @click="openAddVideoPage" />
+    </section>
     <div class="filter-container">
       <label for="mainTopic">Main Topic:</label>
       <select id="mainTopic" v-model="searchVideos.groupFilter">
@@ -77,4 +79,21 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+
+<style scoped>
+.btn {
+  background: var(--color-accent-red-80);
+  color: var(--color-buttons-secondary);
+  border: none;
+}
+.btn:hover {
+  background: var(--color-accent-blue-80);
+  color: var(--color-buttons-secondary);
+}
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  position: sticky;
+  top: 10%;
+}
+</style>
