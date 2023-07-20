@@ -1,6 +1,12 @@
 <template>
   <main>
     <h1>Video Overview</h1>
+<<<<<<< HEAD
+=======
+    <section class="btn-container">
+      <default-btn id="btn" btnText="add new video" @click="openAddVideoPage" />
+    </section>
+>>>>>>> ae4ec57387dbf85bc1a5d8369db996671f84db89
     <div class="filter-container">
       <div class="dropdown-wrapper">
         <label class="label" for="mainTopic">Main Topic:</label>
@@ -89,6 +95,7 @@ export default {
   },
 };
 </script>
+<<<<<<< HEAD
 <style scoped>
 h1 {
   margin-bottom: 3rem;
@@ -131,5 +138,23 @@ h1 {
   background-color: #2c3c54;
   max-height: 15px;
   overflow-y: auto;
+=======
+
+<style scoped>
+.btn {
+  background: var(--color-accent-red-80);
+  color: var(--color-buttons-secondary);
+  border: none;
+}
+.btn:hover {
+  background: var(--color-accent-blue-80);
+  color: var(--color-buttons-secondary);
+}
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  position: sticky;
+  top: 10%;
+>>>>>>> ae4ec57387dbf85bc1a5d8369db996671f84db89
 }
 </style>
