@@ -36,7 +36,7 @@
         </select>
       </section>
     </div>
-    <section>
+    <section class="mid-section">
       <h1>Video Overview</h1>
       <article
         class="thumbnail-component"
@@ -168,5 +168,8 @@ h1 {
   padding: 8px 12px;
   border: 1px solid #0080c0;
   border-radius: 5px;
+}
+.mid-section {
+  padding-inline: 1em;
 }
 </style>
