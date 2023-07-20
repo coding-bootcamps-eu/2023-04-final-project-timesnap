@@ -65,6 +65,7 @@ export default {
   text-decoration: none;
   position: sticky;
   top: 0;
+  z-index: 100;
 }
 
 img {

@@ -23,7 +23,7 @@ body {
 }
 
 main {
-  max-width: 80vmax;
+  width: 100%;
   margin: 0 auto;
   display: grid;
   justify-content: center;
