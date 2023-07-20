@@ -84,18 +84,10 @@ export default {
 };
 </script>
 <style scoped>
-p {
-  font-weight: 200;
-  color: var(--color-buttons-primary);
-  line-height: 1.5;
-}
 span {
   font-weight: 400;
 }
 .image {
   height: 12em;
-}
-.video-preview {
-  margin-bottom: 5rem;
 }
 </style>
