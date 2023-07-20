@@ -214,7 +214,7 @@ export default {
         keyTagId: this.getKeyTags(),
         timeStamps: [],
       };
-      fetch("http://localhost:3333/videos", {
+      fetch(`${process.env.VUE_APP_API_URL}/videos`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(newVideo),
@@ -228,7 +228,7 @@ export default {
     getNewMainTopic() {
       if (this.mainTopic === "others") {
         const newGroup = { id: this.newMainTopicId, title: this.newMainTopic };
-        fetch("http://localhost:3333/groups", {
+        fetch(`${process.env.VUE_APP_API_URL}/groups`, {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify(newGroup),
@@ -251,7 +251,7 @@ export default {
           this.newKeyTag3Id
         );
         newKeyTags.forEach((keyTag) => {
-          fetch("http://localhost:3333/keyTags", {
+          fetch(`${process.env.VUE_APP_API_URL}/keyTags`, {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(keyTag),
@@ -262,7 +262,7 @@ export default {
         newKeyTags.push(newKeyTag1, newKeyTag2);
         this.selectedKeyTags.push(this.newKeyTag1Id, this.newKeyTag2Id);
         newKeyTags.forEach((keyTag) => {
-          fetch("http://localhost:3333/keyTags", {
+          fetch(`${process.env.VUE_APP_API_URL}/keyTags`, {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(keyTag),
@@ -273,7 +273,7 @@ export default {
         newKeyTags.push(newKeyTag1);
         this.selectedKeyTags.push(this.newKeyTag1Id);
         newKeyTags.forEach((keyTag) => {
-          fetch("http://localhost:3333/keyTags", {
+          fetch(`${process.env.VUE_APP_API_URL}/keyTags`, {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(keyTag),
@@ -304,8 +304,10 @@ export default {
     },
   },
   async mounted() {
-    const responseGroups = await fetch("http://localhost:3333/groups");
-    const responseKeyTags = await fetch("http://localhost:3333/keyTags");
+    const responseGroups = await fetch(`${process.env.VUE_APP_API_URL}/groups`);
+    const responseKeyTags = await fetch(
+      `${process.env.VUE_APP_API_URL}/keyTags`
+    );
     const groupData = await responseGroups.json();
     console.log(groupData);
     this.groups = groupData;
