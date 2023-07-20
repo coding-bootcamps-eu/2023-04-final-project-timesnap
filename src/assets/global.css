@@ -28,6 +28,23 @@ main {
   justify-content: center;
 }
 
+h1,
+h2,
+h3,
+h4,
+p {
+  font-weight: 300;
+  color: var(--color-buttons-primary);
+}
+
+h2 {
+  margin: 0;
+}
+h3 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
 .thumbnail-component {
   display: flex;
   gap: 2em;
@@ -37,4 +54,9 @@ main {
 
 .addGap span + span {
   margin-left: 0.25em;
+}
+
+p {
+  color: var(--color-buttons-primary);
+  margin: 0;
 }

@@ -17,8 +17,8 @@
   />
   <article>
     <h2 @click="videoDetailId">{{ videoData.title }}</h2>
-    <h3>{{ videoData.creatorName }}</h3>
-    <p>{{ showCreated(videoData.createdAt) }}</p>
+    <p>Video added by: {{ videoData.creatorName }}</p>
+    <p>Video added on: {{ showCreated(videoData.createdAt) }}</p>
     <div>
       <MainTopicComponent :video="videoData" />
       <KeyTagComponent :video="videoData" />
@@ -111,11 +111,7 @@ h2 {
 .video-preview {
   margin-bottom: 5em;
 }
-h3 {
-  margin-bottom: 1em;
-  font-weight: 300;
-  line-height: 1.5;
-}
+
 .video-container {
   border-radius: 1em;
 }

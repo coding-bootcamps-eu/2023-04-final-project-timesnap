@@ -19,7 +19,7 @@
       </select>
     </div>
     <section
-      class="video-preview"
+      class="thumbnail-component"
       v-for="video in filteredVideos"
       :key="video.id"
     >

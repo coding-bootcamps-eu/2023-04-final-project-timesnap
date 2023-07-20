@@ -1,10 +1,12 @@
 <template>
-  <h3>Main Topics:</h3>
-  <p :class="{ addGap: filterdTopics.length > 1 }">
-    <span v-for="(value, id) in filterdTopics" :key="id"
-      >{{ value.title }}
-    </span>
-  </p>
+  <div class="flex">
+    <h3>Main Topic:</h3>
+    <p :class="{ addGap: filterdTopics.length > 1 }">
+      <span v-for="(value, id) in filterdTopics" :key="id"
+        >{{ value.title }}
+      </span>
+    </p>
+  </div>
 </template>
 
 <script>
