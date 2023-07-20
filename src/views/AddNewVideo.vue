@@ -1,14 +1,15 @@
 <template>
-  <main>
+  <main class="main">
     <h1>Add new Video</h1>
     <form @submit.prevent="addNewVideo">
       <div>
-        <label for="creator">Please type in your Name/Alias</label>
-        <input id="creator" type="text" v-model="creatorName" />
+        <label for="creator">Please type in your Name/Alias:</label>
+        <input class="input" id="creator" type="text" v-model="creatorName" />
       </div>
       <div>
         <label for="title"> Enter a Video Title: </label>
         <input
+          class="input"
           type="text"
           name="title"
           id="title"
@@ -23,6 +24,7 @@
         <div>
           <label for="url"> Enter a YouTube Link: </label>
           <input
+            class="input"
             type="url"
             name="url"
             id="url"
@@ -47,7 +49,13 @@
         <fieldset class="video-info--details-maintopic">
           <legend>Select 1 Main Topic:</legend>
 
-          <select name="groupId" id="groupId" v-model="mainTopic">
+          <select
+            class="dropdown"
+            name="groupId"
+            id="groupId"
+            v-model="mainTopic"
+          >
+            <option value="">Alle</option>
             <MainTopicSelector
               v-for="(value, id) in groups"
               :key="id"
@@ -96,6 +104,7 @@
               </div>
               <div v-if="showNewKeyTag1Input">
                 <input
+                  class="keytag-input"
                   type="text"
                   v-model="newKeyTag1"
                   required
@@ -106,6 +115,7 @@
             <div>
               <div v-if="showNewKeyTag1Input" class="newkeytagselector">
                 <input
+                  class="keytag-input"
                   id="newKeyTag1"
                   type="checkbox"
                   v-model="showNewKeyTag2Input"
@@ -114,6 +124,7 @@
               </div>
               <div v-if="showNewKeyTag2Input">
                 <input
+                  class="keytag-input"
                   type="text"
                   v-model="newKeyTag2"
                   required
@@ -124,6 +135,7 @@
             <div>
               <div v-if="showNewKeyTag2Input" class="newkeytagselector">
                 <input
+                  class="keytag-input"
                   id="newKeyTag1"
                   type="checkbox"
                   v-model="showNewKeyTag3Input"
@@ -132,6 +144,7 @@
               </div>
               <div v-if="showNewKeyTag3Input">
                 <input
+                  class="keytag-input"
                   type="text"
                   v-model="newKeyTag3"
                   required
@@ -142,7 +155,12 @@
           </section>
         </fieldset>
       </section>
-      <input id="submit" type="submit" @click="addNewVideo" />
+      <input
+        class="input-submit"
+        id="submit"
+        type="submit"
+        @click="addNewVideo"
+      />
     </form>
   </main>
 </template>
@@ -343,6 +361,33 @@ export default {
 form {
   margin-top: 1em;
 }
+label {
+  margin-bottom: 0.5rem;
+  margin-top: 1em;
+  margin-right: 8px;
+  font-weight: bold;
+  color: #333;
+}
+legend {
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-right: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input {
+  background-color: #fff;
+  color: #0080c0;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: 1px solid #0080c0;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  margin-right: 10px;
+  width: 400px;
+}
+
 .video-info {
   display: flex;
   gap: 2em;
@@ -360,12 +405,9 @@ form {
   width: 20em;
 }
 .video-info--details-keytags {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1em;
-  width: 60vw;
-  padding-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
 }
 
 .newkeytags {
@@ -378,6 +420,15 @@ form {
   gap: 0.25em;
   margin: 1em 0;
 }
+.keytag-input {
+  background-color: #fff;
+  color: #0080c0;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: 1px solid #0080c0;
+  border-radius: 5px;
+  margin-right: 10px;
+}
 .keytagselector {
   display: flex;
   gap: 0.25em;
@@ -385,5 +436,22 @@ form {
 
 #submit {
   margin-top: 1em;
+  background-color: #fff;
+  color: #0080c0;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: 1px solid #0080c0;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  margin-right: 10px;
+}
+.dropdown {
+  background-color: #fff;
+  color: #0080c0;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: 1px solid #0080c0;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 </style>
