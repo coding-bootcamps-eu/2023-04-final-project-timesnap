@@ -1,28 +1,6 @@
 <template>
   <main class="grid-container">
     <div class="filter-container">
-      <label for="mainTopic">Main Topic:</label>
-      <select id="mainTopic" v-model="searchVideos.groupFilter">
-        <option value="">Alle</option>
-        <option
-          v-for="group in searchVideos.groups"
-          :value="group.id"
-          :key="group.id"
-        >
-          {{ group.title }}
-        </option>
-      </select>
-      <label for="tags">Tags:</label>
-      <select id="tags" v-model="searchVideos.tagFilter">
-        <option value="">Alle</option>
-        <option
-          v-for="tag in searchVideos.keyTags"
-          :value="tag.id"
-          :key="tag.id"
-        >
-          {{ tag.tag }}
-        </option>
-      </select>
       <section class="dropdown-wrapper">
         <label class="label" for="mainTopic">Main Topic:</label>
         <select
@@ -67,7 +45,6 @@
       >
         <thumbnail-component
           :videoData="video"
-          :videoWidth="30"
           @video-data-id="videoDetailPage"
         />
       </article>

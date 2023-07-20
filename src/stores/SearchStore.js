@@ -5,7 +5,7 @@ export const useSearchStore = defineStore("searchStore", {
     groups: [],
     videos: [],
     keyTags: [],
-    detailPage: {},
+    detailPage: [],
     currentSearch: "",
     groupFilter: "",
     tagFilter: "",

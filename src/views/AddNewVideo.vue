@@ -194,12 +194,14 @@ export default {
       if (this.newVideo.creatorName === "") {
         this.newVideo.creatorName = "Anonymous";
       }
+      const data = [this.newVideo];
       fetch(`${process.env.VUE_APP_API_URL}/videos`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(this.newVideo),
       });
-      useSearchStore().getVideos();
+      this.searchVideos.getVideos();
+      this.searchVideos.detailPage = data;
       this.$router.push(`/videos/${this.newVideo.id}`);
     },
     getNewMainTopic() {
@@ -221,6 +223,7 @@ export default {
     submitNewTag() {
       if (this.newKeyTag.tag !== "") {
         this.newKeyTag.id = uuidv4();
+        this.newKeyTag.tag = this.formattedKeyTag(this.newKeyTag.tag);
         fetch(`${process.env.VUE_APP_API_URL}/keyTags`, {
           method: "POST",
           headers: { "Content-type": "application/json" },
@@ -234,7 +237,7 @@ export default {
     },
     showThumbnail() {
       this.showThumbnailClicked = !this.showThumbnailClicked;
-      if (this.newVideo.videoUrl.length === 43) {
+      if (this.newVideo.videoUrl.length >= 43) {
         const YouTubeID = this.newVideo.videoUrl
           .split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/)[2]
           .split(/[^0-9a-z_-]/i)[0];

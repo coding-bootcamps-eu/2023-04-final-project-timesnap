@@ -41,7 +41,6 @@
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"
-          :videoWidth="40"
         />
       </section>
     </section>

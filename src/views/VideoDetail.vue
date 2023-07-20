@@ -38,8 +38,6 @@
         :timeStamp="timeStart"
         :getTime="getTime"
         @currentTime="currentTimeData"
-        :videoWidth="960"
-        :videoHeight="540"
       />
       <article>
         <h2>{{ video.title }}</h2>
