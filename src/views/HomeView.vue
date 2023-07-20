@@ -30,7 +30,11 @@
     </article-large>
     <section>
       <h2>Newest Videos</h2>
-      <section class="video-preview" v-for="video in videos" :key="video.id">
+      <section
+        class="thumbnail-component"
+        v-for="video in videos"
+        :key="video.id"
+      >
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"

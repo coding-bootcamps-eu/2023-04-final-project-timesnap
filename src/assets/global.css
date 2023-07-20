@@ -28,10 +28,11 @@ main {
   justify-content: center;
 }
 
-.video-preview {
+.thumbnail-component {
   display: flex;
   gap: 2em;
   justify-content: left;
+  margin: 2em 0;
 }
 
 .addGap span + span {
