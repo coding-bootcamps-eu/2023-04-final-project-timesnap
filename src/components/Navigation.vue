@@ -118,4 +118,7 @@ input[type="search"] {
 a {
   color: white;
 }
+h1 {
+  color: white;
+}
 </style>

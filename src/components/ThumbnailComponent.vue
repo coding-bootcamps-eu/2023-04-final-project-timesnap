@@ -14,10 +14,9 @@
     :videoWidth="videoWidth"
     :videoHeight="videoHeight"
     v-if="PlayerOn"
-    class="videovideo"
   />
   <article>
-    <h2 @click="videoDetailId">{{ videoData.title }}</h2>
+    <h2 @click="videoDetailId" class="clickable">{{ videoData.title }}</h2>
     <p>Video added by: {{ videoData.creatorName }}</p>
     <p>Video added on: {{ showCreated(videoData.createdAt) }}</p>
     <div>
@@ -95,12 +94,6 @@ export default {
 };
 </script>
 <style scoped>
-h2 {
-  font-weight: 200;
-  color: var(--color-buttons-primary);
-  line-height: 1.5;
-  cursor: pointer;
-}
 .video-list {
   display: flex;
   flex-direction: row;
@@ -108,12 +101,5 @@ h2 {
   gap: 1em;
   width: 100em;
   margin-bottom: 5em;
-}
-.video-preview {
-  margin-bottom: 5em;
-}
-
-.media-container {
-  border-radius: 2em;
 }
 </style>

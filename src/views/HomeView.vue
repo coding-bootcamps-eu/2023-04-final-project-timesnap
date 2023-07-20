@@ -31,7 +31,7 @@
     <section>
       <h2>Newest Videos</h2>
       <section
-        class="video-preview"
+        class="thumbnail-component"
         v-for="video in searchVideos.latestVideos"
         :key="video.id"
       >
@@ -84,8 +84,5 @@ span {
 }
 .image {
   height: 12em;
-}
-.video-preview {
-  margin-bottom: 5rem;
 }
 </style>

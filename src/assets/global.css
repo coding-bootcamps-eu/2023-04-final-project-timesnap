@@ -31,6 +31,7 @@ main {
 
 h1 {
   font-weight: 300;
+  color: var(--color-buttons-primary);
 }
 
 h2 {
@@ -56,4 +57,20 @@ p {
   color: var(--color-buttons-primary);
   line-height: 1.5;
   margin: 0;
+}
+iframe {
+  border-radius: 2em;
+}
+.clickable {
+  cursor: pointer;
+}
+
+.thumbnail-component {
+  display: flex;
+  gap: 2em;
+  margin: 2em 0;
+}
+
+.media-container {
+  border-radius: 2em;
 }

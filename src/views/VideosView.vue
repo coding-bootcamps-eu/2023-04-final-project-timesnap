@@ -19,7 +19,7 @@
       </select>
     </div>
     <section
-      class="video-preview"
+      class="thumbnail-component"
       v-for="video in searchVideos.filterResult"
       :key="video.id"
     >
@@ -69,11 +69,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-h1 {
-  margin-bottom: 5rem;
-}
-.video-preview {
-  margin-bottom: 5rem;
-}
-</style>
+<style scoped></style>
