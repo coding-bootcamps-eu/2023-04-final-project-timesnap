@@ -25,6 +25,7 @@ body {
 main {
   width: 100%;
   margin: 0 auto;
+  padding-inline: 2em;
   display: grid;
   justify-content: center;
 }

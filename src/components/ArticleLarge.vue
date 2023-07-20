@@ -1,7 +1,7 @@
 <!-- Contains title, text block, image and if necessary a button -->
 
 <template>
-  <article>
+  <article class="article-container">
     <section>
       <h2>{{ title }}</h2>
       <slot />
@@ -46,5 +46,13 @@ section {
 }
 img {
   border-radius: 2rem;
+}
+.article-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.btn {
+  margin-top: 1em;
 }
 </style>

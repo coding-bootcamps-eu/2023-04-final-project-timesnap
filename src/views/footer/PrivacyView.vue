@@ -6,14 +6,14 @@
         This privacy policy informs you about the nature, scope and the purpose
         of the processing of personal data within our TimeSnap" project.
       </p>
-      <ul>
-        <strong>Responsible entity:</strong>
+      <p><strong>Responsible entity:</strong></p>
+      <ul class="list">
+        <li>
+          <a href="https://github.com/NoahWolters">Noah Wolters</a>
+        </li>
+        <li><a href="http://github.com/urbanitesinaframe">Jimmy Ng</a></li>
+        <li><a href="https://github.com/jstephan087">Julia Stephan</a></li>
       </ul>
-      <li>
-        <a href="https://github.com/NoahWolters">Noah Wolters</a>
-      </li>
-      <li><a href="http://github.com/urbanitesinaframe">Jimmy Ng</a></li>
-      <li><a href="https://github.com/jstephan087">Julia Stephan</a></li>
 
       <p>
         Types of data processed Within the framework of the "TimeSnap" project,
@@ -67,9 +67,21 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin: 1rem;
   font-weight: 200;
   color: var(--color-buttons-primary);
   line-height: 1.5;
+  max-width: 110ch;
+}
+.list {
+  list-style: inside disclosure-closed;
+  padding: 1em;
+}
+
+.list a {
+  padding-left: 0.5em;
+}
+
+p {
+  padding-top: 1em;
 }
 </style>
