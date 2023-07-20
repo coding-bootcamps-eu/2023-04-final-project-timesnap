@@ -55,20 +55,20 @@ h3 {
   margin: 2em 0;
 }
 
-.addGap span + span {
+/*.addGap span + span {
   margin-left: 0.25em;
-}
+}*/
 
 p {
   margin: 0;
   line-height: 1.5em;
 }
 
-.media-container {
-  border-radius: 2em;
-}
 iframe {
   border-radius: 2em;
+  width: 40vmax;
+  height: auto;
+  aspect-ratio: 1.77 / 1;
 }
 
 .clickable {

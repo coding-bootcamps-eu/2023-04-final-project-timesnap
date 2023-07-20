@@ -8,7 +8,6 @@
       @currentTime="sendCurrentTime"
       ref="videoPlayer"
       :videoWidth="videoWidth"
-      :videoHeight="videoHeight"
       class="video-container"
     />
   </div>
@@ -45,9 +44,6 @@ export default {
       type: Boolean,
     },
     videoWidth: {
-      type: Number,
-    },
-    videoHeight: {
       type: Number,
     },
   },
