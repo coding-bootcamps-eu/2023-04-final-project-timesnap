@@ -15,23 +15,19 @@
     :videoHeight="videoHeight"
     v-if="PlayerOn"
   />
-  <article>
-    <h2 @click="videoDetailId" class="clickable">{{ videoData.title }}</h2>
-    <div class="MainTopicKeyTagContainer">
+  <article class="info-container">
+    <section class="subheader">
       <MainTopicComponent :video="videoData" />
       <KeyTagComponent :video="videoData" />
-    </div>
-    <p>
-      Video added: {{ showCreated(videoData.createdAt) }} by
-      {{ videoData.creatorName }}
-    </p>
+    </section>
+    <h2 @click="videoDetailId" class="clickable">{{ videoData.title }}</h2>
   </article>
 </template>
 
 <script>
-import MainTopicComponent from "@/components/MainTopicComponent.vue";
-import KeyTagComponent from "@/components/KeyTagComponent.vue";
-import VideoComponent from "@/components/VideoComponent.vue";
+import MainTopicComponent from "./MainTopicComponent.vue";
+
+import KeyTagComponent from "./KeyTagComponent.vue";
 
 export default {
   data() {
@@ -47,7 +43,6 @@ export default {
   components: {
     MainTopicComponent,
     KeyTagComponent,
-    VideoComponent,
   },
   props: {
     videoData: {
@@ -105,5 +100,21 @@ export default {
 }
 .MainTopicKeyTagContainer {
   margin: 1em 0;
+}
+.subheader {
+  display: flex;
+  font-size: 0.75rem;
+  gap: 2em;
+  justify-content: center;
+  padding-left: 3px;
+}
+h2 {
+  margin-top: 0.25em;
+  font-size: 2em;
+}
+.info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
