@@ -25,6 +25,7 @@
     >
       <thumbnail-component
         :videoData="video"
+        :videoWidth="30"
         @video-data-id="videoDetailPage"
       />
     </section>

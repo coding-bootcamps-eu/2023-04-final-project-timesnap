@@ -1,35 +1,56 @@
 <template>
-  <img
-    :src="ThumbnailId"
-    alt="noalt"
-    width="640"
-    @click.once="loadPlayer"
-    v-if="!PlayerOn"
-    class="media-container"
-  />
-  <VideoComponent
-    :videoUrl="videoData.videoUrl"
-    :videoType="typeSwitch(videoData.videoUrl)"
-    :youtubeVideoId="youtubeGetID(videoData.videoUrl)"
-    :videoWidth="videoWidth"
-    :videoHeight="videoHeight"
-    v-if="PlayerOn"
-  />
+  <section class="media-container">
+    <img
+      :src="ThumbnailId"
+      alt="noalt"
+      @click.once="loadPlayer"
+      v-if="!PlayerOn"
+    />
+    <VideoComponent
+      :videoUrl="videoData.videoUrl"
+      :videoType="typeSwitch(videoData.videoUrl)"
+      :youtubeVideoId="youtubeGetID(videoData.videoUrl)"
+      :videoWidth="videoWidth"
+      v-if="PlayerOn"
+    />
+  </section>
   <article class="info-container">
-    <section class="subheader">
-      <MainTopicComponent :video="videoData" />
+    <section>
+      <MainTopicComponent :video="videoData" class="subheader" />
+
+      <h2 @click="videoDetailId" class="clickable">{{ videoData.title }}</h2>
       <KeyTagComponent :video="videoData" />
     </section>
-    <h2 @click="videoDetailId" class="clickable">{{ videoData.title }}</h2>
+    <p class="creator">
+      added by: {{ videoData.creatorName }} ({{
+        showCreated(videoData.createdAt)
+      }})
+    </p>
   </article>
 </template>
 
 <script>
 import MainTopicComponent from "./MainTopicComponent.vue";
-
 import KeyTagComponent from "./KeyTagComponent.vue";
+import VideoComponent from "./VideoComponent.vue";
 
 export default {
+  name: "VideoBlock",
+  emits: ["video-data-id"],
+  components: {
+    MainTopicComponent,
+    KeyTagComponent,
+    VideoComponent,
+  },
+  props: {
+    videoData: {
+      type: Object,
+      required: true,
+    },
+    videoWidth: {
+      type: String,
+    },
+  },
   data() {
     return {
       ThumbnailId: `https://i.ytimg.com/vi/${this.youtubeGetID(
@@ -37,18 +58,6 @@ export default {
       )}/hq720.jpg`,
       PlayerOn: false,
     };
-  },
-  name: "VideoBlock",
-  emits: ["video-data-id"],
-  components: {
-    MainTopicComponent,
-    KeyTagComponent,
-  },
-  props: {
-    videoData: {
-      type: Object,
-      required: true,
-    },
   },
   computed: {
     filterdKeyTags() {
@@ -105,16 +114,35 @@ export default {
   display: flex;
   font-size: 0.75rem;
   gap: 2em;
-  justify-content: center;
-  padding-left: 3px;
+  justify-content: start;
 }
 h2 {
   margin-top: 0.25em;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 .info-container {
+  margin: 1.5em 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.creator {
+  font-size: smaller;
+  font-style: italic;
+}
+.keyTagComponent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.media-container {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+}
+img {
+  width: 30vmax;
+  border-radius: 2em;
 }
 </style>

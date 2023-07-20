@@ -49,10 +49,10 @@ img {
 }
 
 /* for IE 11 */
-img {
-  max-width: 100%;
+/*img {
+  max-width: 50%;
   height: auto;
-}
+}*/
 
 a {
   text-decoration: none;

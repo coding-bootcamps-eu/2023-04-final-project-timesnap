@@ -1,5 +1,5 @@
 <template>
-  <p :class="{ addGap: filterdKeyTags.length > 1 }">
+  <p :class="{ addGap: filterdKeyTags.length > 1 }" class="keyTagComponent">
     <span v-for="(value, id) in filterdKeyTags" :key="id"
       >#{{ value.tag }}</span
     >
