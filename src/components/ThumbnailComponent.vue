@@ -16,7 +16,7 @@
     v-if="PlayerOn"
   />
   <article>
-    <h2 @click="videoDetailId">{{ videoData.title }}</h2>
+    <h2 @click="videoDetailId" class="clickable">{{ videoData.title }}</h2>
     <div class="MainTopicKeyTagContainer">
       <MainTopicComponent :video="videoData" />
       <KeyTagComponent :video="videoData" />
