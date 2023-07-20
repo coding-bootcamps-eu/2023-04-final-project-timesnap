@@ -29,10 +29,10 @@ export const useSearchStore = defineStore("searchStore", {
   },
   getters: {
     searchResult(state) {
-      const resultTags = state.keyTags.find(
-        (element) =>
-          element.tag.toLocaleLowerCase() ===
-          state.currentSearch.toLocaleLowerCase()
+      const resultTags = state.keyTags.find((element) =>
+        element.tag
+          .toLocaleLowerCase()
+          .includes(state.currentSearch.toLocaleLowerCase())
       );
       const resultGroups = state.groups.find((element) =>
         element.title
@@ -44,21 +44,32 @@ export const useSearchStore = defineStore("searchStore", {
           .toLocaleLowerCase()
           .includes(state.currentSearch.toLocaleLowerCase())
       );
-      if (resultTags) {
-        const keyResult = state.videos.filter((video) =>
-          video.keyTagId.includes(resultTags.id)
-        );
-        return keyResult;
-      } else if (resultVideos) {
-        const videoResult = state.videos.filter((video) =>
-          video.id.includes(resultVideos.id)
-        );
-        return videoResult;
-      } else if (resultGroups) {
-        const groupResult = state.videos.filter((video) =>
-          video.groupId.includes(resultGroups.id)
-        );
-        return groupResult;
+      if (resultTags || resultVideos || resultGroups) {
+        const result = new Set();
+
+        if (resultTags) {
+          const filteredTags = state.videos.filter((video) =>
+            video.keyTagId.includes(resultTags.id)
+          );
+          filteredTags.forEach((video) => result.add(video));
+        }
+
+        if (resultVideos) {
+          const filteredVideos = state.videos.filter((video) =>
+            video.id.includes(resultVideos.id)
+          );
+          filteredVideos.forEach((video) => result.add(video));
+        }
+
+        if (resultGroups) {
+          const filteredGroups = state.videos.filter((video) =>
+            video.groupId.includes(resultGroups.id)
+          );
+          filteredGroups.forEach((video) => result.add(video));
+        }
+        return [...result].sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
       } else {
         return [];
       }
