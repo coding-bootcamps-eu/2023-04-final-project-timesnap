@@ -5,18 +5,22 @@
       title="Set timestamps that matter"
       imgSrc="https://picsum.photos/300/200"
       btnText="noBtn"
+      class="image"
     >
       <p>
         Welcome to TimeSnap. This platform allows you to set your individual
         timestamps on any video. This allows you to jump right to the content
-        that matters to you. As a community based platform you can recommend
-        your own timestamps to the public page.
+        that matters to you. <br />
+        As a community based platform you can recommend your own timestamps to
+        the public page.
       </p>
     </article-large>
+
     <article-large
       title="How to get started"
       imgSrc="https://picsum.photos/300/200?3=1"
       btnText="How to use"
+      class="image"
     >
       <p>
         You don’t need an account to watch the videos provided by the community.
@@ -26,18 +30,25 @@
         search for buzzwords to get to the topic that matters to you the most.
       </p>
     </article-large>
+
     <section>
       <h2>Newest Videos</h2>
-      <section class="video-preview" v-for="video in videos" :key="video.id">
+      <section
+        class="thumbnail-component"
+        v-for="video in searchVideos.latestVideos"
+        :key="video.id"
+      >
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"
+          :videoWidth="40"
         />
       </section>
     </section>
   </main>
 </template>
 <script>
+import { useSearchStore } from "@/stores/SearchStore";
 import ArticleLarge from "@/components/ArticleLarge.vue";
 import ThumbnailComponent from "@/components/ThumbnailComponent.vue";
 
@@ -47,10 +58,11 @@ export default {
     ArticleLarge,
     ThumbnailComponent,
   },
-  data() {
-    return {
-      videos: [],
-    };
+  setup() {
+    const searchVideos = useSearchStore();
+
+    //fetch videos
+    return { searchVideos };
   },
   methods: {
     typeSwitch(value) {
@@ -68,22 +80,13 @@ export default {
       this.$router.push(`/videos/${id}`);
     },
   },
-  async mounted() {
-    const response = await fetch(
-      "http://localhost:3333/videos?_sort=createdAt&_order=desc&_limit=3"
-    );
-    const data = await response.json();
-    this.videos = data;
-  },
 };
 </script>
 <style scoped>
-p {
-  font-weight: 200;
-  color: var(--color-buttons-primary);
-  line-height: 1.5;
-}
 span {
   font-weight: 400;
+}
+.image {
+  height: 12em;
 }
 </style>

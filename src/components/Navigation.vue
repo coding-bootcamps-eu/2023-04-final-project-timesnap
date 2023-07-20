@@ -1,26 +1,53 @@
 <template>
   <header class="top-header">
-    <figure class="timesnap-logo">
+    <figure class="timesnap-logo" @click="redirectHome">
       <img src="https://picsum.photos/50/50" alt="" />
       <h1>Timesnap</h1>
     </figure>
-    <div class="search">
+    <form class="search" @submit.prevent="searchResult">
       <!-- Input noch ohne Funktion und focus styling -->
-      <input type="search" name="" placeholder="Search" />
+      <input type="search" v-model="searchInput" placeholder="Search" />
       <button type="submit" class="btn--search"></button>
-    </div>
+    </form>
     <nav class="main-nav">
-      <router-link :to="{ name: 'home' }">Home</router-link>
-      <router-link :to="{ name: 'videos' }">Videos</router-link>
-      <router-link :to="{ name: 'faq' }">FAQ</router-link>
-      <router-link :to="{ name: 'about' }">About</router-link>
+      <router-link class="nav-link" :to="{ name: 'home' }">Home</router-link>
+      <router-link class="nav-link" :to="{ name: 'videos' }"
+        >Videos</router-link
+      >
+      <router-link class="nav-link" :to="{ name: 'faq' }">FAQ</router-link>
+      <router-link class="nav-link" :to="{ name: 'about' }">About</router-link>
     </nav>
   </header>
 </template>
 
 <script>
+import { useSearchStore } from "@/stores/SearchStore";
 export default {
   name: "NavComp",
+  data() {
+    return {
+      searchInput: "",
+    };
+  },
+  setup() {
+    const searchVideos = useSearchStore();
+
+    //fetch videos
+    return { searchVideos };
+  },
+  methods: {
+    searchResult() {
+      useSearchStore().currentSearch = this.searchInput;
+      this.$router.push({
+        path: "/search-result",
+        query: { search: this.searchInput },
+      });
+      this.searchInput = "";
+    },
+    redirectHome() {
+      this.$router.push(`/`);
+    },
+  },
 };
 </script>
 
@@ -36,6 +63,9 @@ export default {
   margin-bottom: 2em;
   background: var(--color-buttons-primary);
   text-decoration: none;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 img {
@@ -49,6 +79,7 @@ img {
   gap: 1em;
   color: white;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .search {
@@ -92,7 +123,14 @@ input[type="search"] {
   color: white;
 }
 
+.main-nav .nav-link:hover {
+  color: #ad7b8f;
+  border-radius: 5px;
+}
 a {
+  color: white;
+}
+h1 {
   color: white;
 }
 </style>

@@ -1,39 +1,64 @@
 <template>
-  <main>
-    <h1>Video Overview</h1>
-    <default-btn btnText="add new video" @click="openAddVideoPage" />
+  <main class="grid-container">
     <div class="filter-container">
-      <label for="mainTopic">Main Topic:</label>
-      <select id="mainTopic" v-model="selectedMainTopic" @change="applyFilters">
-        <option value="">Alle</option>
-        <option v-for="group in groups" :value="group.id" :key="group.id">
-          {{ group.title }}
-        </option>
-      </select>
-      <label for="tags">Tags:</label>
-      <select id="tags" v-model="selectedTag" @change="applyFilters">
-        <option value="">Alle</option>
-        <option v-for="tag in keyTags" :value="tag.id" :key="tag.id">
-          {{ tag.tag }}
-        </option>
-      </select>
+      <section class="dropdown-wrapper">
+        <label class="label" for="mainTopic">Main Topic:</label>
+        <select
+          class="dropdown"
+          id="mainTopic"
+          v-model="searchVideos.groupFilter"
+          @change="applyFilters"
+        >
+          <option value="">Alle</option>
+          <option
+            v-for="group in searchVideos.groups"
+            :value="group.id"
+            :key="group.id"
+          >
+            {{ group.title }}
+          </option>
+        </select>
+        <label class="label" for="tags">Tags:</label>
+        <select
+          class="dropdown"
+          id="tags"
+          v-model="searchVideos.tagFilter"
+          @change="applyFilters"
+        >
+          <option value="">Alle</option>
+          <option
+            v-for="tag in searchVideos.keyTags"
+            :value="tag.id"
+            :key="tag.id"
+          >
+            {{ tag.tag }}
+          </option>
+        </select>
+      </section>
     </div>
-    <section
-      class="video-preview"
-      v-for="video in filteredVideos"
-      :key="video.id"
-    >
-      <thumbnail-component
-        :videoData="video"
-        @video-data-id="videoDetailPage"
-      />
+    <section>
+      <h1>Video Overview</h1>
+      <article
+        class="thumbnail-component"
+        v-for="video in searchVideos.filterResult"
+        :key="video.id"
+      >
+        <thumbnail-component
+          :videoData="video"
+          :videoWidth="30"
+          @video-data-id="videoDetailPage"
+        />
+      </article>
+    </section>
+    <section class="btn-container">
+      <default-btn id="btn" btnText="add new video" @click="openAddVideoPage" />
     </section>
   </main>
 </template>
 
 <script>
+import { useSearchStore } from "@/stores/SearchStore";
 import ThumbnailComponent from "@/components/ThumbnailComponent.vue";
-
 import DefaultBtn from "@/components/DefaultBtn.vue";
 
 export default {
@@ -42,15 +67,11 @@ export default {
     ThumbnailComponent,
     DefaultBtn,
   },
-  data() {
-    return {
-      videos: [],
-      filteredVideos: [],
-      selectedMainTopic: "",
-      selectedTag: "",
-      groups: [],
-      keyTags: [],
-    };
+  setup() {
+    const searchVideos = useSearchStore();
+
+    //fetch videos
+    return { searchVideos };
   },
   methods: {
     typeSwitch(value) {
@@ -70,39 +91,82 @@ export default {
     openAddVideoPage() {
       this.$router.push(`/add-new-video`);
     },
-    applyFilters() {
-      this.filteredVideos = this.videos.filter((video) => {
-        const groupIds = video.groupId;
-        const tagIds = video.keyTagId;
-        const mainTopicFilter =
-          this.selectedMainTopic === "" ||
-          groupIds.includes(this.selectedMainTopic) ||
-          video.id === this.selectedMainTopic;
-
-        const tagFilter =
-          this.selectedTag === "" || tagIds.includes(this.selectedTag);
-
-        return mainTopicFilter && tagFilter;
-      });
-    },
-  },
-  async mounted() {
-    try {
-      const responseVideos = await fetch("http://localhost:3333/videos");
-      const responsekeyTags = await fetch("http://localhost:3333/keyTags");
-      const responseGroups = await fetch("http://localhost:3333/groups");
-
-      const dataVideos = await responseVideos.json();
-      const dataKeyTags = await responsekeyTags.json();
-      const dataGroups = await responseGroups.json();
-
-      this.videos = dataVideos;
-      this.filteredVideos = dataVideos;
-      this.keyTags = dataKeyTags;
-      this.groups = dataGroups;
-    } catch (error) {
-      console.error("Fehler beim Abrufen der Videos:", error);
-    }
   },
 };
 </script>
+<style scoped>
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  position: relative;
+}
+.filter-container {
+  display: grid;
+  justify-items: start;
+  margin-left: 1.5rem;
+}
+
+.dropdown-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 20px;
+  max-height: 100px;
+
+  position: relative;
+}
+
+.dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+h1 {
+  margin-bottom: 3rem;
+}
+.btn {
+  background: var(--color-accent-red-80);
+  color: var(--color-buttons-secondary);
+  border: none;
+  max-width: 200px;
+  position: relative;
+}
+.btn:hover {
+  background: var(--color-accent-blue-80);
+  color: var(--color-buttons-secondary);
+  position: relative;
+}
+.btn-container {
+  display: grid;
+  justify-content: 1fr auto;
+  position: sticky;
+  top: 180px;
+  max-height: 50px;
+  z-index: 100;
+  padding-right: 1.5rem;
+}
+.video-preview {
+  margin-bottom: 5rem;
+}
+
+.label {
+  font-weight: bold;
+  color: #2c3c54;
+  margin-bottom: 0.5rem;
+}
+.dropdown {
+  background-color: #fff;
+  color: #0080c0;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: 1px solid #0080c0;
+  border-radius: 5px;
+  max-width: 200px;
+  margin-bottom: 1.5rem;
+}
+.dropdown option {
+  background-color: #fff;
+  color: #2c3c54;
+  padding: 8px 12px;
+  border: 1px solid #0080c0;
+  border-radius: 5px;
+}
+</style>
