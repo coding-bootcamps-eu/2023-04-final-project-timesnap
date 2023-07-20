@@ -2,7 +2,7 @@
   <main>
     <h1>Search Results</h1>
     <section
-      class="video-preview"
+      class="thumbnail-component"
       v-for="video in searchVideos.searchResult"
       :key="video.id"
     >
