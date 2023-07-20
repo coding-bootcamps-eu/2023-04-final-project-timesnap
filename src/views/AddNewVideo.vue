@@ -297,7 +297,7 @@ export default {
         const YouTubeID = this.url
           .split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/)[2]
           .split(/[^0-9a-z_-]/i)[0];
-        this.ThumbnailUrl = `https://i.ytimg.com/vi/${YouTubeID}/sddefault.jpg`;
+        this.ThumbnailUrl = `https://i.ytimg.com/vi/${YouTubeID}/hq720.jpg`;
       } else {
         this.ThumbnailUrl = "";
       }
