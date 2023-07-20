@@ -34,6 +34,7 @@
       title="Add a new video"
       imgSrc="https://picsum.photos/300/200?3=3"
       btnText="Add New Video"
+      @triggerRedirect="handleRedirect()"
     >
       <p>
         Still not found what you've been looking for? <br />
@@ -74,7 +75,15 @@
     </article-large>
   </main>
 </template>
-
+<script>
+export default {
+  methods: {
+    handleRedirect() {
+      this.$router.push(`/add-new-video`);
+    },
+  },
+};
+</script>
 <style scoped>
 main {
   max-width: 110ch;
