@@ -6,14 +6,22 @@
       <label for="mainTopic">Main Topic:</label>
       <select id="mainTopic" v-model="selectedMainTopic" @change="applyFilters">
         <option value="">Alle</option>
-        <option v-for="group in groups" :value="group.id" :key="group.id">
+        <option
+          v-for="group in searchVideos.groups"
+          :value="group.id"
+          :key="group.id"
+        >
           {{ group.title }}
         </option>
       </select>
       <label for="tags">Tags:</label>
       <select id="tags" v-model="selectedTag" @change="applyFilters">
         <option value="">Alle</option>
-        <option v-for="tag in keyTags" :value="tag.id" :key="tag.id">
+        <option
+          v-for="tag in searchVideos.keyTags"
+          :value="tag.id"
+          :key="tag.id"
+        >
           {{ tag.tag }}
         </option>
       </select>
