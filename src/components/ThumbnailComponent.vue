@@ -134,7 +134,7 @@ h2 {
 .keyTagComponent {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5em;
+  column-gap: 0.5em;
 }
 .media-container {
   max-width: 100%;
