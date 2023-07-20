@@ -6,6 +6,7 @@
     @click.once="loadPlayer"
     v-if="!PlayerOn"
     class="media-container"
+    class="media-container"
   />
   <VideoComponent
     :videoUrl="videoData.videoUrl"
@@ -17,12 +18,14 @@
   />
   <article>
     <h2 @click="videoDetailId" class="clickable">{{ videoData.title }}</h2>
-    <p>Video added by: {{ videoData.creatorName }}</p>
-    <p>Video added on: {{ showCreated(videoData.createdAt) }}</p>
-    <div>
+    <div class="MainTopicKeyTagContainer">
       <MainTopicComponent :video="videoData" />
       <KeyTagComponent :video="videoData" />
     </div>
+    <p>
+      Video added: {{ showCreated(videoData.createdAt) }} by
+      {{ videoData.creatorName }}
+    </p>
   </article>
 </template>
 
@@ -81,8 +84,7 @@ export default {
         .split("-")
         .reverse()
         .join(".");
-      let timeCreate = value.match(/\d{2}:\d{2}/g);
-      return dateCreate + " - " + timeCreate;
+      return dateCreate;
     },
     videoDetailId() {
       this.$emit("video-data-id", this.videoData.id);
@@ -101,5 +103,8 @@ export default {
   gap: 1em;
   width: 100em;
   margin-bottom: 5em;
+}
+.MainTopicKeyTagContainer {
+  margin: 1em 0;
 }
 </style>

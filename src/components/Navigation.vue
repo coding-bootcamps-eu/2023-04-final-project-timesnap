@@ -42,6 +42,9 @@ export default {
       });
       this.searchInput = "";
     },
+    redirectHome() {
+      this.$router.push(`/`);
+    },
   },
 };
 </script>
