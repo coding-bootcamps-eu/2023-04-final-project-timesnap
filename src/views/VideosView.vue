@@ -126,8 +126,8 @@ h1 {
   background: var(--color-accent-red-80);
   color: var(--color-buttons-secondary);
   border: none;
-  max-width: 200px;
-  position: relative;
+  min-width: max-content;
+  padding: 0.5em 1em;
 }
 .btn:hover {
   background: var(--color-accent-blue-80);
@@ -135,13 +135,11 @@ h1 {
   position: relative;
 }
 .btn-container {
-  display: grid;
-  justify-content: 1fr auto;
-  position: sticky;
-  top: 180px;
+  position: fixed;
+  right: 0;
   max-height: 50px;
-  z-index: 100;
-  padding-right: 1.5rem;
+  padding-right: 2em;
+  z-index: 10;
 }
 .video-preview {
   margin-bottom: 5rem;
