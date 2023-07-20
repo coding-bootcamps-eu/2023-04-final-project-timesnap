@@ -33,6 +33,9 @@
   </main>
 </template>
 <style scoped>
+main {
+  max-width: 110ch;
+}
 section {
   display: flex;
   flex-direction: column;
