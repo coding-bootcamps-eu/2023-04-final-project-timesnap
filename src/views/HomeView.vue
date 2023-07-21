@@ -39,6 +39,7 @@
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"
+          @search-tag="searchResult"
         />
       </section>
     </section>
@@ -78,6 +79,13 @@ export default {
         (video) => video.id === id
       );
       this.$router.push(`/videos/${id}`);
+    },
+    searchResult(value) {
+      useSearchStore().currentSearch = value;
+      this.$router.push({
+        path: "/search-result",
+        query: { search: value },
+      });
     },
   },
 };

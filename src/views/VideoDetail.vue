@@ -43,7 +43,7 @@
         <section class="video-main-info">
           <MainTopicComponent :video="video" />
           <h2>{{ video.title }}</h2>
-          <KeyTagComponent :video="video" />
+          <KeyTagComponent :video="video" @search-tag="searchResult" />
         </section>
         <template v-for="(comment, id) in showComment()" v-bind:key="id">
           <StampNoteComponent
@@ -171,6 +171,13 @@ export default {
         (p, c) => Math.abs(p * 60) + Math.abs(c * 1)
       );
       return timeInSeconds;
+    },
+    searchResult(value) {
+      useSearchStore().currentSearch = value;
+      this.$router.push({
+        path: "/search-result",
+        query: { search: value },
+      });
     },
     updateStampTitle(value) {
       this.newTimeStamp.stampTitle = value;

@@ -19,7 +19,7 @@
       <MainTopicComponent :video="videoData" class="subheader" />
 
       <h2 @click="videoDetailId" class="clickable">{{ videoData.title }}</h2>
-      <KeyTagComponent :video="videoData" />
+      <KeyTagComponent :video="videoData" @search-tag="searchKeytag" />
     </section>
     <p class="creator">
       added by: {{ videoData.creatorName }} ({{
@@ -36,7 +36,7 @@ import VideoComponent from "./VideoComponent.vue";
 
 export default {
   name: "VideoBlock",
-  emits: ["video-data-id"],
+  emits: ["video-data-id", "search-tag"],
   components: {
     MainTopicComponent,
     KeyTagComponent,
@@ -94,6 +94,9 @@ export default {
     },
     loadPlayer() {
       this.PlayerOn = !this.PlayerOn;
+    },
+    searchKeytag(tag) {
+      this.$emit("search-tag", tag);
     },
   },
 };

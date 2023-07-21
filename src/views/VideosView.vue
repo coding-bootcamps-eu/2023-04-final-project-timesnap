@@ -46,6 +46,7 @@
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"
+          @search-tag="searchResult"
         />
       </article>
     </section>
@@ -92,6 +93,13 @@ export default {
     },
     openAddVideoPage() {
       this.$router.push(`/add-new-video`);
+    },
+    searchResult(value) {
+      useSearchStore().currentSearch = value;
+      this.$router.push({
+        path: "/search-result",
+        query: { search: value },
+      });
     },
   },
 };
