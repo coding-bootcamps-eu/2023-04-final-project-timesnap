@@ -2,32 +2,21 @@
   <main class="main">
     <h1>Add new Video</h1>
     <form @submit.prevent="addNewVideo">
-      <div>
-        <label for="creator">Please type in your Name/Alias</label>
-        <input
-          class="input"
-          id="creator"
-          type="text"
-          v-model="newVideo.creatorName"
-        />
-      </div>
-      <div>
-        <label for="title"> Enter a Video Title: </label>
-        <input
-          class="input"
-          type="text"
-          name="title"
-          id="title"
-          placeholder="Please add a Video Title"
-          size="30"
-          minlength="3"
-          required
-          v-model="newVideo.title"
-        />
-      </div>
-      <section>
-        <div>
-          <label for="url"> Enter a YouTube Link: </label>
+      <section class="video-info">
+        <fieldset>
+          <label for="title">Video Title</label>
+          <input
+            class="input"
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Please add a Video Title"
+            size="30"
+            minlength="3"
+            required
+            v-model="newVideo.title"
+          />
+          <label for="url">YouTube Link</label>
           <input
             class="input"
             type="url"
@@ -40,20 +29,25 @@
             v-model="newVideo.videoUrl"
             @blur="showThumbnail"
           />
-        </div>
 
-        <img
-          v-if="newVideo.videoUrl !== ''"
-          :src="ThumbnailUrl"
-          alt="Seems like your Link is wrong"
-          width="200"
-        />
-      </section>
-
-      <section class="video-info--details">
-        <fieldset class="video-info--details-maintopic">
-          <legend>Select 1 Main Topic:</legend>
-
+          <figure>
+            <img
+              v-if="newVideo.videoUrl !== ''"
+              :src="ThumbnailUrl"
+              alt="Seems like your Link is wrong"
+              width="400"
+            />
+          </figure>
+        </fieldset>
+        <fieldset>
+          <label for="creator">Please type in your Name/Alias</label>
+          <input
+            class="input"
+            id="creator"
+            type="text"
+            v-model="newVideo.creatorName"
+          />
+          <label for="groupId">Main Topic</label>
           <select
             class="dropdown"
             name="groupId"
@@ -68,9 +62,10 @@
             />
             <option>others</option>
           </select>
-          <div v-if="newVideo.groupId === 'others'">
+          <template v-if="newVideo.groupId === 'others'">
             <label for="newMainTopic">Type in a new Main Topic</label>
             <input
+              class="input"
               type="text"
               id="newMainTopic"
               placeholder="Please be specific"
@@ -79,12 +74,15 @@
               v-model="newMainTopic.title"
               required
             />
-          </div>
+          </template>
         </fieldset>
-        <fieldset>
-          <legend>
-            Select the tags that best describes the content of your Video:
-          </legend>
+      </section>
+      <!-- Keytags Section -->
+      <fieldset class="keytag-section">
+        <legend>
+          Select the tags that best describes the content of your Video
+        </legend>
+        <section class="keytag-select">
           <div class="video-info--details-keytags">
             <KeyTagSelector
               v-for="(value, id) in searchVideos.keyTags"
@@ -96,33 +94,34 @@
               required
             />
           </div>
-          <section>
-            <div class="newkeytagselector">
-              <input
-                class="keytag-input"
-                id="newKeyTag1"
-                type="checkbox"
-                v-model="showkeyTagInput"
-              />
-              <label for="newKeyTag1">Check to add new Tag</label>
-            </div>
-            <form
-              v-if="showkeyTagInput"
-              @submit.prevent="submitNewTag"
-              class="add-tags"
-            >
-              <input
-                class="keytag-input"
-                type="text"
-                v-model="newKeyTag.tag"
-                required
-                placeholder="type in new Tag"
-              />
-              <input type="submit" value="Add Tag" />
-            </form>
-          </section>
-        </fieldset>
-      </section>
+        </section>
+        <section class="new-key-tag-selector">
+          <div class="new-tag-check">
+            <input
+              class="input"
+              id="newKeyTag1"
+              type="checkbox"
+              v-model="showkeyTagInput"
+            />
+            <label for="newKeyTag1">Check to add new Tag</label>
+          </div>
+          <form
+            v-if="showkeyTagInput"
+            @submit.prevent="submitNewTag"
+            class="add-tags"
+          >
+            <input
+              class="input"
+              type="text"
+              v-model="newKeyTag.tag"
+              required
+              placeholder="type in new Tag"
+            />
+            <input type="submit" value="Add Tag" id="add-tag" />
+          </form>
+        </section>
+      </fieldset>
+
       <input
         class="input-submit"
         id="submit"
@@ -267,50 +266,57 @@ export default {
 };
 </script>
 <style scoped>
+main {
+  width: 110ch;
+  justify-content: inherit;
+}
 form {
   margin-top: 1em;
 }
-label {
-  margin-bottom: 0.5rem;
-  margin-top: 1em;
-  margin-right: 8px;
-  font-weight: bold;
-  color: #333;
-}
-legend {
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
-  margin-right: 8px;
-  font-weight: bold;
-  color: #333;
-}
-
-.input {
-  background-color: #fff;
-  color: #0080c0;
-  padding: 8px 12px;
-  cursor: pointer;
-  border: 1px solid #0080c0;
-  border-radius: 5px;
-  margin-bottom: 0.5rem;
-  margin-right: 10px;
-  width: 400px;
-}
-.keytag-input {
-  background-color: #fff;
-  color: #0080c0;
-  padding: 8px 12px;
-  cursor: pointer;
-  border: 1px solid #0080c0;
-  border-radius: 5px;
-  margin-bottom: 0.5rem;
-}
 
 .video-info {
-  display: flex;
-  gap: 2em;
-  margin: 2em 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3em;
+  margin-bottom: 2em;
 }
+
+.video-info input,
+.video-info select {
+  width: 100%;
+  padding: 0.5em;
+}
+
+label {
+  font-weight: bold;
+  color: #333;
+  margin: 1em 0 0.5em;
+}
+
+legend {
+  font-weight: bold;
+  color: #333;
+  margin: 1em 0 1em;
+}
+
+figure {
+  margin: 1em 0;
+}
+
+.input,
+.keytag-select {
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  border: 1px solid #0080c0;
+  border-radius: 5px;
+}
+
+.keytag-select {
+  padding: 2em;
+  color: #333;
+}
+
 .video-info--details {
   display: flex;
   flex-direction: column;
@@ -320,12 +326,11 @@ legend {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  width: 20em;
 }
 .video-info--details-keytags {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  grid-gap: 1em;
 }
 
 .add-tags {
@@ -337,11 +342,39 @@ legend {
   padding: 0.25em 1em;
 }
 
-.newkeytagselector {
-  display: flex;
-  gap: 0.25em;
-  margin: 1em 0;
+.add-tags input[type="text"] {
+  padding: 0.5em;
 }
+
+.new-key-tag-selector {
+  display: flex;
+  gap: 2em;
+  margin: 0 0 1.5em;
+  align-content: center;
+  align-items: center;
+}
+
+.new-key-tag-selector > input {
+  padding: 1em;
+  margin: 0 1em;
+}
+
+.new-key-tag-selector label {
+  margin: 1.85em 0 0.5em;
+}
+
+.new-key-tag-selector > div input[type="checkbox"] {
+  width: 1em;
+  margin: 1.85em 0 0.5em;
+}
+
+.new-tag-check {
+  display: flex;
+  gap: 1em;
+  align-content: center;
+  margin-left: 0.5em;
+}
+
 .keytag-input {
   background-color: #fff;
   color: #0080c0;
@@ -350,25 +383,31 @@ legend {
   border-radius: 5px;
   margin-right: 10px;
 }
-.keytagselector {
+.keytag-selector {
   display: flex;
-  gap: 0.25em;
+  gap: 1em;
 }
 
 #submit {
   margin-top: 1em;
-  background-color: #fff;
-  color: #0080c0;
-  padding: 8px 12px;
+  padding: 0.85em 1.5em;
+  border-radius: 1em;
+  background: var(--color-accent-blue-100);
+  color: var(--color-bg);
   cursor: pointer;
-  border: 1px solid #0080c0;
-  border-radius: 5px;
-  margin-bottom: 0.5rem;
-  margin-right: 10px;
+  border: none;
 }
+
+#add-tag {
+  padding: 0.25em 2em;
+  border-radius: 1em;
+  cursor: pointer;
+  border: none;
+}
+
 .dropdown {
   background-color: #fff;
-  color: #0080c0;
+  color: #333;
   padding: 8px 12px;
   cursor: pointer;
   border: 1px solid #0080c0;

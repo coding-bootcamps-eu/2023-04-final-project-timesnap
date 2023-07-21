@@ -30,7 +30,7 @@
       />
     </section>
 
-    <section>
+    <section class="video-section">
       <VideoComponent
         :videoUrl="video.videoUrl"
         :videoType="typeSwitch(video.videoUrl)"
@@ -39,12 +39,12 @@
         :getTime="getTime"
         @currentTime="currentTimeData"
       />
-      <article>
-        <h2>{{ video.title }}</h2>
-
-        <MainTopicComponent :video="video" />
-
-        <KeyTagComponent :video="video" />
+      <article class="video-info">
+        <section class="video-main-info">
+          <MainTopicComponent :video="video" />
+          <h2>{{ video.title }}</h2>
+          <KeyTagComponent :video="video" />
+        </section>
         <template v-for="(comment, id) in showComment()" v-bind:key="id">
           <StampNoteComponent
             v-if="showTimeStamp"
@@ -232,9 +232,13 @@ export default {
 </script>
 
 <style scoped>
+main {
+  width: auto;
+}
+
 .video-details {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 3fr 15ch;
   grid-gap: 0 4em;
   margin: 3em 4em;
 }
@@ -278,6 +282,14 @@ export default {
 
 .table-item__title {
   width: 25%;
+}
+
+.video-main-info {
+  margin: 1em 0;
+}
+
+.video-main-info h2 {
+  margin-top: 0.25em;
 }
 
 .comments {

@@ -1,5 +1,5 @@
 <template>
-  <div class="keytagselector">
+  <div class="keytag-selector">
     <input type="checkbox" :id="id" :name="id" :value="value" v-model="model" />
     <label :for="id">{{ tag }}</label>
   </div>
@@ -27,3 +27,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.keytag-selector input[type="checkbox"] {
+  width: 1em;
+}
+</style>
