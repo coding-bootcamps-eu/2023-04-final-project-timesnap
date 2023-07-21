@@ -2,7 +2,7 @@
   <div class="table-item__table">
     <h4>{{ timeStart }}</h4>
     <h3>{{ stampTitle }}</h3>
-    <p v-html="formattedText"></p>
+    <p>{{ stampNote }}</p>
   </div>
 </template>
 <script>
@@ -11,16 +11,6 @@ export default {
     timeStart: undefined,
     stampTitle: String,
     stampNote: String,
-  },
-  computed: {
-    formattedText() {
-      return this.lineBreak(this.stampNote);
-    },
-  },
-  methods: {
-    lineBreak(text) {
-      return text.replace(/\n/g, "<br>");
-    },
   },
 };
 </script>
