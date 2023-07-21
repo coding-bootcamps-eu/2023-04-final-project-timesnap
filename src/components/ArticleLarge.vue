@@ -5,21 +5,14 @@
     <section>
       <h2>{{ title }}</h2>
       <slot />
-      <DefaultBtn
-        v-if="btnText !== 'noBtn'"
-        :btnText="btnText"
-        @click="triggerRedirect"
-      />
+      <DefaultBtn v-if="btnText !== 'noBtn'" :btnText="btnText" />
     </section>
-    <section class="image-container">
-      <img v-if="imgSrc !== undefined" :src="imgSrc" alt="" />
-    </section>
+    <img v-if="imgSrc !== undefined" :src="imgSrc" alt="" />
   </article>
 </template>
 <script>
 import DefaultBtn from "@/components/DefaultBtn.vue";
 export default {
-  emits: ["triggerRedirect"],
   components: {
     DefaultBtn,
   },
@@ -37,16 +30,11 @@ export default {
       required: true,
     },
   },
-  methods: {
-    triggerRedirect() {
-      this.$emit("triggerRedirect");
-    },
-  },
 };
 </script>
 <style scoped>
 article {
-  margin: 2rem auto;
+  margin: 5rem auto;
   display: flex;
   gap: 2rem;
 }
@@ -66,11 +54,5 @@ img {
 }
 .btn {
   margin-top: 1em;
-}
-.image-container {
-  display: flex;
-  justify-content: center;
-  max-width: 25vmax;
-  border-radius: 2em;
 }
 </style>
