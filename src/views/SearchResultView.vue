@@ -9,6 +9,7 @@
       <thumbnail-component
         :videoData="video"
         @video-data-id="videoDetailPage"
+        :videoWidth="30"
       />
     </section>
   </main>

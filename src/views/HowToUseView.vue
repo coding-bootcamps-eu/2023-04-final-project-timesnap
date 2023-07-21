@@ -5,7 +5,7 @@
     </div>
     <article-large
       title="How to get started"
-      imgSrc="https://picsum.photos/300/200?3=1"
+      :imgSrc="require('@/assets/media/howtouse-click.jpg')"
       btnText="noBtn"
     >
       <p>
@@ -19,7 +19,7 @@
     </article-large>
     <article-large
       title="Using the search bar"
-      imgSrc="https://picsum.photos/300/200?3=2"
+      :imgSrc="require('@/assets/media/search-results.jpg')"
       btnText="noBtn"
     >
       <p>
@@ -32,7 +32,7 @@
     </article-large>
     <article-large
       title="Add a new video"
-      imgSrc="https://picsum.photos/300/200?3=3"
+      :imgSrc="require('@/assets/media/add-new-video.jpg')"
       btnText="Add New Video"
       @triggerRedirect="handleRedirect()"
     >
@@ -47,7 +47,7 @@
     </article-large>
     <article-large
       title="How do I use the time stamps?"
-      imgSrc="https://picsum.photos/300/200?3=5"
+      :imgSrc="require('@/assets/media/use-timestamp.jpg')"
       btnText="noBtn"
     >
       <p>
@@ -59,7 +59,7 @@
     </article-large>
     <article-large
       title="Your own timestamps make the community better"
-      imgSrc="https://picsum.photos/300/200?3=4"
+      :imgSrc="require('@/assets/media/add-timestamp.jpg')"
       btnText="noBtn"
     >
       <p>
@@ -90,5 +90,8 @@ main {
 }
 span {
   font-weight: 400;
+}
+.btn {
+  border: none;
 }
 </style>

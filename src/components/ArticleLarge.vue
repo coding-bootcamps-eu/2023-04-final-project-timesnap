@@ -46,7 +46,7 @@ export default {
 </script>
 <style scoped>
 article {
-  margin: 5rem auto;
+  margin: 2rem auto;
   display: flex;
   gap: 2rem;
 }
@@ -71,5 +71,6 @@ img {
   display: flex;
   justify-content: center;
   max-width: 25vmax;
+  border-radius: 2em;
 }
 </style>
