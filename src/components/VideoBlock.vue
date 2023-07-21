@@ -3,6 +3,8 @@
     :videoUrl="videoData.videoUrl"
     :videoType="typeSwitch(videoData.videoUrl)"
     :youtubeVideoId="youtubeGetID(videoData.videoUrl)"
+    :videoWidth="videoWidth"
+    :videoHeight="videoHeight"
   />
   <article>
     <h2 @click="videoDetailId" class="video-title">{{ videoData.title }}</h2>
@@ -10,7 +12,7 @@
     <p>{{ showCreated(videoData.createdAt) }}</p>
     <div>
       <MainTopicComponent :video="videoData" />
-      <KeyTagComponent :video="videoData" @search-tag="searchResult" />
+      <KeyTagComponent :video="videoData" />
     </div>
   </article>
 </template>
@@ -19,7 +21,6 @@
 import VideoComponent from "@/components/VideoComponent.vue";
 import MainTopicComponent from "@/components/MainTopicComponent.vue";
 import KeyTagComponent from "@/components//KeyTagComponent.vue";
-import { useSearchStore } from "@/stores/SearchStore";
 
 export default {
   name: "VideoBlock",
@@ -34,12 +35,9 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  setup() {
-    const searchVideos = useSearchStore();
-
-    //fetch videos
-    return { searchVideos };
+    videoWidth: {
+      type: undefined,
+    },
   },
   computed: {
     filterdKeyTags() {
@@ -74,13 +72,6 @@ export default {
     },
     videoDetailId() {
       this.$emit("video-data-id", this.videoData.id);
-    },
-    searchResult(value) {
-      useSearchStore().currentSearch = value;
-      this.$router.push({
-        path: "/search-result",
-        query: { search: value },
-      });
     },
   },
 };

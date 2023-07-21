@@ -1,11 +1,9 @@
 import { defineStore } from "pinia";
-
 export const useSearchStore = defineStore("searchStore", {
   state: () => ({
     groups: [],
     videos: [],
     keyTags: [],
-    detailPage: [],
     currentSearch: "",
     groupFilter: "",
     tagFilter: "",
@@ -14,28 +12,19 @@ export const useSearchStore = defineStore("searchStore", {
   actions: {
     async getVideos() {
       this.loading = true;
-      const groupResponse = await fetch(
-        `${process.env.VUE_APP_API_URL}/groups`
-      );
+      const groupResponse = await fetch("http://localhost:3333/groups");
       const groupData = await groupResponse.json();
 
-      const videoResponse = await fetch(
-        `${process.env.VUE_APP_API_URL}/videos`
-      );
+      const videoResponse = await fetch("http://localhost:3333/videos");
       const videoData = await videoResponse.json();
 
-      const keyTagResponse = await fetch(
-        `${process.env.VUE_APP_API_URL}/keyTags`
-      );
+      const keyTagResponse = await fetch("http://localhost:3333/keyTags");
       const keyTagData = await keyTagResponse.json();
 
       this.groups = groupData;
       this.videos = videoData;
       this.keyTags = keyTagData;
       this.loading = false;
-    },
-    getCurrentTime() {
-      return new Date().toISOString();
     },
   },
   getters: {

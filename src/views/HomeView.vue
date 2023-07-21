@@ -3,7 +3,7 @@
     <h1>Home</h1>
     <article-large
       title="Set timestamps that matter"
-      imgSrc="https://picsum.photos/300/200"
+      :imgSrc="require('@/assets/media/timestamp-star.jpg')"
       btnText="noBtn"
     >
       <p>
@@ -17,8 +17,9 @@
 
     <article-large
       title="How to get started"
-      imgSrc="https://picsum.photos/300/200?3=1"
+      :imgSrc="require('@/assets/media/howtouse-click.jpg')"
       btnText="How to use"
+      @triggerRedirect="handleRedirect()"
     >
       <p>
         You don’t need an account to watch the videos provided by the community.
@@ -39,7 +40,7 @@
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"
-          @search-tag="searchResult"
+          :videoWidth="30"
         />
       </section>
     </section>
@@ -63,6 +64,9 @@ export default {
     return { searchVideos };
   },
   methods: {
+    handleRedirect() {
+      this.$router.push(`/faq`);
+    },
     typeSwitch(value) {
       if (value.includes("youtube")) {
         return "video/youtube";
@@ -75,17 +79,7 @@ export default {
       return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
     },
     videoDetailPage(id) {
-      this.searchVideos.detailPage = this.searchVideos.videos.filter(
-        (video) => video.id === id
-      );
       this.$router.push(`/videos/${id}`);
-    },
-    searchResult(value) {
-      useSearchStore().currentSearch = value;
-      this.$router.push({
-        path: "/search-result",
-        query: { search: value },
-      });
     },
   },
 };
@@ -96,5 +90,8 @@ main {
 }
 span {
   font-weight: 400;
+}
+.btn {
+  border: none;
 }
 </style>

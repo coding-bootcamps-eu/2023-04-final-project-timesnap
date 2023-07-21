@@ -1,9 +1,5 @@
 <template>
-  <main
-    class="video-details"
-    v-for="(video, id) in searchVideos.detailPage"
-    :key="id"
-  >
+  <main class="video-details" v-for="(value, id) in video" :key="id">
     <section class="time-stamp__wrapper time-stamp__flex">
       <table class="table-item__table">
         <thead>
@@ -14,7 +10,7 @@
         </thead>
         <tbody>
           <TimeStampAndTitle
-            v-for="(value, id) in video.timeStamps"
+            v-for="(value, id) in value.timeStamps"
             v-bind:key="id"
             :timeStart="secondsToMin(value.timeStart)"
             :stampTitle="value.stampTitle"
@@ -30,21 +26,22 @@
       />
     </section>
 
-    <section class="video-section">
+    <section>
       <VideoComponent
-        :videoUrl="video.videoUrl"
-        :videoType="typeSwitch(video.videoUrl)"
-        :youtubeVideoId="youtubeGetID(video.videoUrl)"
+        :videoUrl="value.videoUrl"
+        :videoType="typeSwitch(value.videoUrl)"
+        :youtubeVideoId="youtubeGetID(value.videoUrl)"
         :timeStamp="timeStart"
         :getTime="getTime"
         @currentTime="currentTimeData"
+        :videoWidth="50"
       />
-      <article class="video-info">
-        <section class="video-main-info">
-          <MainTopicComponent :video="video" />
-          <h2>{{ video.title }}</h2>
-          <KeyTagComponent :video="video" @search-tag="searchResult" />
-        </section>
+      <article>
+        <h2>{{ value.title }}</h2>
+
+        <MainTopicComponent :video="value" />
+
+        <KeyTagComponent :video="value" />
         <template v-for="(comment, id) in showComment()" v-bind:key="id">
           <StampNoteComponent
             v-if="showTimeStamp"
@@ -69,7 +66,6 @@
 </template>
 
 <script>
-import { useSearchStore } from "@/stores/SearchStore";
 import VideoComponent from "@/components/VideoComponent.vue";
 import MainTopicComponent from "@/components/MainTopicComponent.vue";
 import KeyTagComponent from "@/components//KeyTagComponent.vue";
@@ -91,6 +87,7 @@ export default {
   },
   data() {
     return {
+      video: [],
       timeStart: null,
       currentTime: null,
       getTime: false,
@@ -101,12 +98,6 @@ export default {
         stampNote: "",
       },
     };
-  },
-  setup() {
-    const searchVideos = useSearchStore();
-
-    //fetch videos
-    return { searchVideos };
   },
   methods: {
     typeSwitch(value) {
@@ -128,7 +119,7 @@ export default {
     },
     showComment() {
       if (this.timeStart !== null) {
-        return this.searchVideos.detailPage[0].timeStamps.filter(
+        return this.video[0].timeStamps.filter(
           (comment) => comment.timeStart === this.timeStart
         );
       } else {
@@ -141,7 +132,7 @@ export default {
       this.checkForDuplicate();
     },
     checkForDuplicate() {
-      const timeCheck = this.searchVideos.detailPage[0].timeStamps.filter(
+      const timeCheck = this.video[0].timeStamps.filter(
         (time) => time.timeStart === this.currentTime
       ).length;
       if (timeCheck > 0) {
@@ -172,13 +163,6 @@ export default {
       );
       return timeInSeconds;
     },
-    searchResult(value) {
-      useSearchStore().currentSearch = value;
-      this.$router.push({
-        path: "/search-result",
-        query: { search: value },
-      });
-    },
     updateStampTitle(value) {
       this.newTimeStamp.stampTitle = value;
     },
@@ -195,7 +179,10 @@ export default {
       return sortedData;
     },
     async addTimeStamp() {
-      const data = this.searchVideos.detailPage[0];
+      const response = await fetch(
+        `http://localhost:3333/videos/${this.video[0].id}`
+      );
+      const data = await response.json();
 
       const newTimeStampData = {
         timeStart: this.currentTime,
@@ -204,16 +191,12 @@ export default {
       };
       data.timeStamps.push(newTimeStampData);
 
-      await fetch(
-        `${process.env.VUE_APP_API_URL}/videos/${this.searchVideos.detailPage[0].id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
+      await fetch(`http://localhost:3333/videos/${this.video[0].id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-      this.searchVideos.getVideos();
       this.fetchVideoData();
 
       this.timeStart = this.currentTime;
@@ -224,28 +207,25 @@ export default {
       this.showTimeStamp = true;
       this.showAddStamp = false;
     },
-    fetchVideoData() {
-      const sortedData = this.sortData(this.searchVideos.detailPage);
-      this.searchVideos.detailPage = sortedData.filter(
+    async fetchVideoData() {
+      const response = await fetch("http://localhost:3333/videos");
+      const data = await response.json();
+      const sortedData = this.sortData(data);
+      this.video = sortedData.filter(
         (element) => element.id === this.$route.params.id
       );
-      return this.searchVideos.detailPage;
     },
   },
-  mounted() {
+  async mounted() {
     this.fetchVideoData();
   },
 };
 </script>
 
 <style scoped>
-main {
-  width: auto;
-}
-
 .video-details {
   display: grid;
-  grid-template-columns: 1fr 3fr 15ch;
+  grid-template-columns: 1fr 4fr;
   grid-gap: 0 4em;
   margin: 3em 4em;
 }
@@ -289,14 +269,6 @@ main {
 
 .table-item__title {
   width: 25%;
-}
-
-.video-main-info {
-  margin: 1em 0;
-}
-
-.video-main-info h2 {
-  margin-top: 0.25em;
 }
 
 .comments {

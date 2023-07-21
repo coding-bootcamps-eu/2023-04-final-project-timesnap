@@ -7,6 +7,7 @@
       :getTime="getTime"
       @currentTime="sendCurrentTime"
       ref="videoPlayer"
+      :videoWidth="videoWidth"
       class="video-container"
     />
   </div>
@@ -41,6 +42,9 @@ export default {
     },
     getTime: {
       type: Boolean,
+    },
+    videoWidth: {
+      type: undefined,
     },
   },
   data() {

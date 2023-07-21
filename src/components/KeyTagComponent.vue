@@ -1,50 +1,38 @@
 <template>
   <p :class="{ addGap: filterdKeyTags.length > 1 }" class="keyTagComponent">
-    <span
-      v-for="(value, id) in filterdKeyTags"
-      :key="id"
-      @click="searchKeytag(value.tag)"
+    <span v-for="(value, id) in filterdKeyTags" :key="id"
       >#{{ value.tag }}</span
     >
   </p>
 </template>
 
 <script>
-import { useSearchStore } from "@/stores/SearchStore";
 export default {
   name: "KeyTag",
-  emits: ["search-tag"],
   props: {
     video: {
       type: Object,
       required: true,
     },
   },
-  setup() {
-    const searchVideos = useSearchStore();
-
-    //fetch videos
-    return { searchVideos };
+  data() {
+    return {
+      keyTags: [],
+    };
   },
   computed: {
     filterdKeyTags() {
       const filterIds = this.video.keyTagId;
-      const filteredTags = this.searchVideos.keyTags.filter((tag) =>
+      const filteredTags = this.keyTags.filter((tag) =>
         filterIds.includes(tag.id)
       );
       return filteredTags;
     },
   },
-  methods: {
-    searchKeytag(tag) {
-      this.$emit("search-tag", tag);
-    },
+  async mounted() {
+    const response = await fetch("http://localhost:3333/keyTags");
+    const data = await response.json();
+    this.keyTags = data;
   },
 };
 </script>
-
-<style scoped>
-.keyTagComponent {
-  cursor: pointer;
-}
-</style>
