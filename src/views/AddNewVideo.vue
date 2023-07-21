@@ -99,6 +99,7 @@
           <section>
             <div class="newkeytagselector">
               <input
+                class="keytag-input"
                 id="newKeyTag1"
                 type="checkbox"
                 v-model="showkeyTagInput"
@@ -111,6 +112,7 @@
               class="add-tags"
             >
               <input
+                class="keytag-input"
                 type="text"
                 v-model="newKeyTag.tag"
                 required
@@ -294,6 +296,15 @@ legend {
   margin-right: 10px;
   width: 400px;
 }
+.keytag-input {
+  background-color: #fff;
+  color: #0080c0;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: 1px solid #0080c0;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
 
 .video-info {
   display: flex;
@@ -312,12 +323,9 @@ legend {
   width: 20em;
 }
 .video-info--details-keytags {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1em;
-  width: 60vw;
-  padding-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
 }
 
 .add-tags {
@@ -337,7 +345,6 @@ legend {
 .keytag-input {
   background-color: #fff;
   color: #0080c0;
-  padding: 8px 12px;
   cursor: pointer;
   border: 1px solid #0080c0;
   border-radius: 5px;
