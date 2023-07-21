@@ -242,7 +242,7 @@ export default {
         const YouTubeID = this.newVideo.videoUrl
           .split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/)[2]
           .split(/[^0-9a-z_-]/i)[0];
-        this.ThumbnailUrl = `https://i.ytimg.com/vi/${YouTubeID}/hq720.jpg`;
+        this.ThumbnailUrl = `https://i.ytimg.com/vi/${YouTubeID}/hqdefault.jpg`;
       } else {
         this.ThumbnailUrl = "";
       }
