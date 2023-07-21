@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { useSearchStore } from "@/stores/SearchStore";
 export default {
   name: "MainTopic",
   props: {
@@ -15,24 +16,20 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      groups: [],
-    };
+  setup() {
+    const searchVideos = useSearchStore();
+
+    //fetch videos
+    return { searchVideos };
   },
   computed: {
     filterdTopics() {
       const filterIds = this.video.groupId;
-      const filteredGroups = this.groups.filter((group) =>
+      const filteredGroups = this.searchVideos.groups.filter((group) =>
         filterIds.includes(group.id)
       );
       return filteredGroups;
     },
-  },
-  async mounted() {
-    const response = await fetch("http://localhost:3333/groups");
-    const data = await response.json();
-    this.groups = data;
   },
 };
 </script>
