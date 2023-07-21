@@ -44,7 +44,7 @@ export default {
       type: Boolean,
     },
     videoWidth: {
-      type: Number,
+      type: undefined,
     },
   },
   data() {

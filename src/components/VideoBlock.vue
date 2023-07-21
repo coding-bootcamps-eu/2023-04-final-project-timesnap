@@ -36,10 +36,7 @@ export default {
       required: true,
     },
     videoWidth: {
-      type: Number,
-    },
-    videoHeight: {
-      type: Number,
+      type: undefined,
     },
   },
   computed: {

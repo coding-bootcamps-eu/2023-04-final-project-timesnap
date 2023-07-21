@@ -40,7 +40,7 @@
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"
-          :videoWidth="40"
+          :videoWidth="30"
         />
       </section>
     </section>
@@ -90,5 +90,8 @@ main {
 }
 span {
   font-weight: 400;
+}
+.btn {
+  border: none;
 }
 </style>

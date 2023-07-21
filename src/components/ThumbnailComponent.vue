@@ -48,7 +48,7 @@ export default {
       required: true,
     },
     videoWidth: {
-      type: String,
+      type: undefined,
     },
   },
   data() {
