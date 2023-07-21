@@ -39,7 +39,7 @@
         <thumbnail-component
           :videoData="video"
           @video-data-id="videoDetailPage"
-          :videoWidth="40"
+          @search-tag="searchResult"
         />
       </section>
     </section>
@@ -75,7 +75,17 @@ export default {
       return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
     },
     videoDetailPage(id) {
+      this.searchVideos.detailPage = this.searchVideos.videos.filter(
+        (video) => video.id === id
+      );
       this.$router.push(`/videos/${id}`);
+    },
+    searchResult(value) {
+      useSearchStore().currentSearch = value;
+      this.$router.push({
+        path: "/search-result",
+        query: { search: value },
+      });
     },
   },
 };

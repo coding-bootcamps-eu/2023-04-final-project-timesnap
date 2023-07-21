@@ -2,27 +2,21 @@
   <main class="main">
     <h1>Add new Video</h1>
     <form @submit.prevent="addNewVideo">
-      <div>
-        <label for="creator">Please type in your Name/Alias:</label>
-        <input class="input" id="creator" type="text" v-model="creatorName" />
-      </div>
-      <div>
-        <label for="title"> Enter a Video Title: </label>
-        <input
-          class="input"
-          type="text"
-          name="title"
-          id="title"
-          placeholder="Please add a Video Title"
-          size="30"
-          minlength="3"
-          required
-          v-model="newTitle"
-        />
-      </div>
-      <section>
-        <div>
-          <label for="url"> Enter a YouTube Link: </label>
+      <section class="video-info">
+        <fieldset>
+          <label for="title">Video Title</label>
+          <input
+            class="input"
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Please add a Video Title"
+            size="30"
+            minlength="3"
+            required
+            v-model="newVideo.title"
+          />
+          <label for="url">YouTube Link</label>
           <input
             class="input"
             type="url"
@@ -32,129 +26,102 @@
             pattern="https://www.youtube.com/.*"
             size="50"
             required
-            v-model="url"
+            v-model="newVideo.videoUrl"
             @blur="showThumbnail"
           />
-        </div>
 
-        <img
-          v-if="url !== ''"
-          :src="ThumbnailUrl"
-          alt="Seems like your Link is wrong"
-          width="200"
-        />
-      </section>
-
-      <section class="video-info--details">
-        <fieldset class="video-info--details-maintopic">
-          <legend>Select 1 Main Topic:</legend>
-
+          <figure>
+            <img
+              v-if="newVideo.videoUrl !== ''"
+              :src="ThumbnailUrl"
+              alt="Seems like your Link is wrong"
+              width="400"
+            />
+          </figure>
+        </fieldset>
+        <fieldset>
+          <label for="creator">Please type in your Name/Alias</label>
+          <input
+            class="input"
+            id="creator"
+            type="text"
+            v-model="newVideo.creatorName"
+          />
+          <label for="groupId">Main Topic</label>
           <select
             class="dropdown"
             name="groupId"
             id="groupId"
-            v-model="mainTopic"
+            v-model="newVideo.groupId"
           >
-            <option value="">Alle</option>
             <MainTopicSelector
-              v-for="(value, id) in groups"
+              v-for="(value, id) in searchVideos.groups"
               :key="id"
               :id="value.id"
               :title="value.title"
             />
             <option>others</option>
           </select>
-          <div v-if="mainTopic === 'others'">
+          <template v-if="newVideo.groupId === 'others'">
             <label for="newMainTopic">Type in a new Main Topic</label>
             <input
+              class="input"
               type="text"
               id="newMainTopic"
               placeholder="Please be specific"
               size="30"
               minlength="3"
-              v-model="newMainTopic"
+              v-model="newMainTopic.title"
               required
             />
-          </div>
+          </template>
         </fieldset>
-        <fieldset>
-          <legend>
-            Select the tags that best describes the content of your Video:
-          </legend>
+      </section>
+      <!-- Keytags Section -->
+      <fieldset class="keytag-section">
+        <legend>
+          Select the tags that best describes the content of your Video
+        </legend>
+        <section class="keytag-select">
           <div class="video-info--details-keytags">
             <KeyTagSelector
-              v-for="(value, id) in keyTags"
+              v-for="(value, id) in searchVideos.keyTags"
               :key="id"
               :id="value.id"
               :tag="value.tag"
               :value="value.id"
-              v-model="selectedKeyTags"
+              v-model="newVideo.keyTagId"
               required
             />
           </div>
-          <section class="newkeytags">
-            <div>
-              <div class="newkeytagselector">
-                <input
-                  id="newKeyTag1"
-                  type="checkbox"
-                  v-model="showNewKeyTag1Input"
-                />
-                <label for="newKeyTag1">Check to add new Tag</label>
-              </div>
-              <div v-if="showNewKeyTag1Input">
-                <input
-                  class="keytag-input"
-                  type="text"
-                  v-model="newKeyTag1"
-                  required
-                  placeholder="type in new Tag"
-                />
-              </div>
-            </div>
-            <div>
-              <div v-if="showNewKeyTag1Input" class="newkeytagselector">
-                <input
-                  class="keytag-input"
-                  id="newKeyTag1"
-                  type="checkbox"
-                  v-model="showNewKeyTag2Input"
-                />
-                <label for="newKeyTag1">Check to add a 2nd new Tag</label>
-              </div>
-              <div v-if="showNewKeyTag2Input">
-                <input
-                  class="keytag-input"
-                  type="text"
-                  v-model="newKeyTag2"
-                  required
-                  placeholder="type in new Tag"
-                />
-              </div>
-            </div>
-            <div>
-              <div v-if="showNewKeyTag2Input" class="newkeytagselector">
-                <input
-                  class="keytag-input"
-                  id="newKeyTag1"
-                  type="checkbox"
-                  v-model="showNewKeyTag3Input"
-                />
-                <label for="newKeyTag1">Check to add a 3rd new Tag</label>
-              </div>
-              <div v-if="showNewKeyTag3Input">
-                <input
-                  class="keytag-input"
-                  type="text"
-                  v-model="newKeyTag3"
-                  required
-                  placeholder="type in new Tag"
-                />
-              </div>
-            </div>
-          </section>
-        </fieldset>
-      </section>
+        </section>
+        <section class="new-key-tag-selector">
+          <div class="new-tag-check">
+            <input
+              class="input"
+              id="newKeyTag1"
+              type="checkbox"
+              v-model="showkeyTagInput"
+            />
+            <label for="newKeyTag1">Check to add new Tag</label>
+          </div>
+          <form
+            v-if="showkeyTagInput"
+            @submit.prevent="submitNewTag"
+            class="add-tags"
+          >
+            <input
+              class="input"
+              type="text"
+              v-model="newKeyTag.tag"
+              required
+              placeholder="type in new Tag"
+            />
+            <input type="submit" value="Add Tag" id="add-tag" />
+          </form>
+        </section>
+      </fieldset>
+
       <input
         class="input-submit"
         id="submit"
@@ -168,37 +135,40 @@
 <script>
 import MainTopicSelector from "@/components/MainTopicSelector.vue";
 import KeyTagSelector from "@/components/KeyTagSelector.vue";
+import { useSearchStore } from "@/stores/SearchStore";
 import { v4 as uuidv4 } from "uuid";
 
 export default {
+  name: "AddNewVideo",
+  setup() {
+    const searchVideos = useSearchStore();
+
+    //fetch videos
+    return { searchVideos };
+  },
   data() {
     return {
-      //Bestehende MainTopic und keyTag Daten aus der API
-      groups: [],
-      keyTags: [],
-
-      //Daten vom neuen Video
-      id: uuidv4(),
-      url: "",
-      newTitle: "",
-      mainTopic: "",
-      newMainTopicId: uuidv4(),
-      newMainTopic: "",
-      selectedKeyTags: [],
-      newKeyTag1Id: uuidv4(),
-      newKeyTag1: "",
-      newKeyTag2Id: uuidv4(),
-      newKeyTag2: "",
-      newKeyTag3Id: uuidv4(),
-      newKeyTag3: "",
-      createdAt: this.getCurrentTime(),
-      creatorName: "",
+      newVideo: {
+        id: uuidv4(),
+        groupId: "",
+        title: "",
+        videoUrl: "",
+        createdAt: new Date().toISOString(),
+        creatorName: "",
+        keyTagId: [],
+        timeStamps: [],
+      },
+      newKeyTag: {
+        id: "",
+        tag: "",
+      },
+      newMainTopic: {
+        id: uuidv4(),
+        title: "",
+      },
 
       //Zeigt ein neues Inputfeld an, wenn Checkbox für neuer Eintrag ausgewält ist
       showkeyTagInput: false,
-      showNewKeyTag1Input: false,
-      showNewKeyTag2Input: false,
-      showNewKeyTag3Input: false,
 
       // für das preview Bild
       showThumbnailClicked: false,
@@ -222,109 +192,57 @@ export default {
       return undefined !== url[2] ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
     },
     addNewVideo() {
-      const newVideo = {
-        id: this.id,
-        groupId: this.getNewMainTopic(),
-        title: this.newTitle,
-        videoUrl: this.url,
-        createdAt: this.createdAt,
-        creatorName: this.getCreatorName(),
-        keyTagId: this.getKeyTags(),
-        timeStamps: [],
-      };
-      fetch("http://localhost:3333/videos", {
+      if (this.newVideo.creatorName === "") {
+        this.newVideo.creatorName = "Anonymous";
+      }
+      const data = [this.newVideo];
+      fetch(`${process.env.VUE_APP_API_URL}/videos`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify(newVideo),
+        body: JSON.stringify(this.newVideo),
       });
-      this.$router.push(`/videos/${this.id}`);
-    },
-
-    getCurrentTime() {
-      return new Date().toISOString();
+      this.searchVideos.getVideos();
+      this.searchVideos.detailPage = data;
+      this.$router.push(`/videos/${this.newVideo.id}`);
     },
     getNewMainTopic() {
-      if (this.mainTopic === "others") {
-        const newGroup = { id: this.newMainTopicId, title: this.newMainTopic };
-        fetch("http://localhost:3333/groups", {
+      if (this.newVideo.groupId === "others") {
+        const newGroup = {
+          id: this.newMainTopic.id,
+          title: this.newMainTopic.title,
+        };
+        fetch(`${process.env.VUE_APP_API_URL}/groups`, {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify(newGroup),
         });
-        return this.newMainTopicId;
+        return this.newMainTopic.id;
       } else {
-        return this.mainTopic;
+        return this.newVideo.groupId;
       }
     },
-    getKeyTags() {
-      const newKeyTag1 = {
-        id: this.newKeyTag1Id,
-        tag: this.formattedKeyTag(this.newKeyTag1),
-      };
-      const newKeyTag2 = {
-        id: this.newKeyTag2Id,
-        tag: this.formattedKeyTag(this.newKeyTag2),
-      };
-      const newKeyTag3 = {
-        id: this.newKeyTag3Id,
-        tag: this.formattedKeyTag(this.newKeyTag3),
-      };
-      const newKeyTags = [];
-      if (this.showNewKeyTag3Input) {
-        newKeyTags.push(newKeyTag1, newKeyTag2, newKeyTag3);
-        this.selectedKeyTags.push(
-          this.newKeyTag1Id,
-          this.newKeyTag2Id,
-          this.newKeyTag3Id
-        );
-        newKeyTags.forEach((keyTag) => {
-          fetch("http://localhost:3333/keyTags", {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify(keyTag),
-          });
+    submitNewTag() {
+      if (this.newKeyTag.tag !== "") {
+        this.newKeyTag.id = uuidv4();
+        this.newKeyTag.tag = this.formattedKeyTag(this.newKeyTag.tag);
+        fetch(`${process.env.VUE_APP_API_URL}/keyTags`, {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(this.newKeyTag),
         });
-        return this.selectedKeyTags;
-      } else if (this.showNewKeyTag2Input) {
-        newKeyTags.push(newKeyTag1, newKeyTag2);
-        this.selectedKeyTags.push(this.newKeyTag1Id, this.newKeyTag2Id);
-        newKeyTags.forEach((keyTag) => {
-          fetch("http://localhost:3333/keyTags", {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify(keyTag),
-          });
-        });
-        return this.selectedKeyTags;
-      } else if (this.showNewKeyTag1Input) {
-        newKeyTags.push(newKeyTag1);
-        this.selectedKeyTags.push(this.newKeyTag1Id);
-        newKeyTags.forEach((keyTag) => {
-          fetch("http://localhost:3333/keyTags", {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify(keyTag),
-          });
-        });
-        return this.selectedKeyTags;
-      } else {
-        return this.selectedKeyTags;
       }
-    },
-    getCreatorName() {
-      if (this.creatorName !== "") {
-        return this.creatorName;
-      } else {
-        return "Anonymous";
-      }
+      this.newVideo.keyTagId.push(this.newKeyTag.id);
+      useSearchStore().getVideos();
+      this.newKeyTag.id = "";
+      this.newKeyTag.tag = "";
     },
     showThumbnail() {
       this.showThumbnailClicked = !this.showThumbnailClicked;
-      if (this.url.length === 43) {
-        const YouTubeID = this.url
+      if (this.newVideo.videoUrl.length >= 43) {
+        const YouTubeID = this.newVideo.videoUrl
           .split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/)[2]
           .split(/[^0-9a-z_-]/i)[0];
-        this.ThumbnailUrl = `https://i.ytimg.com/vi/${YouTubeID}/hq720.jpg`;
+        this.ThumbnailUrl = `https://i.ytimg.com/vi/${YouTubeID}/hqdefault.jpg`;
       } else {
         this.ThumbnailUrl = "";
       }
@@ -345,54 +263,60 @@ export default {
       return formattedString;
     },
   },
-  async mounted() {
-    const responseGroups = await fetch("http://localhost:3333/groups");
-    const responseKeyTags = await fetch("http://localhost:3333/keyTags");
-    const groupData = await responseGroups.json();
-    console.log(groupData);
-    this.groups = groupData;
-    const keyTagData = await responseKeyTags.json();
-    console.log(keyTagData);
-    this.keyTags = keyTagData;
-  },
 };
 </script>
 <style scoped>
+main {
+  width: 110ch;
+  justify-content: inherit;
+}
 form {
   margin-top: 1em;
 }
-label {
-  margin-bottom: 0.5rem;
-  margin-top: 1em;
-  margin-right: 8px;
-  font-weight: bold;
-  color: #333;
-}
-legend {
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
-  margin-right: 8px;
-  font-weight: bold;
-  color: #333;
+
+.video-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3em;
+  margin-bottom: 2em;
 }
 
-.input {
+.video-info input,
+.video-info select {
+  width: 100%;
+  padding: 0.5em;
+}
+
+label {
+  font-weight: bold;
+  color: #333;
+  margin: 1em 0 0.5em;
+}
+
+legend {
+  font-weight: bold;
+  color: #333;
+  margin: 1em 0 1em;
+}
+
+figure {
+  margin: 1em 0;
+}
+
+.input,
+.keytag-select {
   background-color: #fff;
-  color: #0080c0;
-  padding: 8px 12px;
+  color: #333;
   cursor: pointer;
   border: 1px solid #0080c0;
   border-radius: 5px;
-  margin-bottom: 0.5rem;
-  margin-right: 10px;
-  width: 400px;
 }
 
-.video-info {
-  display: flex;
-  gap: 2em;
-  margin: 2em 0;
+.keytag-select {
+  padding: 2em;
+  color: #333;
 }
+
 .video-info--details {
   display: flex;
   flex-direction: column;
@@ -402,52 +326,88 @@ legend {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  width: 20em;
 }
 .video-info--details-keytags {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  grid-gap: 1em;
 }
 
-.newkeytags {
+.add-tags {
+  display: flex;
+  gap: 1em;
+}
+
+.add-tags input[type="submit"] {
+  padding: 0.25em 1em;
+}
+
+.add-tags input[type="text"] {
+  padding: 0.5em;
+}
+
+.new-key-tag-selector {
   display: flex;
   gap: 2em;
+  margin: 0 0 1.5em;
+  align-content: center;
+  align-items: center;
 }
 
-.newkeytagselector {
-  display: flex;
-  gap: 0.25em;
-  margin: 1em 0;
+.new-key-tag-selector > input {
+  padding: 1em;
+  margin: 0 1em;
 }
+
+.new-key-tag-selector label {
+  margin: 1.85em 0 0.5em;
+}
+
+.new-key-tag-selector > div input[type="checkbox"] {
+  width: 1em;
+  margin: 1.85em 0 0.5em;
+}
+
+.new-tag-check {
+  display: flex;
+  gap: 1em;
+  align-content: center;
+  margin-left: 0.5em;
+}
+
 .keytag-input {
   background-color: #fff;
   color: #0080c0;
-  padding: 8px 12px;
   cursor: pointer;
   border: 1px solid #0080c0;
   border-radius: 5px;
   margin-right: 10px;
 }
-.keytagselector {
+.keytag-selector {
   display: flex;
-  gap: 0.25em;
+  gap: 1em;
 }
 
 #submit {
   margin-top: 1em;
-  background-color: #fff;
-  color: #0080c0;
-  padding: 8px 12px;
+  padding: 0.85em 1.5em;
+  border-radius: 1em;
+  background: var(--color-accent-blue-100);
+  color: var(--color-bg);
   cursor: pointer;
-  border: 1px solid #0080c0;
-  border-radius: 5px;
-  margin-bottom: 0.5rem;
-  margin-right: 10px;
+  border: none;
 }
+
+#add-tag {
+  padding: 0.25em 2em;
+  border-radius: 1em;
+  cursor: pointer;
+  border: none;
+}
+
 .dropdown {
   background-color: #fff;
-  color: #0080c0;
+  color: #333;
   padding: 8px 12px;
   cursor: pointer;
   border: 1px solid #0080c0;
