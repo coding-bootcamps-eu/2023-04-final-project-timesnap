@@ -46,6 +46,9 @@ section {
 }
 img {
   border-radius: 2rem;
+  width: 400px;
+  height: fit-content;
+  align-self: center;
 }
 .article-container {
   width: 100%;
