@@ -3,7 +3,7 @@
     <h1>Home</h1>
     <article-large
       title="Set timestamps that matter"
-      imgSrc="https://picsum.photos/300/200"
+      :imgSrc="require('@/assets/media/timestamp-star.jpg')"
       btnText="noBtn"
     >
       <p>
@@ -17,7 +17,7 @@
 
     <article-large
       title="How to get started"
-      imgSrc="https://picsum.photos/300/200?3=1"
+      :imgSrc="require('@/assets/media/howtouse-click.jpg')"
       btnText="How to use"
     >
       <p>
