@@ -79,6 +79,16 @@
   </main>
 </template>
 
+<script>
+export default {
+  methods: {
+    handleRedirect() {
+      this.$router.push(`/add-new-video`);
+    },
+  },
+};
+</script>
+
 <style scoped>
 main {
   max-width: 110ch;

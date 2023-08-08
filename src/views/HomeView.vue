@@ -19,6 +19,7 @@
       title="How to get started"
       :imgSrc="require('@/assets/media/howtouse-click.jpg')"
       btnText="How to use"
+      @triggerRedirect="handleRedirect()"
     >
       <p>
         You don’t need an account to watch the videos provided by the community.
@@ -63,6 +64,9 @@ export default {
     return { searchVideos };
   },
   methods: {
+    handleRedirect() {
+      this.$router.push(`/faq`);
+    },
     typeSwitch(value) {
       if (value.includes("youtube")) {
         return "video/youtube";

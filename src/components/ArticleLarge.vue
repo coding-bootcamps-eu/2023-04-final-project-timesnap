@@ -5,7 +5,11 @@
     <section>
       <h2>{{ title }}</h2>
       <slot />
-      <DefaultBtn v-if="btnText !== 'noBtn'" :btnText="btnText" />
+      <DefaultBtn
+        v-if="btnText !== 'noBtn'"
+        :btnText="btnText"
+        @click="triggerRedirect"
+      />
     </section>
     <img v-if="imgSrc !== undefined" :src="imgSrc" alt="" />
   </article>
@@ -28,6 +32,11 @@ export default {
     imgSrc: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    triggerRedirect() {
+      this.$emit("triggerRedirect");
     },
   },
 };
