@@ -1,45 +1,57 @@
 <template>
-  <main class="grid-container">
-    <div class="filter-container">
-      <section class="dropdown-wrapper">
-        <label class="label" for="mainTopic">Main Topic:</label>
-        <select
-          class="dropdown"
-          id="mainTopic"
-          v-model="searchVideos.groupFilter"
-          @change="applyFilters"
-        >
-          <option value="">Alle</option>
-          <option
-            v-for="group in searchVideos.groups"
-            :value="group.id"
-            :key="group.id"
+  <main>
+    <h1>Video Overview</h1>
+    <article class="dropdown-wrapper control-container">
+      <section class="filter-container">
+        <section>
+          <label class="label" for="mainTopic">Main Topic:</label>
+          <select
+            class="dropdown"
+            id="mainTopic"
+            v-model="searchVideos.groupFilter"
+            @change="applyFilters"
           >
-            {{ group.title }}
-          </option>
-        </select>
-        <label class="label" for="tags">Tags:</label>
-        <select
-          class="dropdown"
-          id="tags"
-          v-model="searchVideos.tagFilter"
-          @change="applyFilters"
-        >
-          <option value="">Alle</option>
-          <option
-            v-for="tag in searchVideos.keyTags"
-            :value="tag.id"
-            :key="tag.id"
+            <option value="">Alle</option>
+            <option
+              v-for="group in searchVideos.groups"
+              :value="group.id"
+              :key="group.id"
+            >
+              {{ group.title }}
+            </option>
+          </select>
+        </section>
+        <section>
+          <label class="label" for="tags">Tags:</label>
+          <select
+            class="dropdown"
+            id="tags"
+            v-model="searchVideos.tagFilter"
+            @change="applyFilters"
           >
-            {{ tag.tag }}
-          </option>
-        </select>
+            <option value="">Alle</option>
+            <option
+              v-for="tag in searchVideos.keyTags"
+              :value="tag.id"
+              :key="tag.id"
+            >
+              {{ tag.tag }}
+            </option>
+          </select>
+        </section>
       </section>
-    </div>
-    <section class="mid-section">
-      <h1>Video Overview</h1>
+      <section class="btn-container">
+        <default-btn
+          id="btn"
+          btnText="add new video"
+          @click="openAddVideoPage"
+        />
+      </section>
+    </article>
+
+    <section class="video-list">
       <article
-        class="thumbnail-component"
+        class="video-list-element"
         v-for="video in searchVideos.filterResult"
         :key="video.id"
       >
@@ -49,9 +61,6 @@
           @search-tag="searchResult"
         />
       </article>
-    </section>
-    <section class="btn-container">
-      <default-btn id="btn" btnText="add new video" @click="openAddVideoPage" />
     </section>
   </main>
 </template>
@@ -110,10 +119,12 @@ export default {
   grid-template-columns: 1fr auto 1fr;
   position: relative;
 }
+
 .filter-container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   justify-items: start;
-  margin-left: 1.5rem;
+  gap: 1rem;
 }
 
 .dropdown-container {
@@ -145,11 +156,7 @@ h1 {
   position: relative;
 }
 .btn-container {
-  position: fixed;
-  right: 0;
-  max-height: 50px;
-  padding-right: 2em;
-  z-index: 10;
+  padding-block: 1rem;
 }
 .video-preview {
   margin-bottom: 5rem;
@@ -167,8 +174,7 @@ h1 {
   cursor: pointer;
   border: 1px solid #0080c0;
   border-radius: 5px;
-  max-width: 200px;
-  margin-bottom: 1.5rem;
+  min-width: 300px;
 }
 .dropdown option {
   background-color: #fff;
@@ -177,7 +183,21 @@ h1 {
   border: 1px solid #0080c0;
   border-radius: 5px;
 }
-.mid-section {
-  padding-inline: 1em;
+.video-list {
+  margin-top: 2rem;
+}
+
+/* MIN WIDTH 800PX */
+@media (min-width: 800px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    position: relative;
+  }
+  .filter-container {
+    display: flex;
+    flex-direction: row;
+    justify-items: start;
+  }
 }
 </style>
