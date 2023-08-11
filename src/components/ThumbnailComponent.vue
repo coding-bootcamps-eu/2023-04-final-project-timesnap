@@ -1,10 +1,11 @@
 <template>
-  <section class="media-container">
+  <section class="video-list-element-media-container">
     <img
       :src="ThumbnailId"
       alt="noalt"
       @click.once="loadPlayer"
       v-if="!PlayerOn"
+      class="thumbnail"
     />
     <VideoComponent
       :videoUrl="videoData.videoUrl"
@@ -14,11 +15,13 @@
       v-if="PlayerOn"
     />
   </section>
-  <article class="info-container">
+  <section class="video-list-element-info-container">
     <section>
-      <MainTopicComponent :video="videoData" class="subheader" />
+      <MainTopicComponent :video="videoData" class="video-main-topic" />
 
-      <h2 @click="videoDetailId" class="clickable">{{ videoData.title }}</h2>
+      <h2 @click="videoDetailId" class="clickable video-title">
+        {{ videoData.title }}
+      </h2>
       <KeyTagComponent :video="videoData" @search-tag="searchKeytag" />
     </section>
     <p class="creator">
@@ -26,7 +29,7 @@
         showCreated(videoData.createdAt)
       }})
     </p>
-  </article>
+  </section>
 </template>
 
 <script>
@@ -105,29 +108,26 @@ export default {
 .video-list {
   display: flex;
   flex-direction: row;
-  align-items: center;
   gap: 1em;
-  width: 100em;
   margin-bottom: 5em;
 }
+
+.video-list-element-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding-left: 1rem;
+}
+
 .MainTopicKeyTagContainer {
   margin: 1em 0;
 }
-.subheader {
-  display: flex;
-  font-size: 0.75rem;
-  gap: 2em;
-  justify-content: start;
+
+.video-main-topic {
+  font-weight: 300;
 }
-h2 {
-  margin-top: 0.25em;
-  font-size: 1.5em;
-}
-.info-container {
-  margin: 1.5em 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.video-title {
+  font-weight: 600;
 }
 
 .creator {
@@ -139,13 +139,36 @@ h2 {
   flex-wrap: wrap;
   column-gap: 0.5em;
 }
-.media-container {
-  max-width: 100%;
-  display: flex;
-  align-items: center;
+.thumbnail {
+  box-shadow: 5px 4px 16px 0px rgba(140, 131, 131, 0.75);
+  -webkit-box-shadow: 5px 4px 16px 0px rgba(140, 131, 131, 0.75);
+  -moz-box-shadow: 5px 4px 16px 0px rgba(140, 131, 131, 0.75);
+  width: 100%;
+  border-radius: 1.5rem;
 }
-img {
-  width: 30vmax;
-  border-radius: 2em;
+.thumbnail:hover {
+  cursor: pointer;
+  box-shadow: 0px 3px 33px 8px rgba(61, 170, 207, 0.89);
+  -webkit-box-shadow: 0px 3px 33px 8px rgba(61, 170, 207, 0.89);
+  -moz-box-shadow: 0px 3px 33px 8px rgba(61, 170, 207, 0.89);
+}
+
+@media (min-width: 800px) {
+  .thumbnail {
+    box-shadow: 5px 4px 16px 0px rgba(140, 131, 131, 0.75);
+    -webkit-box-shadow: 5px 4px 16px 0px rgba(140, 131, 131, 0.75);
+    -moz-box-shadow: 5px 4px 16px 0px rgba(140, 131, 131, 0.75);
+    width: 400px;
+    border-radius: 1.5rem;
+  }
+  .video-list-element-media-container {
+    width: 400px;
+  }
+  .video-list-element-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 1rem;
+  }
 }
 </style>
