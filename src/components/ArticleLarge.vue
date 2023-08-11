@@ -112,10 +112,4 @@ h2 {
     margin-inline: 0;
   }
 }
-/*anordnung
-title alleine
-p und btn als section
-img alleine
-
-*/
 </style>
