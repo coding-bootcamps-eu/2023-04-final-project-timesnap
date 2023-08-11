@@ -1,11 +1,11 @@
 <template>
   <main>
     <div class="how-to-use">
-      <h1>How to use page</h1>
+      <h1>FAQ</h1>
     </div>
     <article-large
       title="How to get started"
-      :imgSrc="require('@/assets/media/howtouse-click.jpg')"
+      :imgSrc="require('@/assets/media/howtouse-click-pointer.jpg')"
       btnText="noBtn"
     >
       <p>
@@ -18,7 +18,7 @@
       </p>
     </article-large>
     <article-large
-      title="Using the timestamps"
+      title="Using the search bar"
       :imgSrc="require('@/assets/media/search-results.jpg')"
       btnText="noBtn"
     >
