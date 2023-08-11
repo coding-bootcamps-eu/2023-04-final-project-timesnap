@@ -245,7 +245,7 @@ main {
 
 .video-details {
   display: grid;
-  grid-template-columns: 1fr 3fr 15ch;
+  grid-template-columns: 1fr 3fr;
   grid-gap: 0 4em;
   margin: 3em 4em;
 }
