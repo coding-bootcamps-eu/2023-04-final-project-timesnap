@@ -17,7 +17,7 @@
 
     <article-large
       title="How to get started"
-      :imgSrc="require('@/assets/media/howtouse-click.jpg')"
+      :imgSrc="require('@/assets/media/howtouse-click-pointer.jpg')"
       btnText="How to use"
       @triggerRedirect="handleRedirect()"
     >
@@ -30,12 +30,12 @@
       </p>
     </article-large>
 
-    <section>
-      <h2>Newest Videos</h2>
+    <article class="video-list">
+      <h3>Newest Videos</h3>
       <section
-        class="thumbnail-component"
         v-for="video in searchVideos.latestVideos"
         :key="video.id"
+        class="video-list-element"
       >
         <thumbnail-component
           :videoData="video"
@@ -43,7 +43,7 @@
           @search-tag="searchResult"
         />
       </section>
-    </section>
+    </article>
   </main>
 </template>
 <script>
@@ -94,11 +94,24 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 main {
   max-width: 110ch;
 }
 span {
   font-weight: 400;
+}
+
+@media (min-width: 800px) {
+  .btn {
+    order: 2;
+  }
+
+  h3 {
+    order: -5;
+    margin-inline: 0;
+    padding: 2rem;
+  }
 }
 </style>
