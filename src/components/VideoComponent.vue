@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="video-container">
     <video-player
       :options="videoOptions"
       :youtubeVideoId="youtubeVideoId"
@@ -7,7 +7,6 @@
       :getTime="getTime"
       @currentTime="sendCurrentTime"
       ref="videoPlayer"
-      class="video-container"
     />
   </div>
 </template>
@@ -49,8 +48,6 @@ export default {
         autoplay: false,
         muted: true,
         controls: true,
-        width: 640,
-        height: 264,
         techOrder: ["youtube", "html5"],
         sources: [
           {
@@ -68,3 +65,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.video-container {
+  width: 100%;
+}
+</style>

@@ -1,21 +1,23 @@
 <template>
   <main class="main">
     <h1>Add new Video</h1>
-    <form @submit.prevent="addNewVideo">
-      <section class="video-info">
-        <fieldset>
-          <label for="title">Video Title</label>
+    <form @submit.prevent="addNewVideo" class="new-video-inputfield">
+      <article class="video-info--container">
+        <section id="video-info-title">
+          <label for="videoTitle">Video Title</label>
           <input
             class="input"
             type="text"
             name="title"
-            id="title"
+            id="videoTitle"
             placeholder="Please add a Video Title"
             size="30"
             minlength="3"
             required
             v-model="newVideo.title"
           />
+        </section>
+        <section class="video-info--yt-link">
           <label for="url">YouTube Link</label>
           <input
             class="input"
@@ -27,19 +29,23 @@
             size="50"
             required
             v-model="newVideo.videoUrl"
-            @blur="showThumbnail"
+            @change="showThumbnail"
           />
+        </section>
+        <section class="video-info--yt-thumbnail">
+          <label v-if="newVideo.videoUrl !== ''" for="yt-thumbnail"
+            >Preview</label
+          >
 
-          <figure>
-            <img
-              v-if="newVideo.videoUrl !== ''"
-              :src="ThumbnailUrl"
-              alt="Seems like your Link is wrong"
-              width="400"
-            />
-          </figure>
-        </fieldset>
-        <fieldset>
+          <img
+            v-if="newVideo.videoUrl !== ''"
+            :src="ThumbnailUrl"
+            alt="Seems like your Link is wrong"
+            id="yt-thumbnail"
+          />
+        </section>
+
+        <section class="video-info--added-by">
           <label for="creator">Please type in your Name/Alias</label>
           <input
             class="input"
@@ -47,6 +53,8 @@
             type="text"
             v-model="newVideo.creatorName"
           />
+        </section>
+        <section class="video-info--main-topic">
           <label for="groupId">Main Topic</label>
           <select
             class="dropdown"
@@ -62,6 +70,8 @@
             />
             <option>others</option>
           </select>
+        </section>
+        <section id="new-main-topic">
           <template v-if="newVideo.groupId === 'others'">
             <label for="newMainTopic">Type in a new Main Topic</label>
             <input
@@ -75,25 +85,22 @@
               required
             />
           </template>
-        </fieldset>
-      </section>
+        </section>
+      </article>
       <!-- Keytags Section -->
-      <fieldset class="keytag-section">
-        <legend>
-          Select the tags that best describes the content of your Video
-        </legend>
-        <section class="keytag-select">
-          <div class="video-info--details-keytags">
-            <KeyTagSelector
-              v-for="(value, id) in searchVideos.keyTags"
-              :key="id"
-              :id="value.id"
-              :tag="value.tag"
-              :value="value.id"
-              v-model="newVideo.keyTagId"
-              required
-            />
-          </div>
+      <article class="keytag-section">
+        <legend>Keytags</legend>
+        <section class="video-info--keytags">
+          <h3>Select the tags that best describes the content of your Video</h3>
+          <KeyTagSelector
+            v-for="(value, id) in searchVideos.keyTags"
+            :key="id"
+            :id="value.id"
+            :tag="value.tag"
+            :value="value.id"
+            v-model="newVideo.keyTagId"
+            required
+          />
         </section>
         <section class="new-key-tag-selector">
           <div class="new-tag-check">
@@ -117,10 +124,10 @@
               required
               placeholder="type in new Tag"
             />
-            <input type="submit" value="Add Tag" id="add-tag" />
+            <input type="submit" value="Add Tag" id="submit--new-tag" />
           </form>
         </section>
-      </fieldset>
+      </article>
 
       <input
         class="input-submit"
@@ -266,31 +273,54 @@ export default {
 };
 </script>
 <style scoped>
-main {
-  width: 110ch;
-  justify-content: inherit;
-}
 form {
   margin-top: 1em;
 }
 
-.video-info {
+.video-info--container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 3em;
+  grid-template-columns: 1fr;
+  grid-gap: 1em;
   margin-bottom: 2em;
+  align-items: flex-start;
 }
 
-.video-info input,
-.video-info select {
+#videoTitle {
+  border-radius: 3px;
+  border: 1px solid black;
+}
+
+.video-info--yt-link {
+  display: flex;
+  flex-direction: column;
+}
+
+#yt-thumbnail {
+  max-height: 100px;
+  width: auto;
+  margin-top: 1em;
+}
+
+.video-info--added-by {
+  grid-row: 2;
+}
+.video-info--added-by input {
+  border-radius: 3px;
+  border: 1px solid black;
+}
+
+input {
   width: 100%;
-  padding: 0.5em;
+  margin-top: 1em;
+}
+select {
+  width: 100%;
+  margin-top: 1em;
 }
 
 label {
   font-weight: bold;
   color: #333;
-  margin: 1em 0 0.5em;
 }
 
 legend {
@@ -303,20 +333,10 @@ figure {
   margin: 1em 0;
 }
 
-.input,
-.keytag-select {
-  background-color: #fff;
-  color: #333;
-  cursor: pointer;
-  border: 1px solid #0080c0;
-  border-radius: 5px;
+h3 {
+  grid-column: 1/4;
+  margin: 1em 0;
 }
-
-.keytag-select {
-  padding: 2em;
-  color: #333;
-}
-
 .video-info--details {
   display: flex;
   flex-direction: column;
@@ -327,15 +347,39 @@ figure {
   flex-direction: column;
   gap: 1em;
 }
-.video-info--details-keytags {
+.video-info--keytags {
   display: grid;
-  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  grid-template-columns: 1fr;
   grid-gap: 1em;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #0080c0;
+  border-radius: 5px;
+  padding: 1em;
 }
-
+h3 {
+  margin-top: 0;
+  grid-column: 1;
+  font-size: smaller;
+}
 .add-tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 1em;
+  margin-top: 0;
+}
+
+.add-tags > input {
+  margin-top: 0;
+  width: 25ch;
+}
+.add-tags > input[type="submit"] {
+  width: fit-content;
+}
+
+.keytag-selector > input {
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 .add-tags input[type="submit"] {
@@ -348,10 +392,11 @@ figure {
 
 .new-key-tag-selector {
   display: flex;
-  gap: 2em;
+  flex-direction: column;
+  gap: 1em;
   margin: 0 0 1.5em;
   align-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .new-key-tag-selector > input {
@@ -398,7 +443,7 @@ figure {
   border: none;
 }
 
-#add-tag {
+#submit--new-tag {
   padding: 0.25em 2em;
   border-radius: 1em;
   cursor: pointer;
@@ -408,10 +453,54 @@ figure {
 .dropdown {
   background-color: #fff;
   color: #333;
-  padding: 8px 12px;
   cursor: pointer;
   border: 1px solid #0080c0;
   border-radius: 5px;
   margin-right: 10px;
+}
+#submit {
+  width: fit-content;
+}
+/* MIN WIDTH 800PX */
+@media (min-width: 800px) {
+  .video-info--keytags {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1em;
+  }
+  .video-info--container {
+    grid-template-columns: 1fr 1fr;
+  }
+  .video-info--yt-link {
+    grid-column: 1 /2;
+    display: flex;
+    flex-direction: column;
+  }
+  .video-info--yt-thumbnail {
+    grid-column: 2/3;
+  }
+  #yt-thumbnail {
+    max-height: 100px;
+    width: auto;
+    margin-top: 1em;
+  }
+
+  .video-info--added-by {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+  .video-info--added-by input {
+    border-radius: 3px;
+    border: 1px solid black;
+  }
+  .video-info--main-topic {
+    grid-column: 1 / 2;
+  }
+  #new-main-topic {
+    grid-column: 2/3;
+  }
+  h3 {
+    grid-column: 1/4;
+  }
 }
 </style>

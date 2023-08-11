@@ -1,70 +1,93 @@
 <template>
   <main>
     <div class="how-to-use">
-      <h1>How to use page</h1>
+      <h1>FAQ</h1>
     </div>
     <article-large
       title="How to get started"
-      imgSrc="https://picsum.photos/300/200?3=1"
-    >
-      <p>
-        You don’t need an account to watch the videos provided by the community.
-        Simply browse through the list of already edited videos.
-        <br /><br /><span>Looking for a specific topic?</span> <br />Simply use
-        the predefined filters to find the category that you are looking for or
-        search for buzzwords to get to the topic that matters to you the most.
-      </p>
-    </article-large>
-    <article-large
-      title="Using the timestamps"
-      imgSrc="https://picsum.photos/300/200?3=2"
-      btnText="Individual Text"
-    >
-      <p>
-        Each video will have a list of automatically set timestamps with a short
-        description on what to expect. Simply click on it and jump right into
-        that section. Feeling that a timestamp is missing or spotting a bad
-        timestamp? Sign up and improve the community experience
-      </p>
-    </article-large>
-    <article-large
-      title="Your vote makes the timestamps matter"
-      imgSrc="https://picsum.photos/300/200?3=3"
+      :imgSrc="require('@/assets/media/how-to-use-click-pointer.jpg')"
       btnText="noBtn"
     >
       <p>
-        The simplest way to improve the user experience is to leave your vote!
-        Simply hit up the grading button of any timestamp to let other users
-        know that this timestamp is super important and fully matches the
-        description. Hit the down button if you think that timestamp was wrong
-        and misleading. Our algorithm will make this timestamp less relevant and
-        even disappear to avoid confusing other users
+        To watch a video you simply click on any video preview picture in the
+        Home page or Videos page. <br />
+        The video will load and you can watch it within the list view. <br />
+        Awesome!
+        <br /><br />By clicking on a video's title you can jump to a detailed
+        view with access to timestamps and comments.
       </p>
     </article-large>
+    <article-large
+      title="Using the search bar"
+      :imgSrc="require('@/assets/media/search-results.jpg')"
+      btnText="noBtn"
+    >
+      <p>
+        You need a specific video, but don't want to browse through all the
+        videos?
+        <br />
+        Simply type in the topic you are looking for. The search results will be
+        displayed as a list.
+      </p>
+    </article-large>
+
+    <article-large
+      title="Add a new video"
+      :imgSrc="require('@/assets/media/add-new-video.jpg')"
+      btnText="Add New Video"
+      @triggerRedirect="handleRedirect()"
+    >
+      <p>
+        Still not found what you've been looking for? <br />
+        Well, why not add a new video to the database and help this page to grow
+        and be more useful. <br />
+        Once you are redirected to the input mask add all the necessary inputs
+        that helps you and others within the community to find the video. <br />
+        Give it a try and hit the button below.
+      </p>
+    </article-large>
+
+    <article-large
+      title="How do I use the time stamps?"
+      :imgSrc="require('@/assets/media/use-timestamp.jpg')"
+      btnText="noBtn"
+    >
+      <p>
+        On any video's details view you will have a column with timestamps left
+        to the video. By clicking on the timestamp the video will jump to the
+        time accordingly and gives you information about the passage in the
+        video or the timestamp's authors thoughts on they put it there.
+      </p>
+    </article-large>
+
     <article-large
       title="Your own timestamps make the community better"
-      imgSrc="https://picsum.photos/300/200?3=4"
+      :imgSrc="require('@/assets/media/add-timestamp.jpg')"
+      btnText="noBtn"
     >
       <p>
-        You are missing a timestamp and feel like it should be included? Simply
-        click on the add button and give the timestamp a name by either using
-        our drop down options or type in a free text.
-      </p>
-    </article-large>
-    <article-large
-      title="Want more videos?"
-      imgSrc="https://picsum.photos/300/200?3=5"
-      btnText="Add video"
-    >
-      <p>
-        Is there a video missing in the list? Feel free to add it by clicking
-        the add video button and follow the instructions on the screen. This
-        will help the others to find your videos more easily. Then add the
-        timemarks that makes the video relevant as explained above.
+        You are missing a timestamp and feel like it should be included? <br />
+        Within the video's details view click the "add timestamp button"
+        whenever you want to add a timestamp. An input mask will appear waiting
+        for you to fill in all the relevant information to make this video even
+        more useful.
+        <br />
+        Oh, btw: the new timestamp will be sorted automatically within the
+        timestamp overview, how cool is that?
       </p>
     </article-large>
   </main>
 </template>
+
+<script>
+export default {
+  methods: {
+    handleRedirect() {
+      this.$router.push(`/add-new-video`);
+    },
+  },
+};
+</script>
 
 <style scoped>
 main {

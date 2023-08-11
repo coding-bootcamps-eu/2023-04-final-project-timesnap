@@ -3,7 +3,7 @@
     <h1>Home</h1>
     <article-large
       title="Set timestamps that matter"
-      imgSrc="https://picsum.photos/300/200"
+      :imgSrc="require('@/assets/media/timestamp-star.jpg')"
       btnText="noBtn"
     >
       <p>
@@ -17,8 +17,9 @@
 
     <article-large
       title="How to get started"
-      imgSrc="https://picsum.photos/300/200?3=1"
+      :imgSrc="require('@/assets/media/how-to-use-click-pointer.jpg')"
       btnText="How to use"
+      @triggerRedirect="handleRedirect()"
     >
       <p>
         You don’t need an account to watch the videos provided by the community.
@@ -29,12 +30,12 @@
       </p>
     </article-large>
 
-    <section>
-      <h2>Newest Videos</h2>
+    <article class="video-list">
+      <h3>Newest Videos</h3>
       <section
-        class="thumbnail-component"
         v-for="video in searchVideos.latestVideos"
         :key="video.id"
+        class="video-list-element"
       >
         <thumbnail-component
           :videoData="video"
@@ -42,7 +43,7 @@
           @search-tag="searchResult"
         />
       </section>
-    </section>
+    </article>
   </main>
 </template>
 <script>
@@ -63,6 +64,9 @@ export default {
     return { searchVideos };
   },
   methods: {
+    handleRedirect() {
+      this.$router.push(`/faq`);
+    },
     typeSwitch(value) {
       if (value.includes("youtube")) {
         return "video/youtube";
@@ -90,11 +94,24 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 main {
   max-width: 110ch;
 }
 span {
   font-weight: 400;
+}
+
+@media (min-width: 800px) {
+  .btn {
+    order: 2;
+  }
+
+  h3 {
+    order: -5;
+    margin-inline: 0;
+    padding: 2rem;
+  }
 }
 </style>
