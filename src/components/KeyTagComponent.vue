@@ -4,6 +4,7 @@
       v-for="(value, id) in filterdKeyTags"
       :key="id"
       @click="searchKeytag(value.tag)"
+      class="clickable keytag"
       >#{{ value.tag }}</span
     >
   </p>
@@ -46,5 +47,9 @@ export default {
 <style scoped>
 .keyTagComponent {
   cursor: pointer;
+}
+.keytag {
+  font-size: smaller;
+  font-weight: 400;
 }
 </style>
