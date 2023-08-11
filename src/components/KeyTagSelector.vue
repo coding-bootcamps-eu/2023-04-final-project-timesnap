@@ -30,6 +30,6 @@ export default {
 
 <style scoped>
 .keytag-selector input[type="checkbox"] {
-  width: 1em;
+  width: 20px;
 }
 </style>
