@@ -17,7 +17,7 @@
 
     <article-large
       title="How to get started"
-      :imgSrc="require('@/assets/media/howtouse-click-pointer.jpg')"
+      :imgSrc="require('@/assets/media/how-to-use-click-pointer.jpg')"
       btnText="How to use"
       @triggerRedirect="handleRedirect()"
     >
