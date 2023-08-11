@@ -124,7 +124,7 @@
               required
               placeholder="type in new Tag"
             />
-            <input type="submit" value="Add Tag" id="add-tag" />
+            <input type="submit" value="Add Tag" id="submit--new-tag" />
           </form>
         </section>
       </article>
@@ -364,7 +364,17 @@ h3 {
 }
 .add-tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 1em;
+  margin-top: 0;
+}
+
+.add-tags > input {
+  margin-top: 0;
+  width: 25ch;
+}
+.add-tags > input[type="submit"] {
+  width: fit-content;
 }
 
 .keytag-selector > input {
@@ -382,10 +392,11 @@ h3 {
 
 .new-key-tag-selector {
   display: flex;
-  gap: 2em;
+  flex-direction: column;
+  gap: 1em;
   margin: 0 0 1.5em;
   align-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .new-key-tag-selector > input {
@@ -432,7 +443,7 @@ h3 {
   border: none;
 }
 
-#add-tag {
+#submit--new-tag {
   padding: 0.25em 2em;
   border-radius: 1em;
   cursor: pointer;
