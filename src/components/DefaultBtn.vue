@@ -15,7 +15,6 @@ export default {
 <style scoped>
 .btn {
   color: var(--color-accent-blue-100);
-  width: 150px;
   border-radius: 2rem;
   padding: 0.5rem;
   border: 1px solid var(--color-accent-blue-80);
@@ -25,6 +24,7 @@ export default {
 }
 .btn:hover {
   background: var(--color-accent-blue-80);
+  color: white;
 }
 
 .btn:active {
