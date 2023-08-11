@@ -5,6 +5,10 @@
         <p>&copy; 2023 TimeSnap.</p>
         <router-link :to="{ name: 'privacy' }">Privacy</router-link>
         <router-link :to="{ name: 'contact' }">Contact</router-link>
+
+        <router-link class="nav-link" :to="{ name: 'about' }"
+          >About</router-link
+        >
       </nav>
     </div>
   </footer>
